@@ -550,3 +550,30 @@ button:disabled {
 .drawer {
   overflow-y: auto !important;
 }
+
+
+.contextBlocks{
+  display:grid;
+  gap:6px;
+  margin-bottom:4px;
+  max-height:42%;
+  overflow:auto;
+}
+.contextBlock{
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-left:5px solid var(--accent);
+  border-radius:14px;
+  padding:8px 10px;
+}
+.contextBlock strong{
+  display:block;
+  font-size:.76rem;
+  color:var(--muted);
+  margin-bottom:3px;
+}
+.contextBlock p{
+  margin:0;
+  font-size:.86rem;
+  line-height:1.25;
+}
