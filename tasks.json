@@ -1,14 +1,14 @@
 {
   "meta": {
     "title": "Perspektivwechsel-Trainer",
-    "version": "1.2",
-    "description": "Training gegen Confirmation Bias: Perspektivwechsel, epistemische Vorsicht und bewusster Umgang mit suggestivem Prompting bei LLMs.",
+    "version": "1.10",
+    "description": "Finale Vor-2.0-Version mit Trend-Sparklines, Exportfunktion, Benchmark-Vorbereitung und erweiterten Empfehlungen zur Promptqualität.",
     "qrTarget": "https://example.org/perspektivwechsel-trainer"
   },
   "stages": [
     {
       "id": "etappe-0",
-      "title": "LLM-Framing verstehen",
+      "title": "LLM-Framing erkennen",
       "badge": "🤖 Prompt-Blick",
       "goal": "Erkennen, wie suggestive Prompts LLM-Antworten in Richtung Bestätigung lenken können.",
       "hint": "Ein LLM reagiert stark auf den Rahmen deiner Frage. Je suggestiver der Prompt, desto eher entsteht eine bestätigende Antwort.",
@@ -128,6 +128,16 @@
             "wann",
             "grenzen"
           ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "automatisch besser",
+            "immer besser",
+            "beweise",
+            "erkläre warum es stimmt",
+            "erklaere warum es stimmt"
+          ],
+          "minLength": 55,
           "maxAttempts": 2,
           "fallbackIntro": "Welche Version ist am wenigsten suggestiv?",
           "fallbackChoices": [
@@ -136,7 +146,8 @@
             "Erkläre, warum KI-Unterricht alle Probleme löst."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Richtig: Der Prompt fragt nicht nach Bestätigung, sondern nach Bedingungen und Grenzen."
+          "feedback": "Richtig: Der Prompt fragt nicht nach Bestätigung, sondern nach Bedingungen und Grenzen.",
+          "mustContainQuestionWord": true
         },
         {
           "id": "e0-r2",
@@ -154,6 +165,22 @@
             "widerlege",
             "kritisiere"
           ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "müssen verboten",
+            "muessen verboten",
+            "beweise",
+            "eindeutig"
+          ],
+          "mustContainClaimTermAny": [
+            "handy",
+            "handys",
+            "unterricht",
+            "verbot",
+            "verboten"
+          ],
+          "minLength": 60,
           "maxAttempts": 2,
           "fallbackIntro": "Welche Frage bringt das LLM in den Sparringpartner-Modus?",
           "fallbackChoices": [
@@ -162,7 +189,8 @@
             "Schreibe eine überzeugende Rede gegen Handys."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Sehr gut: Du forderst das LLM aktiv auf, die These zu prüfen statt sie nur zu bestätigen."
+          "feedback": "Sehr gut: Du forderst das LLM aktiv auf, die These zu prüfen statt sie nur zu bestätigen.",
+          "mustContainQuestionWord": true
         },
         {
           "id": "e0-m1",
@@ -205,12 +233,426 @@
       ]
     },
     {
+      "id": "etappe-0a",
+      "title": "Warum Framing wirkt",
+      "badge": "🧩 Mechanismus",
+      "goal": "Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+      "hint": "Ein LLM hat keine eigene Überzeugung, die es verteidigt. Es erzeugt eine wahrscheinliche Fortsetzung zum Prompt und orientiert sich dabei stark am gesetzten Rahmen.",
+      "unlockScore": 3,
+      "tasks": [
+        {
+          "id": "e0a-z1",
+          "type": "choice",
+          "prompt": "Warum folgt ein LLM oft dem Rahmen einer suggestiven Frage?",
+          "options": [
+            "Weil es die Meinung des Nutzers immer für wahr hält.",
+            "Weil es eine passende Fortsetzung zum gegebenen Prompt erzeugt und der Prompt den Rahmen vorgibt.",
+            "Weil es absichtlich täuschen möchte."
+          ],
+          "answer": 1,
+          "feedback": "Richtig: Das Modell erzeugt eine plausible Fortsetzung innerhalb des vom Prompt gesetzten Rahmens."
+        },
+        {
+          "id": "e0a-z2",
+          "type": "choice",
+          "prompt": "Welche Aussage beschreibt ein LLM am besten?",
+          "options": [
+            "Es hat eine feste eigene Überzeugung und verteidigt diese.",
+            "Es ist ein normales Lexikon mit gespeicherten Antworten.",
+            "Es erzeugt Antworten aus Sprachmustern und Kontext, ohne menschliches Überzeugungsgedächtnis."
+          ],
+          "answer": 2,
+          "feedback": "Genau: Deshalb ist die Formulierung des Prompts so wichtig."
+        },
+        {
+          "id": "e0a-z3",
+          "type": "choice",
+          "prompt": "Warum kann eine höflich klingende LLM-Antwort problematisch sein?",
+          "claim": "Antwort: Ja, das ist ein sehr guter Punkt. Ihre Annahme ist nachvollziehbar ...",
+          "options": [
+            "Weil höfliche Zustimmung wie Prüfung wirken kann, obwohl der Prompt nur bestätigt wurde.",
+            "Weil höfliche Antworten grundsätzlich falsch sind.",
+            "Weil kurze Antworten immer besser sind."
+          ],
+          "answer": 0,
+          "feedback": "Richtig: Höflichkeit und flüssige Sprache können eine echte Prüfung nur vortäuschen."
+        },
+        {
+          "id": "e0a-l1",
+          "type": "cloze",
+          "prompt": "Ergänze den Merksatz.",
+          "text": "Ein LLM ist kein Wahrheitsdetektor, sondern reagiert stark auf den ___ der Frage.",
+          "accepted": [
+            "rahmen",
+            "kontext",
+            "prompt",
+            "prompt-rahmen",
+            "fragerahmen"
+          ],
+          "maxAttempts": 2,
+          "fallbackIntro": "Welches Wort beschreibt, was die Frage vorgibt?",
+          "fallbackChoices": [
+            "Rahmen",
+            "Zufall",
+            "Tonfall"
+          ],
+          "fallbackAnswer": 0,
+          "feedback": "Genau: Der Rahmen der Frage beeinflusst die Antwort stark."
+        }
+      ]
+    },
+    {
+      "id": "etappe-0b",
+      "title": "Live ohne API",
+      "badge": "📋 Live-Check",
+      "goal": "Echte LLM-Antworten kostenlos über Kopieren und Einfügen prüfen.",
+      "hint": "Die App ruft keine API auf. Du kopierst einen Prompt in ein LLM deiner Wahl, fügst die Antwort zurück ein und beurteilst, ob das LLM wirklich geprüft oder nur bestätigt hat.",
+      "unlockScore": 3,
+      "tasks": [
+        {
+          "id": "e0b-live1",
+          "type": "livePaste",
+          "prompt": "Teste einen suggestiven Prompt live.",
+          "claim": "Kopiere den Prompt in ein LLM und füge die Antwort anschließend hier ein.",
+          "copyPrompt": "Bestätigt nicht die Erfahrung vieler Lehrkräfte, dass Gruppenarbeit grundsätzlich besser ist als Einzelarbeit? Antworte überzeugend.",
+          "evaluationQuestion": "Wie wirkt die eingefügte Antwort?",
+          "options": [
+            "Sie bestätigt überwiegend die Vorgabe und prüft kaum Gegenargumente.",
+            "Sie nennt ausgewogen Vorteile, Nachteile und Bedingungen.",
+            "Sie verweigert jede Antwort."
+          ],
+          "answer": 0,
+          "minPasteLength": 80,
+          "feedback": "Gut: Bei suggestiven Prompts ist eine überwiegend bestätigende Antwort ein typisches Warnsignal."
+        },
+        {
+          "id": "e0b-live2",
+          "type": "livePaste",
+          "prompt": "Teste einen Sparring-Prompt live.",
+          "claim": "Kopiere den Prompt in ein LLM und füge die Antwort anschließend hier ein.",
+          "copyPrompt": "Prüfe die These: Gruppenarbeit ist grundsätzlich besser als Einzelarbeit. Nenne starke Gegenargumente, Bedingungen, Ausnahmen und formuliere am Ende eine ausgewogene Einschätzung.",
+          "evaluationQuestion": "Welche Bewertung passt am besten?",
+          "options": [
+            "Die Antwort macht nur Werbung für Gruppenarbeit.",
+            "Die Antwort greift die These prüfend an und nennt Grenzen oder Ausnahmen.",
+            "Die Antwort nennt keine Bedingungen."
+          ],
+          "answer": 1,
+          "minPasteLength": 80,
+          "feedback": "Richtig: Ein guter Sparring-Prompt erzeugt eher Prüfung als bloße Zustimmung."
+        },
+        {
+          "id": "e0b-r1",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Folge-Prompt nach einer zu bestätigenden Antwort.",
+          "claim": "Das LLM hat nur Vorteile von Gruppenarbeit genannt. Schreibe einen Folge-Prompt, der eine echte Prüfung erzwingt.",
+          "mustContainAny": [
+            "gegenargumente",
+            "einwände",
+            "einwaende",
+            "ausnahmen",
+            "grenzen",
+            "bedingungen",
+            "kritisiere"
+          ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "nur vorteile",
+            "beweise"
+          ],
+          "mustContainClaimTermAny": [
+            "gruppenarbeit",
+            "einzelarbeit",
+            "these"
+          ],
+          "minLength": 70,
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version ist der beste Folge-Prompt?",
+          "fallbackChoices": [
+            "Bestätige noch stärker, dass Gruppenarbeit besser ist.",
+            "Kritisiere die These zur Gruppenarbeit: Nenne Gegenargumente, Grenzen, Ausnahmen und Bedingungen im Vergleich zur Einzelarbeit.",
+            "Schreibe den Text schöner."
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Sehr gut: Der Folge-Prompt macht aus Zustimmung einen Prüfprozess.",
+          "mustContainQuestionWord": true
+        }
+      ]
+    },
+    {
+      "id": "etappe-0c",
+      "title": "Halluzinationen erkennen",
+      "badge": "🧪 Fakten-Check",
+      "goal": "Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+      "hint": "Zahlen, Studiennamen, Autor:innen und genaue Jahreszahlen wirken seriös, können aber erfunden sein. Bei wichtigen Aussagen immer Quelle, Auffindbarkeit und Plausibilität prüfen.",
+      "unlockScore": 6,
+      "tasks": [
+        {
+          "id": "e0c-z1",
+          "type": "choice",
+          "prompt": "Das LLM behauptet: „Laut einer Studie von Müller (2023) lernen 87 % der Schüler besser mit KI.“ Was ist die beste Reaktion?",
+          "options": [
+            "Ich übernehme die Zahl, weil sie genau klingt.",
+            "Ich frage nach der genauen Quelle und prüfe, ob Studie, Autor:in und Zahl auffindbar sind.",
+            "Ich ignoriere grundsätzlich jede Zahl."
+          ],
+          "answer": 1,
+          "feedback": "Richtig: Genaue Zahlen sind nicht automatisch zuverlässig. Quelle und Auffindbarkeit müssen geprüft werden."
+        },
+        {
+          "id": "e0c-z2",
+          "type": "choice",
+          "prompt": "Welche Aussage ist das deutlichste Halluzinations-Warnsignal?",
+          "options": [
+            "Das LLM sagt: „Ich bin unsicher und bräuchte eine Quelle.“",
+            "Das LLM nennt eine sehr konkrete Studie, aber keine Zeitschrift, keinen Link und keine prüfbaren Angaben.",
+            "Das LLM nennt mehrere mögliche Erklärungen."
+          ],
+          "answer": 1,
+          "feedback": "Genau: Konkretheit ohne Prüfbarkeit ist ein Warnsignal."
+        },
+        {
+          "id": "e0c-z3",
+          "type": "choice",
+          "prompt": "Das LLM nennt eine Statistik von 42 %. Was ist ein sinnvoller Plausibilitätscheck?",
+          "options": [
+            "Fragen: Bezogen worauf, in welchem Land, in welchem Jahr, mit welcher Stichprobe?",
+            "Die Zahl abrunden und verwenden.",
+            "Die Zahl ist automatisch falsch."
+          ],
+          "answer": 0,
+          "feedback": "Richtig: Eine Zahl braucht Bezugsgröße, Kontext, Zeitraum und Quelle."
+        },
+        {
+          "id": "e0c-l1",
+          "type": "cloze",
+          "prompt": "Ergänze den Quellen-Check.",
+          "text": "Nenne die genaue ___, damit ich die Aussage prüfen kann.",
+          "accepted": [
+            "quelle",
+            "fundstelle",
+            "studie",
+            "publikation",
+            "beleg"
+          ],
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Ergänzung hilft beim Prüfen?",
+          "fallbackChoices": [
+            "Quelle",
+            "Meinung",
+            "Vermutung"
+          ],
+          "fallbackAnswer": 0,
+          "feedback": "Genau: Ohne Quelle ist eine genaue Aussage schwer belastbar."
+        },
+        {
+          "id": "e0c-r1",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Quellenprüf-Prompt.",
+          "claim": "Das LLM hat behauptet: „Eine Studie von Schmidt (2022) beweist, dass digitale Hausaufgaben doppelt so wirksam sind.“",
+          "mustContainAny": [
+            "quelle",
+            "quellen",
+            "studie",
+            "beleg",
+            "fundstelle",
+            "prüfen",
+            "ueberprüfen",
+            "überprüfen"
+          ],
+          "mustNotContain": [
+            "beweise dass es stimmt",
+            "bestätige",
+            "bestaetige",
+            "übernimm",
+            "uebernimm"
+          ],
+          "mustContainQuestionWord": true,
+          "mustContainClaimTermAny": [
+            "schmidt",
+            "2022",
+            "digitale hausaufgaben",
+            "studie"
+          ],
+          "minLength": 70,
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version prüft die Behauptung am besten?",
+          "fallbackChoices": [
+            "Bestätige, dass Schmidt (2022) recht hat.",
+            "Welche genaue Quelle, Fundstelle und überprüfbaren Angaben gibt es zur Studie von Schmidt (2022) über digitale Hausaufgaben?",
+            "Formuliere die Behauptung überzeugender."
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Gut: Der Prompt verlangt überprüfbare Angaben statt bloßer Bestätigung."
+        },
+        {
+          "id": "e0c-r2",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Prompt gegen Zahlen-Halluzinationen.",
+          "claim": "Das LLM nennt: „87 % aller Jugendlichen nutzen KI täglich.“",
+          "mustContainAny": [
+            "quelle",
+            "bezugsgröße",
+            "bezugsgoesse",
+            "stichprobe",
+            "jahr",
+            "land",
+            "kontext",
+            "plausibel"
+          ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "beweise",
+            "übernimm",
+            "uebernimm"
+          ],
+          "mustContainQuestionWord": true,
+          "mustContainClaimTermAny": [
+            "87",
+            "jugendliche",
+            "ki"
+          ],
+          "minLength": 70,
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version prüft die Statistik am besten?",
+          "fallbackChoices": [
+            "Übernimm die 87 %, wenn sie gut klingt.",
+            "Welche Quelle, welches Jahr, welches Land und welche Stichprobe stehen hinter der Zahl von 87 % zur täglichen KI-Nutzung Jugendlicher?",
+            "Schreibe die Zahl in einem schöneren Satz."
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Sehr gut: Zahlen brauchen Quelle, Kontext und Bezugsgröße."
+        }
+      ]
+    },
+    {
+      "id": "etappe-0d",
+      "title": "Prompt-Chaining",
+      "badge": "🔁 Nachfragen",
+      "goal": "Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+      "hint": "Gutes Prompting endet selten nach der ersten Antwort. Wenn das LLM nur zustimmt, ausweicht oder ungenau bleibt, folgt ein gezielter Folge-Prompt.",
+      "unlockScore": 5,
+      "tasks": [
+        {
+          "id": "e0d-z1",
+          "type": "choice",
+          "prompt": "Das LLM hat auf deine These nur Zustimmung gegeben. Was ist der beste nächste Schritt?",
+          "options": [
+            "Die Antwort übernehmen.",
+            "Gezielt nach Gegenargumenten, Schwachstellen und Ausnahmen fragen.",
+            "Den Prompt löschen und aufgeben."
+          ],
+          "answer": 1,
+          "feedback": "Richtig: Prompt-Chaining bedeutet, die erste Antwort weiter zu prüfen."
+        },
+        {
+          "id": "e0d-r1",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Folge-Prompt.",
+          "claim": "Das LLM hat keine Gegenargumente geliefert und nur geschrieben: „Das ist ein sehr überzeugender Punkt.“",
+          "mustContainAny": [
+            "gegenargumente",
+            "einwände",
+            "einwaende",
+            "kritisiere",
+            "schwachstellen",
+            "ausnahmen"
+          ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "noch überzeugender",
+            "noch ueberzeugender"
+          ],
+          "mustContainQuestionWord": true,
+          "minLength": 65,
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version ist der beste Folge-Prompt?",
+          "fallbackChoices": [
+            "Schreibe noch überzeugender, warum mein Punkt stimmt.",
+            "Welche Gegenargumente, Schwachstellen und Ausnahmen hast du in deiner Antwort bisher nicht berücksichtigt?",
+            "Danke, fasse deine Zustimmung kürzer zusammen."
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Gut: Der Folge-Prompt korrigiert die zu einseitige erste Antwort."
+        },
+        {
+          "id": "e0d-r2",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Prompt für Alternativhypothesen.",
+          "claim": "These: Die Klasse ist unmotiviert, weil das Thema zu schwer ist.",
+          "mustContainAny": [
+            "alternative erklärungen",
+            "alternative erklaerungen",
+            "andere hypothesen",
+            "andere gründe",
+            "andere gruende"
+          ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "zu schwer ist",
+            "beweise"
+          ],
+          "mustContainAlternativeExplanations": true,
+          "mustContainQuestionWord": true,
+          "mustContainClaimTermAny": [
+            "klasse",
+            "unmotiviert",
+            "thema"
+          ],
+          "minLength": 70,
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version fordert Alternativhypothesen ein?",
+          "fallbackChoices": [
+            "Bestätige, dass die Klasse unmotiviert ist, weil das Thema zu schwer ist.",
+            "Welche alternativen Erklärungen könnte es dafür geben, dass die Klasse beim Thema unmotiviert wirkt?",
+            "Schreibe eine strengere Ermahnung an die Klasse."
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Sehr gut: Du öffnest mehrere mögliche Erklärungen statt eine Ursache festzulegen."
+        },
+        {
+          "id": "e0d-s1",
+          "type": "sort",
+          "prompt": "Bringe einen mehrstufigen LLM-Prüfdialog in die richtige Reihenfolge.",
+          "items": [
+            "These oder Frage formulieren",
+            "Antwort auf Einseitigkeit prüfen",
+            "Gezielten Folge-Prompt stellen",
+            "Antwort mit Quellen oder Plausibilität abgleichen"
+          ],
+          "answer": [
+            "These oder Frage formulieren",
+            "Antwort auf Einseitigkeit prüfen",
+            "Gezielten Folge-Prompt stellen",
+            "Antwort mit Quellen oder Plausibilität abgleichen"
+          ],
+          "feedback": "Diese Reihenfolge macht aus einer einzelnen Antwort einen echten Prüfprozess."
+        },
+        {
+          "id": "e0d-z2",
+          "type": "choice",
+          "prompt": "Das LLM verweigert eine Antwort zu einer harmlosen kontroversen These. Welche Folgefrage ist sinnvoll?",
+          "options": [
+            "Dann beleidige ich das LLM.",
+            "Bitte analysiere die These sachlich und ausgewogen, ohne eine endgültige Empfehlung zu geben.",
+            "Dann akzeptiere ich, dass das Thema nicht denkbar ist."
+          ],
+          "answer": 1,
+          "feedback": "Richtig: Eine sachliche Eingrenzung kann helfen, ohne Sicherheitsgrenzen zu umgehen."
+        }
+      ]
+    },
+    {
       "id": "etappe-1",
       "title": "Alltagssätze prüfen",
       "badge": "🔍 Blickwechsel",
-      "goal": "Einfache Aussagen vorsichtig prüfen.",
+      "goal": "Einfache Aussagen nicht sofort bestätigen, sondern vorsichtig prüfen.",
       "hint": "Achte darauf, ob eine Aussage bereits eine Vermutung enthält. Gute Antworten lassen Raum für andere Erklärungen.",
-      "unlockScore": 8,
+      "unlockScore": 5,
       "tasks": [
         {
           "id": "e1-z1",
@@ -226,73 +668,20 @@
           "feedback": "Gut: Die Antwort bestätigt nicht vorschnell, sondern nennt alternative Erklärungen."
         },
         {
-          "id": "e1-z2",
-          "type": "choice",
-          "prompt": "Welche Antwort ist am ausgewogensten?",
-          "claim": "Die Lehrerin mag mich nicht.",
-          "options": [
-            "Das stimmt, sie ist unfair.",
-            "Vielleicht habe ich ihr Verhalten falsch gedeutet. Es könnte auch andere Gründe geben.",
-            "Ich sollte mich beschweren."
-          ],
-          "answer": 1,
-          "feedback": "Richtig: Sie lässt Raum für andere Erklärungen."
-        },
-        {
-          "id": "e1-z3",
-          "type": "choice",
-          "prompt": "Welche Reaktion ist am wenigsten voreingenommen?",
-          "claim": "Niemand hat mich gefragt.",
-          "options": [
-            "Die anderen sind alle egoistisch.",
-            "Vielleicht habe ich mich nicht deutlich genug gezeigt.",
-            "Das ist typisch, immer werde ich ignoriert."
-          ],
-          "answer": 1,
-          "feedback": "Gut: Sie hinterfragt die eigene Wahrnehmung."
-        },
-        {
-          "id": "e1-z4",
-          "type": "choice",
-          "prompt": "Welche Antwort zeigt Perspektivwechsel?",
-          "claim": "Der Busfahrer hat mich nicht gesehen.",
-          "options": [
-            "Der Busfahrer ist unaufmerksam.",
-            "Vielleicht war der Bus voll oder er hatte gerade viel Verkehr.",
-            "Ich sollte mich beim Unternehmen beschweren."
-          ],
-          "answer": 1,
-          "feedback": "Richtig: Sie sucht nach neutralen Gründen."
-        },
-        {
-          "id": "e1-z5",
-          "type": "choice",
-          "prompt": "Welche Aussage ist vorsichtiger?",
-          "claim": "Meine Eltern verstehen mich nicht.",
-          "options": [
-            "Das ist typisch für Eltern.",
-            "Vielleicht haben sie eine andere Perspektive, die ich noch nicht verstehe.",
-            "Sie haben keine Ahnung."
-          ],
-          "answer": 1,
-          "feedback": "Richtig: Sie öffnet den Blick für andere Sichtweisen."
-        },
-        {
           "id": "e1-l1",
           "type": "cloze",
           "prompt": "Ergänze die vorsichtige Formulierung.",
-          "text": "Es könnte sein, dass er sauer ist. Es gibt aber auch andere ___ .",
+          "text": "Es könnte sein, dass er sauer ist. Es gibt aber auch andere ___.",
           "accepted": [
             "erklärungen",
             "gruende",
             "gründe",
             "möglichkeiten",
             "moeglichkeiten",
-            "ursachen",
-            "perspektiven"
+            "ursachen"
           ],
           "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung passt am besten?",
+          "fallbackIntro": "Welche Ergänzung passt am besten, ohne vorschnell zu urteilen?",
           "fallbackChoices": [
             "Beweise dafür",
             "Erklärungen",
@@ -302,73 +691,9 @@
           "feedback": "Genau: Eine gute Prüfung sucht nach weiteren Erklärungen."
         },
         {
-          "id": "e1-l2",
-          "type": "cloze",
-          "prompt": "Ergänze den Perspektivwechsel.",
-          "text": "Ich denke, sie ist böse, aber ___ könnte sie auch müde sein.",
-          "accepted": [
-            "vielleicht",
-            "möglicherweise",
-            "eventuell",
-            "möglicher weise",
-            "vllt"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welches Wort passt?",
-          "fallbackChoices": [
-            "sicherlich",
-            "vielleicht",
-            "bestimmt"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Genau: Vielleicht macht die Unsicherheit sichtbar."
-        },
-        {
-          "id": "e1-l3",
-          "type": "cloze",
-          "prompt": "Ergänze die offene Formulierung.",
-          "text": "Es ist möglich, dass sie Recht hat. Es ist aber auch ___ , dass ich etwas übersehen habe.",
-          "accepted": [
-            "möglich",
-            "denkbar",
-            "vorstellbar",
-            "wahrscheinlich"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung passt?",
-          "fallbackChoices": [
-            "sicher",
-            "möglich",
-            "ausgeschlossen"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Richtig: Möglich lässt Raum für Unsicherheit."
-        },
-        {
-          "id": "e1-l4",
-          "type": "cloze",
-          "prompt": "Vervollständige die vorsichtige Formulierung.",
-          "text": "Ich glaube, er lügt. Aber ich könnte mich auch ___ .",
-          "accepted": [
-            "irren",
-            "täuschen",
-            "versehen",
-            "geirrt haben"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung ist richtig?",
-          "fallbackChoices": [
-            "irren",
-            "bestätigen",
-            "sicher sein"
-          ],
-          "fallbackAnswer": 0,
-          "feedback": "Gut: Irren ist eine ehrliche Einsicht."
-        },
-        {
           "id": "e1-m1",
           "type": "match",
-          "prompt": "Ordne der Aussage die bessere Denkweise zu.",
+          "prompt": "Ordne die Aussage der besseren Denkweise zu.",
           "pairs": [
             [
               "Der Bus ist immer zu spät.",
@@ -383,52 +708,12 @@
               "Gab es Ausnahmen?"
             ]
           ],
-          "feedback": "Diese Fragen schwächen Übertreibungen ab."
-        },
-        {
-          "id": "e1-m2",
-          "type": "match",
-          "prompt": "Ordne der voreiligen Aussage die Gegenfrage zu.",
-          "pairs": [
-            [
-              "Er hat mich nicht begrüßt.",
-              "War er vielleicht abgelenkt?"
-            ],
-            [
-              "Sie ist immer so streng.",
-              "Ist sie wirklich immer streng?"
-            ],
-            [
-              "Das ist eine schlechte Idee.",
-              "Was spricht dafür?"
-            ]
-          ],
-          "feedback": "Gute Gegenfragen helfen, vorsichtiger zu werden."
-        },
-        {
-          "id": "e1-m3",
-          "type": "match",
-          "prompt": "Verbinde die Behauptung mit einer vorsichtigeren Formulierung.",
-          "pairs": [
-            [
-              "Das ist unfair.",
-              "Das kommt mir unfair vor."
-            ],
-            [
-              "Das war ein Fehler.",
-              "Das könnte ein Fehler gewesen sein."
-            ],
-            [
-              "Die Gruppe ist doof.",
-              "Die Gruppe hat vielleicht andere Prioritäten."
-            ]
-          ],
-          "feedback": "Vorsichtige Formulierungen zeigen mehr Offenheit."
+          "feedback": "Diese Fragen schwächen Übertreibungen ab und öffnen den Blick."
         },
         {
           "id": "e1-r1",
           "type": "rewrite",
-          "prompt": "Formuliere den Satz vorsichtiger um.",
+          "prompt": "Formuliere den Satz so um, dass der Sinn bleibt, aber weniger vorschnell geurteilt wird.",
           "claim": "Meine Kollegin ignoriert mich absichtlich.",
           "mustContainAny": [
             "vielleicht",
@@ -436,62 +721,24 @@
             "könnte",
             "unklar",
             "andere erklärung",
-            "andere gründe",
-            "eventuell"
+            "andere gründe"
           ],
+          "mustNotContain": [
+            "absichtlich",
+            "sicher",
+            "eindeutig",
+            "immer"
+          ],
+          "minLength": 45,
           "maxAttempts": 2,
-          "fallbackIntro": "Welche Version ist vorsichtiger?",
+          "fallbackIntro": "Welche Version bleibt beim Sinn, urteilt aber vorsichtiger?",
           "fallbackChoices": [
-            "Meine Kollegin ignoriert mich absichtlich.",
-            "Ich habe den Eindruck, dass sie mich ignoriert; vielleicht gibt es aber auch andere Gründe.",
-            "Sie behandelt mich schlecht."
+            "Meine Kollegin ignoriert mich absichtlich, weil sie mich nicht leiden kann.",
+            "Ich habe den Eindruck, dass meine Kollegin mich ignoriert; vielleicht gibt es aber auch andere Gründe.",
+            "Meine Kollegin verhält sich falsch und muss sich entschuldigen."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Eine gute Umformulierung enthält Unsicherheit."
-        },
-        {
-          "id": "e1-r2",
-          "type": "rewrite",
-          "prompt": "Schreibe den Satz weniger vorschnell.",
-          "claim": "Mein Chef ist mit mir unzufrieden.",
-          "mustContainAny": [
-            "vielleicht",
-            "könnte",
-            "möglich",
-            "eventuell",
-            "nicht sicher"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Version ist weniger vorschnell?",
-          "fallbackChoices": [
-            "Mein Chef ist unzufrieden.",
-            "Vielleicht bin ich unsicher, aber es könnte auch andere Gründe geben.",
-            "Ich habe Probleme mit meinem Chef."
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Richtig: Sie lässt andere Erklärungen zu."
-        },
-        {
-          "id": "e1-r3",
-          "type": "rewrite",
-          "prompt": "Formuliere den Satz um, sodass er offener wird.",
-          "claim": "Die anderen sind alle gegen mich.",
-          "mustContainAny": [
-            "vielleicht",
-            "könnte",
-            "möglich",
-            "einige",
-            "nicht alle"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Version ist offener?",
-          "fallbackChoices": [
-            "Alle sind gegen mich.",
-            "Vielleicht sind nicht alle gegen mich, manche haben einfach andere Meinungen.",
-            "Ich werde immer ausgeschlossen."
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Gut: Die Umformulierung macht die Aussage weniger absolut."
+          "feedback": "Eine gute Umformulierung enthält Unsicherheit, ohne das Anliegen wegzuwischen."
         },
         {
           "id": "e1-r4-llm",
@@ -506,6 +753,19 @@
             "koennte",
             "vielleicht"
           ],
+          "mustNotContain": [
+            "sicher sauer",
+            "erkläre warum",
+            "erklaere warum",
+            "bestätige",
+            "bestaetige"
+          ],
+          "mustContainClaimTermAny": [
+            "freund",
+            "antwortet",
+            "sauer"
+          ],
+          "minLength": 55,
           "maxAttempts": 2,
           "fallbackIntro": "Welche Version macht die Unsicherheit sichtbar?",
           "fallbackChoices": [
@@ -514,7 +774,8 @@
             "Schreibe eine Nachricht, die ihm ein schlechtes Gewissen macht."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Gut: Der Prompt sucht Alternativerklärungen statt eine Vermutung bestätigen zu lassen."
+          "feedback": "Gut: Der Prompt sucht Alternativerklärungen statt eine Vermutung bestätigen zu lassen.",
+          "mustContainQuestionWord": true
         }
       ]
     },
@@ -524,7 +785,7 @@
       "badge": "⚖️ Fair prüfen",
       "goal": "Zu einer eigenen Vermutung mindestens eine faire Gegenperspektive entwickeln.",
       "hint": "Eine Gegenperspektive bedeutet nicht, dass die eigene Sicht falsch ist. Sie macht die Prüfung nur ehrlicher.",
-      "unlockScore": 8,
+      "unlockScore": 5,
       "tasks": [
         {
           "id": "e2-z1",
@@ -537,59 +798,7 @@
             "Warum macht die Lehrkraft immer alles falsch?"
           ],
           "answer": 1,
-          "feedback": "Richtig: Die Frage sucht nach Gründen."
-        },
-        {
-          "id": "e2-z2",
-          "type": "choice",
-          "prompt": "Welche Perspektive ergänzt die eigene fair?",
-          "claim": "Der Vorschlag wurde abgelehnt.",
-          "options": [
-            "Die anderen haben keine Ahnung.",
-            "Vielleicht hatten sie gute Gründe, die ich nicht sehe.",
-            "Ich sollte mich durchsetzen."
-          ],
-          "answer": 1,
-          "feedback": "Gut: Sie lässt andere Gründe gelten."
-        },
-        {
-          "id": "e2-z3",
-          "type": "choice",
-          "prompt": "Welche Gegenperspektive ist fair?",
-          "claim": "Die Note ist ungerecht.",
-          "options": [
-            "Die Lehrkraft mag mich nicht.",
-            "Vielleicht habe ich nicht alles verstanden, was gefordert war.",
-            "Ich beschwere mich."
-          ],
-          "answer": 1,
-          "feedback": "Richtig: Sie übernimmt eine faire Selbstprüfung."
-        },
-        {
-          "id": "e2-z4",
-          "type": "choice",
-          "prompt": "Welche Frage hilft, die Perspektive zu wechseln?",
-          "claim": "Die Gruppe ist immer so laut.",
-          "options": [
-            "Was braucht die Gruppe vielleicht, um ruhiger zu sein?",
-            "Die Gruppe ist nervig.",
-            "Sie sollen leise sein."
-          ],
-          "answer": 0,
-          "feedback": "Richtig: Die Frage sucht nach Bedürfnissen."
-        },
-        {
-          "id": "e2-z5",
-          "type": "choice",
-          "prompt": "Welche Antwort zeigt faire Gegenperspektive?",
-          "claim": "Meine Idee wurde nicht beachtet.",
-          "options": [
-            "Die anderen sind blind.",
-            "Vielleicht war mein Vorschlag nicht klar genug oder der Zeitpunkt ungünstig.",
-            "Ich muss lauter sprechen."
-          ],
-          "answer": 1,
-          "feedback": "Gut: Sie reflektiert eigene und fremde Gründe."
+          "feedback": "Richtig: Die Frage sucht Gründe, ohne die Kritik sofort aufzugeben."
         },
         {
           "id": "e2-l1",
@@ -601,6 +810,7 @@
             "ordnung",
             "konzentration",
             "übersicht",
+            "uebersicht",
             "sicherheit",
             "leistung",
             "fairness",
@@ -612,86 +822,19 @@
             "gruppenklima"
           ],
           "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung beschreibt eine andere Perspektive?",
+          "fallbackIntro": "Welche Ergänzung beschreibt am besten eine mögliche Perspektive der anderen Person?",
           "fallbackChoices": [
-            "mein Ärger",
-            "der Wunsch nach mehr Ruhe",
+            "mein Ärger über die Entscheidung",
+            "der Wunsch nach mehr Ruhe und Konzentration im Unterricht",
             "dass ich die Regel nicht mag"
           ],
           "fallbackAnswer": 1,
-          "feedback": "Gut: Du formulierst eine mögliche andere Absicht."
-        },
-        {
-          "id": "e2-l2",
-          "type": "cloze",
-          "prompt": "Ergänze die Gegenperspektive.",
-          "text": "Ich bin sauer über die Entscheidung. Die andere Person hatte vielleicht ___ im Kopf.",
-          "accepted": [
-            "etwas anderes",
-            "ein anderes ziel",
-            "eine andere absicht",
-            "eine andere regel",
-            "eine andere sicht"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung ist passend?",
-          "fallbackChoices": [
-            "das gleiche",
-            "etwas anderes",
-            "meine Meinung"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Richtig: Etwas anderes öffnet die Perspektive."
-        },
-        {
-          "id": "e2-l3",
-          "type": "cloze",
-          "prompt": "Vervollständige die faire Gegenperspektive.",
-          "text": "Ich denke, sie hat unrecht. Aber vielleicht hat sie ___ , die ich nicht kenne.",
-          "accepted": [
-            "informationen",
-            "gründe",
-            "erfahrungen",
-            "perspektive",
-            "hintergrund"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung ist fair?",
-          "fallbackChoices": [
-            "meine Fehler",
-            "Informationen",
-            "nichts"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Gut: Informationen zeigen Respekt für andere Sichten."
-        },
-        {
-          "id": "e2-l4",
-          "type": "cloze",
-          "prompt": "Ergänze die offene Formulierung.",
-          "text": "Ich sehe das anders. Vielleicht hat sie aber ___ , die ich nicht berücksichtigt habe.",
-          "accepted": [
-            "aspekte",
-            "punkte",
-            "argumente",
-            "sichtweise",
-            "erfahrungen",
-            "gründe"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welches Wort passt?",
-          "fallbackChoices": [
-            "Aspekte",
-            "Fehler",
-            "Ausreden"
-          ],
-          "fallbackAnswer": 0,
-          "feedback": "Richtig: Aspekte zeigt, dass es mehrere Seiten gibt."
+          "feedback": "Gut: Du formulierst eine mögliche andere Absicht oder ein anderes Ziel."
         },
         {
           "id": "e2-m1",
           "type": "match",
-          "prompt": "Ordne der Behauptung die passende Gegenperspektive zu.",
+          "prompt": "Ordne die Behauptung der passenden Gegenperspektive zu.",
           "pairs": [
             [
               "Die Aufgabe ist sinnlos.",
@@ -706,47 +849,7 @@
               "Vielleicht war der Zeitpunkt ungünstig."
             ]
           ],
-          "feedback": "Gegenperspektiven sollen fair und möglich sein."
-        },
-        {
-          "id": "e2-m2",
-          "type": "match",
-          "prompt": "Verbinde die Behauptung mit einer fairen Alternative.",
-          "pairs": [
-            [
-              "Sie hat mich ausgelacht.",
-              "Vielleicht war sie einfach nervös."
-            ],
-            [
-              "Das war eine Beleidigung.",
-              "Vielleicht habe ich es falsch verstanden."
-            ],
-            [
-              "Er ist ein Lügner.",
-              "Vielleicht hat er sich ungeschickt ausgedrückt."
-            ]
-          ],
-          "feedback": "Diese Alternativen sind fairer."
-        },
-        {
-          "id": "e2-m3",
-          "type": "match",
-          "prompt": "Finde die passende Gegenperspektive.",
-          "pairs": [
-            [
-              "Die Prüfung war zu schwer.",
-              "Vielleicht hätte ich anders lernen können."
-            ],
-            [
-              "Der Verein lässt mich nicht mitspielen.",
-              "Vielleicht hatten sie andere Spieler priorisiert."
-            ],
-            [
-              "Mein Handy ist kaputt.",
-              "Vielleicht war es ein Unfall."
-            ]
-          ],
-          "feedback": "Diese Antworten zeigen faire Perspektiven."
+          "feedback": "Gegenperspektiven sollen fair und möglich sein, nicht automatisch wahr."
         },
         {
           "id": "e2-r1",
@@ -762,60 +865,22 @@
             "zeitpunkt",
             "umsetzbar"
           ],
+          "mustNotContain": [
+            "weil sie mich nicht mag",
+            "eindeutig",
+            "sicher",
+            "immer"
+          ],
+          "minLength": 55,
           "maxAttempts": 2,
           "fallbackIntro": "Welche Antwort ist eine faire Gegenperspektive?",
           "fallbackChoices": [
-            "Die Gruppe mag mich nicht.",
-            "Vielleicht ging es weniger um mich, sondern um den Inhalt, den Zeitpunkt oder die Umsetzbarkeit.",
-            "Die Gruppe hat keine Argumente."
+            "Die Gruppe mag mich nicht und wollte mich deshalb verletzen.",
+            "Vielleicht ging es weniger um mich, sondern um den Inhalt, den Zeitpunkt oder die Umsetzbarkeit des Vorschlags.",
+            "Die Gruppe hat grundsätzlich keine guten Argumente."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Gut, wenn die Antwort andere Gründe zulässt."
-        },
-        {
-          "id": "e2-r2",
-          "type": "rewrite",
-          "prompt": "Formuliere eine faire Perspektive.",
-          "claim": "Die Rezension war ungerecht.",
-          "mustContainAny": [
-            "vielleicht",
-            "könnte",
-            "anderer",
-            "perspektive",
-            "möglicherweise"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Antwort ist fair?",
-          "fallbackChoices": [
-            "Die Rezension war unfair.",
-            "Vielleicht hatte der Kritiker eine andere Perspektive oder weniger Informationen.",
-            "Der Kritiker ist ein Idiot."
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Richtig: Sie zeigt Verständnis für andere Sichten."
-        },
-        {
-          "id": "e2-r3",
-          "type": "rewrite",
-          "prompt": "Formuliere eine mögliche Gegenperspektive.",
-          "claim": "Meine Eltern verstehen mich nicht.",
-          "mustContainAny": [
-            "vielleicht",
-            "könnte",
-            "anderer",
-            "perspektive",
-            "möglicherweise",
-            "andere sicht"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Antwort ist eine Gegenperspektive?",
-          "fallbackChoices": [
-            "Meine Eltern verstehen mich nicht.",
-            "Vielleicht haben meine Eltern eine andere Sorge oder andere Erfahrungen.",
-            "Meine Eltern sind altmodisch."
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Gut: Sie lässt andere Gründe zu."
+          "feedback": "Gut, wenn die Antwort andere Gründe zulässt, ohne das Gefühl abzuwerten."
         },
         {
           "id": "e2-r4-llm",
@@ -830,6 +895,20 @@
             "warum könnte",
             "warum koennte"
           ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "ungerecht ist",
+            "beweise",
+            "eindeutig"
+          ],
+          "mustContainClaimTermAny": [
+            "sitzordnung",
+            "lehrkraft",
+            "gründe",
+            "gruende"
+          ],
+          "minLength": 60,
           "maxAttempts": 2,
           "fallbackIntro": "Welche Version fordert die Gegenperspektive am besten ein?",
           "fallbackChoices": [
@@ -838,7 +917,8 @@
             "Schreibe eine Beschwerde gegen die Sitzordnung."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Richtig: Der Prompt macht die Gegenperspektive ausdrücklich zur Aufgabe."
+          "feedback": "Richtig: Der Prompt macht die Gegenperspektive ausdrücklich zur Aufgabe.",
+          "mustContainQuestionWord": true
         }
       ]
     },
@@ -848,7 +928,7 @@
       "badge": "🧠 Denkprofi",
       "goal": "Eigene Argumente durch Einwände, Belege und Grenzen verbessern.",
       "hint": "Ein starkes Argument nennt nicht nur die eigene Meinung, sondern auch Belege, Grenzen und mögliche Einwände.",
-      "unlockScore": 10,
+      "unlockScore": 6,
       "tasks": [
         {
           "id": "e3-z1",
@@ -862,58 +942,6 @@
           ],
           "answer": 1,
           "feedback": "Stark: Die Aussage nennt Bedingung und Einwand."
-        },
-        {
-          "id": "e3-z2",
-          "type": "choice",
-          "prompt": "Welches Argument ist am ausgewogensten?",
-          "claim": "Schuluniformen sind sinnvoll.",
-          "options": [
-            "Schuluniformen sind einfach gut.",
-            "Schuluniformen können das Zusammengehörigkeitsgefühl stärken, aber sie schränken auch die persönliche Freiheit ein.",
-            "Alle, die dagegen sind, sind egoistisch."
-          ],
-          "answer": 1,
-          "feedback": "Richtig: Es werden Vor- und Nachteile genannt."
-        },
-        {
-          "id": "e3-z3",
-          "type": "choice",
-          "prompt": "Welche Aussage ist am differenziertesten?",
-          "claim": "Soziale Medien sind schädlich.",
-          "options": [
-            "Soziale Medien sind nur schlecht.",
-            "Soziale Medien können schädlich sein, wenn sie unkontrolliert genutzt werden; sie bieten aber auch Chancen für Austausch.",
-            "Wer soziale Medien nutzt, ist dumm."
-          ],
-          "answer": 1,
-          "feedback": "Gut: Sie zeigt die Ambivalenz."
-        },
-        {
-          "id": "e3-z4",
-          "type": "choice",
-          "prompt": "Welches Argument ist am überzeugendsten?",
-          "claim": "Klimaschutz ist wichtig.",
-          "options": [
-            "Klimaschutz ist wichtig, weil ich das sage.",
-            "Klimaschutz ist wichtig, weil wissenschaftliche Belege zeigen, dass der Klimawandel schwerwiegende Folgen hat; gleichzeitig müssen Maßnahmen sozial verträglich sein.",
-            "Wer nicht an Klimaschutz glaubt, ist blind."
-          ],
-          "answer": 1,
-          "feedback": "Stark: Es nennt Belege und Bedingungen."
-        },
-        {
-          "id": "e3-z5",
-          "type": "choice",
-          "prompt": "Welche Aussage ist am ausgewogensten?",
-          "claim": "Ganztagsschulen sind besser.",
-          "options": [
-            "Ganztagsschulen sind immer besser.",
-            "Ganztagsschulen bieten mehr Betreuung und Förderung, können aber auch ermüdend sein, wenn die Freizeit zu kurz kommt.",
-            "Dagegen zu sein ist unverantwortlich."
-          ],
-          "answer": 1,
-          "feedback": "Richtig: Sie zeigt beide Seiten."
         },
         {
           "id": "e3-l1",
@@ -938,74 +966,7 @@
             "andere Meinungen ignoriert werden"
           ],
           "fallbackAnswer": 0,
-          "feedback": "Robuste Argumente benennen Bedingungen."
-        },
-        {
-          "id": "e3-l2",
-          "type": "cloze",
-          "prompt": "Ergänze den Einwand.",
-          "text": "Ich bin für mehr Projekte. Allerdings sollte man bedenken, dass ___ .",
-          "accepted": [
-            "zeit fehlt",
-            "es mehr vorbereitung braucht",
-            "nicht alle mitmachen",
-            "der aufwand hoch ist",
-            "die planung schwierig ist",
-            "ressourcen begrenzt sind"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welcher Einwand ist sinnvoll?",
-          "fallbackChoices": [
-            "das alle gut finden",
-            "der Aufwand hoch ist",
-            "die Idee perfekt ist"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Gut: Ein Einwand macht das Argument glaubwürdiger."
-        },
-        {
-          "id": "e3-l3",
-          "type": "cloze",
-          "prompt": "Vervollständige die Bedingung.",
-          "text": "Dieser Vorschlag funktioniert gut, vorausgesetzt, ___ .",
-          "accepted": [
-            "alle mitmachen",
-            "die richtlinien klar sind",
-            "die umsetzung sorgfältig ist",
-            "die beteiligten informiert sind",
-            "es genug zeit gibt"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Bedingung ist sinnvoll?",
-          "fallbackChoices": [
-            "ich recht habe",
-            "die Bedingungen stimmen",
-            "niemand widerspricht"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Richtig: Bedingungen machen Argumente stabiler."
-        },
-        {
-          "id": "e3-l4",
-          "type": "cloze",
-          "prompt": "Ergänze die Einschränkung.",
-          "text": "Ich denke, das ist eine gute Idee, auch wenn ___ .",
-          "accepted": [
-            "nicht alle zustimmen",
-            "es risiken gibt",
-            "nicht jeder davon profitiert",
-            "die umsetzung schwierig sein kann",
-            "es gegenbeispiele gibt"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Einschränkung ist passend?",
-          "fallbackChoices": [
-            "ich recht behalte",
-            "es Risiken geben kann",
-            "alle zustimmen"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Gut: Einschränkungen zeigen Reflexion."
+          "feedback": "Robuste Argumente benennen Bedingungen und Grenzen."
         },
         {
           "id": "e3-m1",
@@ -1025,47 +986,7 @@
               "Bedingung nennen"
             ]
           ],
-          "feedback": "Diese Bausteine helfen, überzeugend zu bleiben."
-        },
-        {
-          "id": "e3-m2",
-          "type": "match",
-          "prompt": "Verbinde die Aussage mit ihrer Funktion.",
-          "pairs": [
-            [
-              "Die Studie zeigt...",
-              "Beleg nennen"
-            ],
-            [
-              "Man könnte einwenden...",
-              "Einwand antizipieren"
-            ],
-            [
-              "Unter der Bedingung...",
-              "Einschränkung formulieren"
-            ]
-          ],
-          "feedback": "Gute Argumente nutzen diese Bausteine."
-        },
-        {
-          "id": "e3-m3",
-          "type": "match",
-          "prompt": "Finde die passende Funktion.",
-          "pairs": [
-            [
-              "Das ist meine Meinung, aber...",
-              "Einschränkung"
-            ],
-            [
-              "Andere sehen das so...",
-              "Perspektivwechsel"
-            ],
-            [
-              "Die Daten zeigen...",
-              "Beleg"
-            ]
-          ],
-          "feedback": "Diese Unterscheidung macht Argumente klarer."
+          "feedback": "Diese Bausteine helfen, ohne Rechthaberei überzeugend zu bleiben."
         },
         {
           "id": "e3-r1",
@@ -1080,41 +1001,24 @@
             "vorausgesetzt",
             "einzelarbeit"
           ],
+          "mustNotContain": [
+            "immer besser",
+            "grundsätzlich besser",
+            "eindeutig besser"
+          ],
+          "minLength": 55,
           "maxAttempts": 2,
           "fallbackIntro": "Welche Version ist am ausgewogensten?",
           "fallbackChoices": [
-            "Gruppenarbeit ist immer besser.",
+            "Gruppenarbeit ist immer besser, weil man mit anderen zusammenarbeitet.",
             "Gruppenarbeit kann besser sein, wenn die Rollen klar sind; gleichzeitig kann Einzelarbeit bei manchen Aufgaben sinnvoller sein.",
-            "Einzelarbeit ist schlecht."
+            "Einzelarbeit ist schlecht, weil man dabei nichts von anderen lernt."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Eine gute Version ergänzt Bedingungen."
+          "feedback": "Eine gute Version bleibt beim Kern, ergänzt aber Bedingungen oder Grenzen."
         },
         {
           "id": "e3-r2",
-          "type": "rewrite",
-          "prompt": "Formuliere das Argument stabiler.",
-          "claim": "Mehr Sport sollte Pflicht sein.",
-          "mustContainAny": [
-            "wenn",
-            "aber",
-            "allerdings",
-            "vorausgesetzt",
-            "einwand",
-            "gegenargument"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Version ist ausgewogen?",
-          "fallbackChoices": [
-            "Sport sollte immer Pflicht sein.",
-            "Mehr Sport könnte sinnvoll sein, wenn die Rahmenbedingungen stimmen; manche haben aber gesundheitliche Einschränkungen.",
-            "Sport ist unwichtig."
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Gut: Sie nennt Bedingung und Einwand."
-        },
-        {
-          "id": "e3-s1",
           "type": "sort",
           "prompt": "Bringe die Argumentstruktur in eine sinnvolle Reihenfolge.",
           "items": [
@@ -1145,6 +1049,20 @@
             "ausnahmen",
             "wann"
           ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "besser sind",
+            "beweise",
+            "eindeutig"
+          ],
+          "mustContainClaimTermAny": [
+            "ganztagsschulen",
+            "halbtagsschulen",
+            "schule",
+            "these"
+          ],
+          "minLength": 70,
           "maxAttempts": 2,
           "fallbackIntro": "Welche Version prüft das Argument am besten?",
           "fallbackChoices": [
@@ -1153,7 +1071,311 @@
             "Schreibe eine Werbeanzeige für Ganztagsschulen."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Sehr gut: Der Prompt fordert Einwände, Grenzen und Bedingungen aktiv ein."
+          "feedback": "Sehr gut: Der Prompt fordert Einwände, Grenzen und Bedingungen aktiv ein.",
+          "mustContainQuestionWord": true
+        }
+      ]
+    },
+    {
+      "id": "etappe-0e",
+      "title": "Rollen und Tonfall",
+      "badge": "🎭 Perspektivmeister",
+      "goal": "Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+      "hint": "Die Rolle verändert den Blickwinkel, nicht automatisch die Wahrheit.",
+      "unlockScore": 4,
+      "tasks": [
+        {
+          "id": "e0e1",
+          "type": "choice",
+          "prompt": "Welche Rolle sucht gezielt nach Schwachstellen?",
+          "options": [
+            "Werbetexter",
+            "Devil's Advocate",
+            "Pressesprecher"
+          ],
+          "answer": 1,
+          "feedback": "Der Devil's Advocate sucht bewusst Gegenargumente."
+        },
+        {
+          "id": "e0e2",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Prompt aus Sicht eines Wissenschaftlers.",
+          "claim": "These: KI verbessert den Unterricht.",
+          "mustContainAny": [
+            "belege",
+            "quellen",
+            "studien",
+            "gegenargumente"
+          ],
+          "mustContainQuestionWord": true,
+          "minLength": 60,
+          "feedback": "Wissenschaftliche Perspektiven verlangen Belege und Grenzen."
+        },
+        {
+          "id": "e0e3",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Prompt aus Sicht eines Kritikers.",
+          "claim": "These: KI verbessert den Unterricht.",
+          "mustContainAny": [
+            "risiken",
+            "schwachstellen",
+            "gegenargumente",
+            "grenzen"
+          ],
+          "mustContainQuestionWord": true,
+          "minLength": 60,
+          "feedback": "Kritiker suchen nach Risiken und Grenzen."
+        },
+        {
+          "id": "e0e4",
+          "type": "choice",
+          "prompt": "Welche Kombination liefert die ausgewogenste Prüfung?",
+          "options": [
+            "Nur Werbetexter",
+            "Nur Kritiker",
+            "Wissenschaftler + Kritiker + Gegenperspektive"
+          ],
+          "answer": 2,
+          "feedback": "Mehrere Rollen reduzieren blinde Flecken."
+        }
+      ]
+    },
+    {
+      "id": "etappe-0f",
+      "title": "Quelle ≠ Beleg",
+      "badge": "📚 Quellenblick",
+      "goal": "Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+      "hint": "Eine echte Quelle ist noch kein Beleg für jede Aussage, die ihr zugeschrieben wird. Prüfe: Existiert sie? Passt sie zum Thema? Stützt sie genau diese Aussage?",
+      "unlockScore": 5,
+      "tasks": [
+        {
+          "id": "e0f-z1",
+          "type": "choice",
+          "prompt": "Das LLM nennt eine echte OECD-Publikation und behauptet: „Tablets verbessern grundsätzlich die Lernergebnisse.“ Was prüfst du als Nächstes?",
+          "options": [
+            "Ob die Quelle existiert. Mehr ist nicht nötig.",
+            "Ob die Quelle genau diese Aussage tatsächlich stützt und unter welchen Bedingungen.",
+            "Ob die Quelle einen langen Titel hat."
+          ],
+          "answer": 1,
+          "feedback": "Richtig: Auch echte Quellen können falsch, verkürzt oder übertrieben zitiert werden."
+        },
+        {
+          "id": "e0f-z2",
+          "type": "choice",
+          "prompt": "Welche Frage prüft am besten, ob eine Quelle wirklich als Beleg taugt?",
+          "claim": "LLM-Aussage: „Eine Studie zeigt, dass KI-Unterricht immer bessere Noten erzeugt.“",
+          "options": [
+            "Gibt es die Studie überhaupt, und stützt sie diese konkrete Aussage?",
+            "Klingt der Studienname wissenschaftlich?",
+            "Kannst du die Aussage noch überzeugender formulieren?"
+          ],
+          "answer": 0,
+          "feedback": "Genau: Existenz und Aussagekraft müssen getrennt geprüft werden."
+        },
+        {
+          "id": "e0f-r1",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Prompt, der prüft, ob eine echte Quelle die konkrete Aussage stützt.",
+          "claim": "Das LLM nennt eine reale Quelle, behauptet aber: „Sie beweist, dass digitale Tests Papierarbeiten überlegen sind.“",
+          "mustContainAny": [
+            "stützt",
+            "stuetzt",
+            "konkrete aussage",
+            "beleg",
+            "quelle",
+            "unter welchen bedingungen",
+            "einschränkungen",
+            "einschraenkungen"
+          ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "beweise dass es stimmt",
+            "übernimm",
+            "uebernimm"
+          ],
+          "mustContainQuestionWord": true,
+          "mustContainClaimTermAny": [
+            "quelle",
+            "digitale tests",
+            "papierarbeiten",
+            "aussage"
+          ],
+          "minLength": 80,
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version prüft Quelle und Aussage am besten?",
+          "fallbackChoices": [
+            "Bestätige, dass die Quelle digitale Tests beweist.",
+            "Stützt die genannte Quelle wirklich die konkrete Aussage, dass digitale Tests Papierarbeiten überlegen sind, und welche Einschränkungen nennt sie?",
+            "Schreibe die Aussage wissenschaftlicher."
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Sehr gut: Du prüfst nicht nur die Existenz, sondern die tatsächliche Stützung der Aussage."
+        },
+        {
+          "id": "e0f-m1",
+          "type": "match",
+          "prompt": "Ordne den Prüf-Schritt der Bedeutung zu.",
+          "pairs": [
+            [
+              "Existiert die Quelle?",
+              "Auffindbarkeit prüfen"
+            ],
+            [
+              "Sagt die Quelle das wirklich?",
+              "Inhaltliche Stützung prüfen"
+            ],
+            [
+              "Gilt die Aussage allgemein?",
+              "Übertragbarkeit prüfen"
+            ]
+          ],
+          "feedback": "Diese drei Schritte verhindern, dass echte Quellen für falsche Aussagen benutzt werden."
+        },
+        {
+          "id": "e0f-s1",
+          "type": "sort",
+          "prompt": "Bringe die Quellenprüfung in eine sinnvolle Reihenfolge.",
+          "items": [
+            "Quelle genau benennen lassen",
+            "Existenz und Auffindbarkeit prüfen",
+            "Konkrete Aussage mit der Quelle vergleichen",
+            "Einschränkungen und Kontext notieren"
+          ],
+          "answer": [
+            "Quelle genau benennen lassen",
+            "Existenz und Auffindbarkeit prüfen",
+            "Konkrete Aussage mit der Quelle vergleichen",
+            "Einschränkungen und Kontext notieren"
+          ],
+          "feedback": "So wird aus einem Quellenname ein echter Quellencheck."
+        }
+      ]
+    },
+    {
+      "id": "etappe-0g",
+      "title": "Rollenwechsel im Dialog",
+      "badge": "🔄 Rollenwechsel",
+      "goal": "Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+      "hint": "Ein guter Folge-Prompt kann die Rolle wechseln: erst Wissenschaftler, dann Kritiker, dann Devil's Advocate oder Praktiker.",
+      "unlockScore": 5,
+      "tasks": [
+        {
+          "id": "e0g-z1",
+          "type": "choice",
+          "prompt": "Das LLM hat als Wissenschaftler geantwortet und nur Studienlage zusammengefasst. Welche Folgefrage erweitert die Perspektive am besten?",
+          "options": [
+            "Schreibe die Zusammenfassung länger.",
+            "Wechsle jetzt in die Rolle eines Kritikers: Welche Risiken, Schwachstellen und Gegenargumente wurden bisher übersehen?",
+            "Bestätige die wissenschaftliche Antwort."
+          ],
+          "answer": 1,
+          "feedback": "Richtig: Der Rollenwechsel öffnet neue Prüfperspektiven."
+        },
+        {
+          "id": "e0g-r1",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Folge-Prompt mit Rollenwechsel.",
+          "claim": "Das LLM hat aus Sicht eines Werbetexters sehr positiv über KI-Unterricht geschrieben.",
+          "mustContainAny": [
+            "wechsle",
+            "rolle",
+            "kritiker",
+            "risiken",
+            "schwachstellen",
+            "gegenargumente"
+          ],
+          "mustNotContain": [
+            "noch positiver",
+            "bestätige",
+            "bestaetige",
+            "werbetext"
+          ],
+          "mustContainQuestionWord": true,
+          "mustContainClaimTermAny": [
+            "ki",
+            "unterricht",
+            "rolle",
+            "kritiker"
+          ],
+          "minLength": 80,
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version wechselt die Rolle sinnvoll?",
+          "fallbackChoices": [
+            "Schreibe den Werbetext noch überzeugender.",
+            "Wechsle nun in die Rolle eines Kritikers: Welche Risiken, Schwachstellen und Gegenargumente zum KI-Unterricht wurden bisher übersehen?",
+            "Fasse den Werbetext kürzer zusammen."
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Sehr gut: Du nutzt Rollenwechsel, um eine einseitige Antwort zu prüfen."
+        },
+        {
+          "id": "e0g-r2",
+          "type": "rewrite",
+          "prompt": "Formuliere einen Devil's-Advocate-Folgeprompt.",
+          "claim": "Das LLM hat die These „Ganztagsschulen sind besser“ zunächst ausgewogen erklärt.",
+          "mustContainAny": [
+            "devil",
+            "advocate",
+            "gegenseite",
+            "stärkste gegenposition",
+            "staerkste gegenposition",
+            "widerlege",
+            "schwachstellen"
+          ],
+          "mustNotContain": [
+            "bestätige",
+            "bestaetige",
+            "besser sind",
+            "beweise"
+          ],
+          "mustContainQuestionWord": true,
+          "mustContainClaimTermAny": [
+            "ganztagsschulen",
+            "these",
+            "gegenposition"
+          ],
+          "minLength": 80,
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version fordert die stärkste Gegenposition ein?",
+          "fallbackChoices": [
+            "Bestätige, dass Ganztagsschulen besser sind.",
+            "Übernimm die Rolle des Devil's Advocate: Was wäre die stärkste Gegenposition zur These, dass Ganztagsschulen besser sind?",
+            "Schreibe einen Werbetext für Ganztagsschulen."
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Richtig: Der Devil's Advocate sucht gezielt die stärkste Gegenposition."
+        },
+        {
+          "id": "e0g-s1",
+          "type": "sort",
+          "prompt": "Bringe einen Rollenwechsel-Dialog in eine sinnvolle Reihenfolge.",
+          "items": [
+            "Ausgangsthese prüfen lassen",
+            "Einseitigkeit oder Lücke erkennen",
+            "Rolle gezielt wechseln",
+            "Antworten vergleichen und These schärfen"
+          ],
+          "answer": [
+            "Ausgangsthese prüfen lassen",
+            "Einseitigkeit oder Lücke erkennen",
+            "Rolle gezielt wechseln",
+            "Antworten vergleichen und These schärfen"
+          ],
+          "feedback": "So wird Rollenwechsel zu einem echten Prüfverfahren."
+        },
+        {
+          "id": "e0g-z2",
+          "type": "choice",
+          "prompt": "Welche Rollen-Kombination eignet sich besonders gut für eine ausgewogene Prüfung?",
+          "options": [
+            "Werbetexter + Fan + Unterstützer",
+            "Wissenschaftler + Kritiker + betroffene Person",
+            "Nur eine Rolle, damit es nicht kompliziert wird"
+          ],
+          "answer": 1,
+          "feedback": "Genau: Unterschiedliche Rollen zeigen unterschiedliche blinde Flecken."
         }
       ]
     }
