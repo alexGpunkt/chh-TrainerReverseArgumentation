@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Perspektivwechsel-Trainer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <button id="menuBtn" class="iconbtn" aria-label="Menü öffnen">☰</button>
+      <div>
+        <h1>Perspektivwechsel</h1>
+        <p id="stageTitle">Lade Aufgaben…</p>
+      </div>
+      <div id="scorePill" class="pill">0 ✓</div>
+    </header>
+
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawerHead">
+        <h2>Menü</h2>
+        <button id="closeMenu" class="iconbtn" aria-label="Menü schließen">×</button>
+      </div>
+
+      <section>
+        <h3>Lernfortschritt</h3>
+        <div id="progressText">Noch keine Daten.</div>
+        <div id="badgeList" class="badgeList"></div>
+      </section>
+
+      <section>
+        <h3>Hinweis zur Aufgabe</h3>
+        <p id="taskHint">Wähle eine Aufgabe aus.</p>
+      </section>
+
+      <section>
+        <h3>QR-Code</h3>
+        <canvas id="qrCanvas" width="164" height="164"></canvas>
+        <button id="openQrTarget" class="secondary">Aktuelle Website öffnen</button>
+      </section>
+
+      <section>
+        <button id="resetBtn" class="danger">Fortschritt zurücksetzen</button>
+      </section>
+    </aside>
+
+    <main class="screen">
+      <section class="journey" aria-label="Lernweg">
+        <div class="track">
+          <div id="trackFill" class="trackFill"></div>
+          <div id="walker" class="walker" aria-hidden="true">
+            <div class="head"></div>
+            <div class="body"></div>
+            <div class="arms"></div>
+            <div class="legs"></div>
+          </div>
+        </div>
+        <div id="stageDots" class="stageDots"></div>
+      </section>
+
+      <section class="card">
+        <div class="cardMeta">
+          <span id="taskType">Aufgabe</span>
+          <span id="taskCount">0/0</span>
+        </div>
+        <h2 id="prompt">Aufgabe wird geladen…</h2>
+        <p id="claim" class="claim"></p>
+
+        <div id="taskArea" class="taskArea"></div>
+
+        <div id="feedback" class="feedback" role="status"></div>
+
+        <div class="actions">
+          <button id="checkBtn" class="primary">Prüfen</button>
+          <button id="nextBtn" class="secondary" disabled>Weiter</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="tracker.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

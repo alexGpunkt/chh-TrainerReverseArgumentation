@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "title": "Perspektivwechsel-Trainer",
+    "version": "1.0",
+    "description": "Training gegen Confirmation Bias: eigene Aussagen prüfen, Gegenperspektiven formulieren und Unsicherheit sichtbar machen.",
+    "qrTarget": "https://example.org/perspektivwechsel-trainer"
+  },
+  "stages": [
+    {
+      "id": "etappe-1",
+      "title": "Alltagssätze prüfen",
+      "badge": "🔍 Blickwechsel",
+      "goal": "Einfache Aussagen nicht sofort bestätigen, sondern vorsichtig prüfen.",
+      "hint": "Achte darauf, ob eine Aussage bereits eine Vermutung enthält. Gute Antworten lassen Raum für andere Erklärungen.",
+      "unlockScore": 4,
+      "tasks": [
+        {
+          "id": "e1-z1",
+          "type": "choice",
+          "prompt": "Welche Antwort ist am wenigsten anfällig für Bestätigungsfehler?",
+          "claim": "Mein Freund antwortet nicht. Er ist bestimmt sauer auf mich.",
+          "options": [
+            "Ja, das klingt sehr wahrscheinlich.",
+            "Vielleicht. Es könnte aber auch andere Gründe geben, zum Beispiel Stress, Akku leer oder keine Zeit.",
+            "Dann solltest du ihm auch nicht mehr antworten."
+          ],
+          "answer": 1,
+          "feedback": "Gut: Die Antwort bestätigt nicht vorschnell, sondern nennt alternative Erklärungen."
+        },
+        {
+          "id": "e1-l1",
+          "type": "cloze",
+          "prompt": "Ergänze die vorsichtige Formulierung.",
+          "text": "Es könnte sein, dass er sauer ist. Es gibt aber auch andere ___.",
+          "answer": "Erklärungen",
+          "accepted": [
+            "erklärungen",
+            "gruende",
+            "gründe",
+            "möglichkeiten",
+            "moeglichkeiten"
+          ],
+          "feedback": "Genau: Eine gute Prüfung sucht nach weiteren Erklärungen."
+        },
+        {
+          "id": "e1-m1",
+          "type": "match",
+          "prompt": "Ordne die Aussage der besseren Denkweise zu.",
+          "pairs": [
+            [
+              "Der Bus ist immer zu spät.",
+              "Gibt es Belege oder nur einzelne Erfahrungen?"
+            ],
+            [
+              "Alle fanden meinen Vorschlag schlecht.",
+              "Haben wirklich alle etwas gesagt?"
+            ],
+            [
+              "Das klappt nie.",
+              "Gab es Ausnahmen?"
+            ]
+          ],
+          "feedback": "Diese Fragen schwächen Übertreibungen ab und öffnen den Blick."
+        },
+        {
+          "id": "e1-r1",
+          "type": "rewrite",
+          "prompt": "Formuliere den Satz so um, dass der Sinn bleibt, aber weniger vorschnell geurteilt wird.",
+          "claim": "Meine Kollegin ignoriert mich absichtlich.",
+          "mustContainAny": [
+            "vielleicht",
+            "möglicherweise",
+            "könnte",
+            "unklar",
+            "andere erklärung"
+          ],
+          "feedback": "Eine gute Umformulierung enthält Unsicherheit, ohne das Anliegen wegzuwischen."
+        }
+      ]
+    },
+    {
+      "id": "etappe-2",
+      "title": "Gegenperspektiven finden",
+      "badge": "⚖️ Fair prüfen",
+      "goal": "Zu einer eigenen Vermutung mindestens eine faire Gegenperspektive entwickeln.",
+      "hint": "Eine Gegenperspektive bedeutet nicht, dass die eigene Sicht falsch ist. Sie macht die Prüfung nur ehrlicher.",
+      "unlockScore": 4,
+      "tasks": [
+        {
+          "id": "e2-z1",
+          "type": "choice",
+          "prompt": "Welche Gegenfrage passt am besten?",
+          "claim": "Die neue Sitzordnung ist ungerecht.",
+          "options": [
+            "Wer ist schuld daran?",
+            "Welche Gründe könnte es für die Sitzordnung geben?",
+            "Warum macht die Lehrkraft immer alles falsch?"
+          ],
+          "answer": 1,
+          "feedback": "Richtig: Die Frage sucht Gründe, ohne die Kritik sofort aufzugeben."
+        },
+        {
+          "id": "e2-l1",
+          "type": "cloze",
+          "prompt": "Ergänze den Perspektivwechsel.",
+          "text": "Aus meiner Sicht wirkt es unfair. Aus Sicht der anderen Person könnte ___ eine Rolle spielen.",
+          "answer": "Ruhe",
+          "accepted": [
+            "ruhe",
+            "ordnung",
+            "konzentration",
+            "übersicht",
+            "uebersicht",
+            "sicherheit"
+          ],
+          "feedback": "Gut: Du formulierst eine mögliche andere Absicht."
+        },
+        {
+          "id": "e2-m1",
+          "type": "match",
+          "prompt": "Ordne die Behauptung der passenden Gegenperspektive zu.",
+          "pairs": [
+            [
+              "Die Aufgabe ist sinnlos.",
+              "Vielleicht trainiert sie eine Fähigkeit, die später gebraucht wird."
+            ],
+            [
+              "Die Regel ist nur Schikane.",
+              "Vielleicht soll sie Streit oder Chaos vermeiden."
+            ],
+            [
+              "Niemand hört mir zu.",
+              "Vielleicht war der Zeitpunkt ungünstig."
+            ]
+          ],
+          "feedback": "Gegenperspektiven sollen fair und möglich sein, nicht automatisch wahr."
+        },
+        {
+          "id": "e2-r1",
+          "type": "rewrite",
+          "prompt": "Schreibe eine faire Gegenperspektive.",
+          "claim": "Die Gruppe hat meinen Vorschlag abgelehnt, weil sie mich nicht mag.",
+          "mustContainAny": [
+            "vielleicht",
+            "könnte",
+            "möglicherweise",
+            "andere gründe",
+            "inhalt"
+          ],
+          "feedback": "Gut, wenn die Antwort andere Gründe zulässt, ohne das Gefühl abzuwerten."
+        }
+      ]
+    },
+    {
+      "id": "etappe-3",
+      "title": "Argumente stabiler machen",
+      "badge": "🧠 Denkprofi",
+      "goal": "Eigene Argumente durch Einwände, Belege und Grenzen verbessern.",
+      "hint": "Ein starkes Argument nennt nicht nur die eigene Meinung, sondern auch Belege, Grenzen und mögliche Einwände.",
+      "unlockScore": 5,
+      "tasks": [
+        {
+          "id": "e3-z1",
+          "type": "choice",
+          "prompt": "Welche Formulierung ist am stärksten?",
+          "claim": "Handys im Unterricht sollten erlaubt sein.",
+          "options": [
+            "Handys sollten erlaubt sein, weil ich das gut finde.",
+            "Handys sollten erlaubt sein, wenn sie für klare Lernaufträge genutzt werden; gleichzeitig braucht es Regeln gegen Ablenkung.",
+            "Wer dagegen ist, versteht Technik nicht."
+          ],
+          "answer": 1,
+          "feedback": "Stark: Die Aussage nennt Bedingung und Einwand."
+        },
+        {
+          "id": "e3-l1",
+          "type": "cloze",
+          "prompt": "Ergänze eine robuste Argumentstruktur.",
+          "text": "Mein Argument gilt besonders dann, wenn ___. Es wäre schwächer, wenn ___.",
+          "answer": "Regeln",
+          "accepted": [
+            "regeln",
+            "bedingungen",
+            "belege",
+            "daten",
+            "klare regeln",
+            "klare bedingungen"
+          ],
+          "feedback": "Robuste Argumente benennen Bedingungen und Grenzen."
+        },
+        {
+          "id": "e3-m1",
+          "type": "match",
+          "prompt": "Ordne die Funktion dem Satzteil zu.",
+          "pairs": [
+            [
+              "Ich vermute...",
+              "Unsicherheit sichtbar machen"
+            ],
+            [
+              "Ein Gegenargument wäre...",
+              "Einwand einbauen"
+            ],
+            [
+              "Das gilt vor allem, wenn...",
+              "Bedingung nennen"
+            ]
+          ],
+          "feedback": "Diese Bausteine helfen, ohne Rechthaberei überzeugend zu bleiben."
+        },
+        {
+          "id": "e3-r1",
+          "type": "rewrite",
+          "prompt": "Verbessere das Argument, ohne den Sinn zu verlieren.",
+          "claim": "Gruppenarbeit ist besser als Einzelarbeit.",
+          "mustContainAny": [
+            "wenn",
+            "aber",
+            "gleichzeitig",
+            "nicht immer",
+            "vorausgesetzt",
+            "einzelarbeit"
+          ],
+          "feedback": "Eine gute Version bleibt beim Kern, ergänzt aber Bedingungen oder Grenzen."
+        },
+        {
+          "id": "e3-r2",
+          "type": "sort",
+          "prompt": "Bringe die Argumentstruktur in eine sinnvolle Reihenfolge.",
+          "items": [
+            "Eigene These nennen",
+            "Begründung geben",
+            "Möglichen Einwand nennen",
+            "Grenze oder Bedingung ergänzen"
+          ],
+          "answer": [
+            "Eigene These nennen",
+            "Begründung geben",
+            "Möglichen Einwand nennen",
+            "Grenze oder Bedingung ergänzen"
+          ],
+          "feedback": "Diese Reihenfolge wirkt klar und fair."
+        }
+      ]
+    }
+  ]
+}
