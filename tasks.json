@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "Perspektivwechsel-Trainer",
-    "version": "1.0",
-    "description": "Training gegen Confirmation Bias: eigene Aussagen prüfen, Gegenperspektiven formulieren und Unsicherheit sichtbar machen.",
+    "version": "1.1",
+    "description": "Training gegen Confirmation Bias mit gestufter Hilfe.",
     "qrTarget": "https://example.org/perspektivwechsel-trainer"
   },
   "stages": [
@@ -10,7 +10,7 @@
       "id": "etappe-1",
       "title": "Alltagssätze prüfen",
       "badge": "🔍 Blickwechsel",
-      "goal": "Einfache Aussagen nicht sofort bestätigen, sondern vorsichtig prüfen.",
+      "goal": "Einfache Aussagen vorsichtig prüfen.",
       "hint": "Achte darauf, ob eine Aussage bereits eine Vermutung enthält. Gute Antworten lassen Raum für andere Erklärungen.",
       "unlockScore": 4,
       "tasks": [
@@ -32,14 +32,22 @@
           "type": "cloze",
           "prompt": "Ergänze die vorsichtige Formulierung.",
           "text": "Es könnte sein, dass er sauer ist. Es gibt aber auch andere ___.",
-          "answer": "Erklärungen",
           "accepted": [
             "erklärungen",
             "gruende",
             "gründe",
             "möglichkeiten",
-            "moeglichkeiten"
+            "moeglichkeiten",
+            "ursachen"
           ],
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Ergänzung passt am besten, ohne vorschnell zu urteilen?",
+          "fallbackChoices": [
+            "Beweise dafür",
+            "Erklärungen",
+            "Schuldige"
+          ],
+          "fallbackAnswer": 1,
           "feedback": "Genau: Eine gute Prüfung sucht nach weiteren Erklärungen."
         },
         {
@@ -72,8 +80,17 @@
             "möglicherweise",
             "könnte",
             "unklar",
-            "andere erklärung"
+            "andere erklärung",
+            "andere gründe"
           ],
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version bleibt beim Sinn, urteilt aber vorsichtiger?",
+          "fallbackChoices": [
+            "Meine Kollegin ignoriert mich absichtlich, weil sie mich nicht leiden kann.",
+            "Ich habe den Eindruck, dass meine Kollegin mich ignoriert; vielleicht gibt es aber auch andere Gründe.",
+            "Meine Kollegin verhält sich falsch und muss sich entschuldigen."
+          ],
+          "fallbackAnswer": 1,
           "feedback": "Eine gute Umformulierung enthält Unsicherheit, ohne das Anliegen wegzuwischen."
         }
       ]
@@ -104,16 +121,31 @@
           "type": "cloze",
           "prompt": "Ergänze den Perspektivwechsel.",
           "text": "Aus meiner Sicht wirkt es unfair. Aus Sicht der anderen Person könnte ___ eine Rolle spielen.",
-          "answer": "Ruhe",
           "accepted": [
             "ruhe",
             "ordnung",
             "konzentration",
             "übersicht",
             "uebersicht",
-            "sicherheit"
+            "sicherheit",
+            "leistung",
+            "fairness",
+            "organisation",
+            "zeit",
+            "lernruhe",
+            "arbeitsruhe",
+            "bessere verteilung",
+            "gruppenklima"
           ],
-          "feedback": "Gut: Du formulierst eine mögliche andere Absicht."
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Ergänzung beschreibt am besten eine mögliche Perspektive der anderen Person?",
+          "fallbackChoices": [
+            "mein Ärger über die Entscheidung",
+            "der Wunsch nach mehr Ruhe und Konzentration im Unterricht",
+            "dass ich die Regel nicht mag"
+          ],
+          "fallbackAnswer": 1,
+          "feedback": "Gut: Du formulierst eine mögliche andere Absicht oder ein anderes Ziel."
         },
         {
           "id": "e2-m1",
@@ -145,8 +177,18 @@
             "könnte",
             "möglicherweise",
             "andere gründe",
-            "inhalt"
+            "inhalt",
+            "zeitpunkt",
+            "umsetzbar"
           ],
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Antwort ist eine faire Gegenperspektive?",
+          "fallbackChoices": [
+            "Die Gruppe mag mich nicht und wollte mich deshalb verletzen.",
+            "Vielleicht ging es weniger um mich, sondern um den Inhalt, den Zeitpunkt oder die Umsetzbarkeit des Vorschlags.",
+            "Die Gruppe hat grundsätzlich keine guten Argumente."
+          ],
+          "fallbackAnswer": 1,
           "feedback": "Gut, wenn die Antwort andere Gründe zulässt, ohne das Gefühl abzuwerten."
         }
       ]
@@ -176,16 +218,25 @@
           "id": "e3-l1",
           "type": "cloze",
           "prompt": "Ergänze eine robuste Argumentstruktur.",
-          "text": "Mein Argument gilt besonders dann, wenn ___. Es wäre schwächer, wenn ___.",
-          "answer": "Regeln",
+          "text": "Mein Argument gilt besonders dann, wenn ___. Es wäre schwächer, wenn wichtige Bedingungen fehlen.",
           "accepted": [
             "regeln",
             "bedingungen",
             "belege",
             "daten",
             "klare regeln",
-            "klare bedingungen"
+            "klare bedingungen",
+            "nachweise",
+            "vereinbarungen"
           ],
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Ergänzung macht das Argument stabiler?",
+          "fallbackChoices": [
+            "klare Regeln und Bedingungen genannt werden",
+            "ich besonders überzeugt davon bin",
+            "andere Meinungen ignoriert werden"
+          ],
+          "fallbackAnswer": 0,
           "feedback": "Robuste Argumente benennen Bedingungen und Grenzen."
         },
         {
@@ -221,6 +272,14 @@
             "vorausgesetzt",
             "einzelarbeit"
           ],
+          "maxAttempts": 2,
+          "fallbackIntro": "Welche Version ist am ausgewogensten?",
+          "fallbackChoices": [
+            "Gruppenarbeit ist immer besser, weil man mit anderen zusammenarbeitet.",
+            "Gruppenarbeit kann besser sein, wenn die Rollen klar sind; gleichzeitig kann Einzelarbeit bei manchen Aufgaben sinnvoller sein.",
+            "Einzelarbeit ist schlecht, weil man dabei nichts von anderen lernt."
+          ],
+          "fallbackAnswer": 1,
           "feedback": "Eine gute Version bleibt beim Kern, ergänzt aber Bedingungen oder Grenzen."
         },
         {
