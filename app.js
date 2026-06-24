@@ -275,13 +275,19 @@ sel.appendChild(placeholder);
 shuffled.forEach(x=>{const opt=document.createElement("option");opt.textContent=String(x);opt.value=String(x);sel.appendChild(opt);});
 row.appendChild(sel);taskArea.appendChild(row)})}if(t.type==="rewrite"||t.type==="promptRewrite"){const info=document.createElement("p");info.className="qualityHint";info.textContent="Ein guter Prompt nennt die These/den Kontext, fordert Prüfung ein und vermeidet suggestive Wörter wie „bestätige“ oder „beweise“.";const ta=document.createElement("textarea");ta.id="rewriteInput";ta.placeholder="Deine umformulierte Version…";taskArea.append(info,ta)}if(t.type==="sort"){const reset=document.createElement("button");reset.type="button";reset.className="miniBtn";reset.textContent="Reihenfolge zurücksetzen";reset.onclick=()=>render();taskArea.appendChild(reset);const box=document.createElement("div");[...t.items].sort(()=>Math.random()-.5).forEach(item=>{const div=document.createElement("button");div.type="button";div.className="sortItem";div.textContent=item;div.onclick=()=>{if(state.selectedSort.includes(item))return;state.selectedSort.push(item);div.classList.add("active");div.textContent=`${state.selectedSort.length}. ${item}`};box.appendChild(div)});taskArea.appendChild(box)}if(t.type==="livePaste")renderLivePaste(t)}
 function renderChoice(options,name="choice"){
- options.forEach((opt,i)=>{
-  const label=document.createElement("label");label.className="option";
-  const radio=document.createElement("input");radio.type="radio";radio.name=name;radio.value=i;
-  const span=document.createElement("span");span.textContent=String(opt);
-  label.append(radio,span);taskArea.appendChild(label);
- })
-}" value="${i}"><span>${opt}</span>`;taskArea.appendChild(label)})}
+  options.forEach((opt,i)=>{
+    const label=document.createElement("label");
+    label.className="option";
+    const radio=document.createElement("input");
+    radio.type="radio";
+    radio.name=name;
+    radio.value=i;
+    const span=document.createElement("span");
+    span.textContent=String(opt);
+    label.append(radio,span);
+    taskArea.appendChild(label);
+  });
+}
 function renderLivePaste(t){const box=document.createElement("div");box.className="copyBox";const title=document.createElement("strong");title.textContent="Zu kopierender Prompt";const p=document.createElement("p");p.className="copyText";p.textContent=t.copyPrompt||"";const btn=document.createElement("button");btn.type="button";btn.className="miniBtn";btn.textContent="Prompt kopieren";btn.onclick=async()=>{try{await navigator.clipboard.writeText(t.copyPrompt||"");btn.textContent="Kopiert ✓"}catch(e){btn.textContent="Manuell kopieren"}};const guide=document.createElement("p");
 guide.className="qualityHint";
 guide.textContent="1. Prompt kopieren → 2. In ChatGPT/Copilot/Claude einfügen → 3. Antwort kopieren → 4. Hier einfügen.";
@@ -387,9 +393,15 @@ function markSolved(){const st=currentStage(),t=currentTask();if(!state.solved[t
 function next(){const st=currentStage();if(state.taskIndex<st.tasks.length-1)state.taskIndex++;else if(state.stageIndex<state.data.stages.length-1){state.stageIndex++;state.taskIndex=0}else{$("#feedback").textContent="Alle Etappen geschafft.";$("#feedback").className="feedback ok";return}render()}
 function renderProgress(){const all=state.data.stages.flatMap(s=>s.tasks),solved=Object.keys(state.solved).length,percent=all.length?Math.round(solved/all.length*100):0;$("#trackFill").style.width=`${percent}%`;$("#walker").style.left=`${percent}%`;$("#progressText").textContent=`${solved} von ${all.length} Aufgaben gelöst (${percent}%).`;$("#badgeList").innerHTML=state.badges.length?state.badges.map(b=>`<span class="badge">${b}</span>`).join(""):"<span>Noch kein Abzeichen.</span>";$("#stageDots").innerHTML=state.data.stages.map((s,i)=>{const done=state.badges.includes(s.badge);return `<span class="${done?"done":""}">${done?"●":"○"} ${i+1}</span>`}).join("");renderLearningAnalysis()}
 function renderQr(text){const c=$("#qrCanvas"),ctx=c.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);const size=8;let seed=0;for(let ch of text)seed=(seed+ch.charCodeAt(0)*17)%9973;ctx.fillStyle="#111827";for(let y=0;y<17;y++)for(let x=0;x<17;x++){const on=(x<4&&y<4)||(x>12&&y<4)||(x<4&&y>12)||((x*y+seed+x+y*3)%5===0);if(on)ctx.fillRect(14+x*size,14+y*size,size-1,size-1)}}
-$("#checkBtn").addEventListener("click",check);$("#nextBtn").addEventListener("click",next);$("#menuBtn").addEventListener("click",()=>$("#drawer").classList.add("open"));$("#closeMenu").addEventListener("click",()=>$("#drawer").classList.remove("open"));$("#openQrTarget").addEventListener("click",()=>{
+$("#checkBtn").addEventListener("click",check);
+$("#nextBtn").addEventListener("click",next);
+$("#menuBtn").addEventListener("click",()=>$("#drawer").classList.add("open"));
+$("#closeMenu").addEventListener("click",()=>$("#drawer").classList.remove("open"));
+$("#openQrTarget").addEventListener("click",()=>{
  const url=state.data?.meta?.qrTarget;
  if(url) window.open(url,"_blank"); else alert("Kein QR-Ziel hinterlegt.");
-});$("#resetBtn").addEventListener("click",()=>{localStorage.removeItem("pwTrainerState");location.reload()});document.getElementById("exportJsonBtn")?.addEventListener("click",()=>exportData("json"));
+});
+$("#resetBtn").addEventListener("click",()=>{localStorage.removeItem("pwTrainerState");location.reload()});
+document.getElementById("exportJsonBtn")?.addEventListener("click",()=>exportData("json"));
 document.getElementById("exportCsvBtn")?.addEventListener("click",()=>exportData("csv"));
 init();
