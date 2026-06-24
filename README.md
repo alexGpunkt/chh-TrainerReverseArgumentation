@@ -1,21 +1,57 @@
-# Perspektivwechsel-Trainer v1.2
+# Perspektivwechsel-Trainer v1.4
 
-Neu in dieser Version:
-- Neue Etappe 0: „LLM-Framing verstehen“
-- Aufgaben zu suggestiven Prompts und typischen bestätigenden LLM-Antworten
-- Prompt-Umformulierungen: suggestive Fragen in offene Prüf-Fragen verwandeln
-- Sparring-Prompts: LLM gezielt nach Gegenargumenten, Schwachstellen, Bedingungen und Ausnahmen fragen
-- Bestehende Etappen wurden um LLM-Transferaufgaben ergänzt
-- `contextBlocks` in tasks.json erlaubt die Darstellung von Prompt A/B und typischen LLM-Reaktionen
+Neu:
+- Etappe „Halluzinationen erkennen“
+  - erfundene Studien
+  - falsche Statistiken
+  - Quellen-/Autor:innen-Halluzinationen
+- Etappe „Prompt-Chaining“
+  - Folge-Prompts nach zu bestätigenden Antworten
+  - Alternativhypothesen einfordern
+  - mehrstufige Prüfstrategie
+- Schärfere Rewrite-Validierung:
+  - `mustContainQuestionWord`
+  - `mustContainAlternativeExplanations`
+  - `mustNotContain`
+  - `mustContainClaimTermAny`
+  - `minLength`
+- Metakognition:
+  - Nach gelösten Aufgaben erscheint eine Selbsteinschätzung 1–5
+  - Einschätzung wird über `tracker.js` mitgesendet
 
-Für ein Update bestehender Installationen:
-Mindestens ersetzen:
-- tasks.json
-- app.js
+Weiterhin kostenlos:
+- Kein API-Zwang
+- Live-Modus bleibt Copy-&-Paste-basiert
 
-Zusätzlich empfohlen:
-- style.css
 
-Unverändert nutzbar:
-- index.html
-- tracker.js
+v1.5 Bugfixes: try/catch init, sichere Speicherstände, XSS-freie Optionen, QR-Guard, Ladeoverlay, Live-Anleitung.
+
+
+v1.6: Rollen- und Tonfalltraining, Perspektivmeister-Etappe, Vorbereitung für Lernpfad-Analysen.
+
+v1.7:
+- Neue Etappe „Quelle ≠ Beleg“
+- Neue Etappe „Rollenwechsel im Dialog“
+- Match-Aufgaben XSS-sicherer gerendert
+- Reflexionsfeedback nach korrekter Antwort
+- stärkere Prompt-Validierung mit Prüfhandlung/Fragestruktur
+
+v1.8:
+- lokale Lernpfad-Analyse im Hamburger-Menü
+- Auswertung von Fehlversuchen, Hilfen, Aufgabentypen und Selbsteinschätzung
+- personalisierte Empfehlung aus lokalen Lernständen
+- stärkere Prompt-Strukturprüfung per Frage-/Aufforderungsmuster
+- bisherige Sicherheitsfixes bleiben erhalten
+
+v1.9:
+- Trend-Analyse pro Aufgabentyp
+- Vergleich Sicherheit vs. Korrektheit
+- Empfehlungen auf Basis von Confidence-Mustern
+- lokale Historie der letzten Aufgabenversuche
+
+v1.10:
+- Sparkline-Visualisierung für Trends
+- JSON- und CSV-Export lokaler Lernpfaddaten
+- Benchmark-Vorbereitung über bestehenden Tracker
+- erweiterte Empfehlungen nach Validierungsfehlern
+- Abschlussversion vor Version 2.0
