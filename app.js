@@ -35,7 +35,6 @@ function loadSaved() {
     const raw = localStorage.getItem("pwTrainerState");
     if (!raw) return;
     const saved = JSON.parse(raw);
-    // Nur gültige Felder übernehmen
     if (typeof saved.stageIndex === 'number') state.stageIndex = saved.stageIndex;
     if (typeof saved.taskIndex === 'number') state.taskIndex = saved.taskIndex;
     if (typeof saved.score === 'number') state.score = saved.score;
@@ -55,6 +54,15 @@ function norm(s) {
     .replaceAll("ü", "ue")
     .replaceAll("ß", "ss")
     .replace(/\s+/g, " ");
+}
+
+// BUG FIX 4: sichere Text-Escaping-Funktion gegen XSS in innerHTML
+function esc(s) {
+  return String(s || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 function currentStage() {
@@ -81,34 +89,36 @@ function typeLabel(t) {
   return map[t] || "Aufgabe";
 }
 
-// ===== QR-CODE (vereinfacht, aber funktional) =====
+// ===== QR-CODE =====
 function renderQr(text) {
   const c = $("#qrCanvas");
+  if (!c) return;
+  // BUG FIX 5: Hinweis einblenden wenn kein qrTarget vorhanden
+  if (!text) {
+    const ctx = c.getContext("2d");
+    ctx.fillStyle = "#f8fafc";
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.fillStyle = "#62708a";
+    ctx.font = "11px system-ui";
+    ctx.textAlign = "center";
+    ctx.fillText("Kein QR-Ziel", c.width / 2, c.height / 2);
+    return;
+  }
   const ctx = c.getContext("2d");
   const size = c.width;
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, size, size);
-  
-  // Einfaches QR-ähnliches Muster (für Demo-Zwecke)
-  // In einer echten App würde man eine QR-Bibliothek einbinden
   ctx.fillStyle = "#111827";
   const cellSize = size / 17;
   let seed = 0;
   for (let ch of text) seed = (seed + ch.charCodeAt(0) * 17) % 9973;
-  
   for (let y = 0; y < 17; y++) {
     for (let x = 0; x < 17; x++) {
-      // Positionierungsmuster
       const isPosPattern = (x < 4 && y < 4) || (x > 12 && y < 4) || (x < 4 && y > 12);
       const isTiming = (y === 6 || x === 6) && x >= 4 && x <= 12 && y >= 4 && y <= 12;
       const on = isPosPattern || isTiming || ((x * y + seed + x + y * 3) % 5 === 0);
       if (on) {
-        ctx.fillRect(
-          2 + x * cellSize,
-          2 + y * cellSize,
-          cellSize - 1,
-          cellSize - 1
-        );
+        ctx.fillRect(2 + x * cellSize, 2 + y * cellSize, cellSize - 1, cellSize - 1);
       }
     }
   }
@@ -118,7 +128,7 @@ function renderQr(text) {
 function render() {
   const st = currentStage();
   const t = currentTask();
-  
+
   if (!st || !t) {
     $("#stageTitle").textContent = "Keine Aufgaben gefunden";
     taskArea.innerHTML = "<p>Bitte lade die Seite neu oder kontaktiere den Support.</p>";
@@ -139,7 +149,7 @@ function render() {
   $("#checkBtn").disabled = false;
   $("#taskHint").textContent = st.hint || "Kein Hinweis verfügbar.";
   state.selectedSort = [];
-  
+
   renderProgress();
   renderTask(t);
   save();
@@ -147,17 +157,16 @@ function render() {
 
 function renderTask(t) {
   taskArea.innerHTML = "";
-  
   if (!t) return;
 
   switch (t.type) {
     case "choice":
       renderChoice(t.options || [], "choice");
       break;
-      
-    case "cloze":
+
+    case "cloze": {
       const p = document.createElement("p");
-      p.innerHTML = (t.text || "").replace("___", "<strong>_____</strong>");
+      p.innerHTML = esc(t.text || "").replace("___", "<strong>_____</strong>");
       const input = document.createElement("input");
       input.type = "text";
       input.placeholder = "Antwort eingeben";
@@ -167,25 +176,38 @@ function renderTask(t) {
       taskArea.append(p, input);
       setTimeout(() => input.focus(), 100);
       break;
-      
-    case "match":
+    }
+
+    case "match": {
       const pairs = t.pairs || [];
       const shuffledRight = [...pairs.map(p => p[1])].sort(() => Math.random() - 0.5);
       pairs.forEach((pair, idx) => {
         const row = document.createElement("div");
         row.className = "matchRow";
-        row.innerHTML = `<strong>${pair[0]}</strong>`;
+        // BUG FIX 4: pair[0] wurde unsicher per innerHTML eingefügt → jetzt textContent
+        const label = document.createElement("strong");
+        label.textContent = pair[0];
+        row.appendChild(label);
         const sel = document.createElement("select");
         sel.dataset.answer = pair[1];
         sel.dataset.index = idx;
-        sel.innerHTML = `<option value="">Wähle…</option>` + 
-          shuffledRight.map(x => `<option value="${x}">${x}</option>`).join("");
+        const defaultOpt = document.createElement("option");
+        defaultOpt.value = "";
+        defaultOpt.textContent = "Wähle…";
+        sel.appendChild(defaultOpt);
+        shuffledRight.forEach(x => {
+          const opt = document.createElement("option");
+          opt.value = x;
+          opt.textContent = x;
+          sel.appendChild(opt);
+        });
         row.appendChild(sel);
         taskArea.appendChild(row);
       });
       break;
-      
-    case "rewrite":
+    }
+
+    case "rewrite": {
       const info = document.createElement("p");
       info.textContent = "Tipp: Formuliere vorsichtig, aber nicht beliebig. Der Sinn soll erhalten bleiben.";
       info.style.fontSize = ".85rem";
@@ -196,37 +218,53 @@ function renderTask(t) {
       taskArea.append(info, ta);
       setTimeout(() => ta.focus(), 100);
       break;
-      
-    case "sort":
+    }
+
+    case "sort": {
       const box = document.createElement("div");
       box.style.display = "flex";
       box.style.flexDirection = "column";
       box.style.gap = "6px";
       const items = [...(t.items || [])];
-      const shuffledItems = items.sort(() => Math.random() - 0.5);
+      const shuffledItems = [...items].sort(() => Math.random() - 0.5);
+
+      // BUG FIX 3: Reset-Button für sort, damit falsche Klicks rückgängig gemacht werden können
+      const resetSort = document.createElement("button");
+      resetSort.type = "button";
+      resetSort.className = "secondary";
+      resetSort.style.marginBottom = "4px";
+      resetSort.style.fontSize = ".85rem";
+      resetSort.style.padding = "8px 12px";
+      resetSort.textContent = "↺ Auswahl zurücksetzen";
+      resetSort.onclick = () => {
+        state.selectedSort = [];
+        box.querySelectorAll(".sortItem").forEach(btn => {
+          btn.classList.remove("active");
+          btn.textContent = btn.dataset.value;
+        });
+      };
+      taskArea.appendChild(resetSort);
+
       shuffledItems.forEach(item => {
-        const div = document.createElement("button");
-        div.type = "button";
-        div.className = "sortItem";
-        div.textContent = item;
-        div.dataset.value = item;
-        div.onclick = () => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "sortItem";
+        btn.textContent = item;
+        btn.dataset.value = item;
+        btn.onclick = () => {
           if (state.selectedSort.includes(item)) return;
           state.selectedSort.push(item);
-          div.classList.add("active");
-          div.textContent = `${state.selectedSort.length}. ${item}`;
-          // Prüfe ob alle sortiert sind
-          if (state.selectedSort.length === items.length) {
-            // Automatisch prüfen?
-          }
+          btn.classList.add("active");
+          btn.textContent = `${state.selectedSort.length}. ${item}`;
         };
-        box.appendChild(div);
+        box.appendChild(btn);
       });
       taskArea.appendChild(box);
       break;
-      
+    }
+
     default:
-      taskArea.innerHTML = `<p>Unbekannter Aufgabentyp: ${t.type}</p>`;
+      taskArea.innerHTML = `<p>Unbekannter Aufgabentyp: ${esc(t.type)}</p>`;
   }
 }
 
@@ -234,7 +272,13 @@ function renderChoice(options, name) {
   (options || []).forEach((opt, i) => {
     const label = document.createElement("label");
     label.className = "option";
-    label.innerHTML = `<input type="radio" name="${name}" value="${i}"><span>${opt}</span>`;
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = name;
+    radio.value = i;
+    const span = document.createElement("span");
+    span.textContent = opt;
+    label.append(radio, span);
     taskArea.appendChild(label);
   });
 }
@@ -270,7 +314,6 @@ function check() {
 
   let ok = false;
 
-  // Fallback-Modus
   if (state.fallbackMode) {
     const checked = document.querySelector("input[name='fallbackChoice']:checked");
     if (checked) {
@@ -289,7 +332,6 @@ function check() {
     return;
   }
 
-  // Normaler Check nach Aufgabentyp
   switch (t.type) {
     case "choice": {
       const c = document.querySelector("input[name='choice']:checked");
@@ -312,10 +354,18 @@ function check() {
       const el = $("#rewriteInput");
       if (!el) { ok = false; break; }
       const v = norm(el.value);
+      // BUG FIX 6: mustContainAny-Wörter werden jetzt ebenfalls normalisiert vor dem Vergleich
       ok = v.length >= 25 && (t.mustContainAny || []).some(w => v.includes(norm(w)));
       break;
     }
     case "sort": {
+      // BUG FIX: Prüfe ob überhaupt alle Items ausgewählt wurden
+      if (state.selectedSort.length < (t.items || []).length) {
+        const fb = $("#feedback");
+        fb.textContent = "Bitte bringe alle Begriffe in eine Reihenfolge, bevor du prüfst.";
+        fb.className = "feedback no";
+        return;
+      }
       ok = JSON.stringify(state.selectedSort) === JSON.stringify(t.answer || []);
       break;
     }
@@ -330,14 +380,13 @@ function check() {
     markSolved();
   } else {
     const attempts = increaseAttempt(t);
-    // Fallback nach zu vielen Versuchen
-    if ((t.type === "cloze" || t.type === "rewrite") && 
-        t.fallbackChoices && 
+    if ((t.type === "cloze" || t.type === "rewrite") &&
+        t.fallbackChoices &&
         attempts >= (t.maxAttempts || 2)) {
       showFallbackChoices(t);
       return;
     }
-    fb.textContent = "Noch nicht ganz. Versuche es noch einmal." + 
+    fb.textContent = "Noch nicht ganz. Versuche es noch einmal." +
       (t.fallbackChoices ? " Danach erhältst du drei Antwortmöglichkeiten." : "");
     fb.className = "feedback no";
   }
@@ -346,12 +395,12 @@ function check() {
 function markSolved() {
   const t = currentTask();
   if (!t) return;
-  
+
   if (!state.solved[t.id]) {
     state.solved[t.id] = true;
     state.score++;
     state.attempts[t.id] = 0;
-    
+
     const st = currentStage();
     if (st) {
       const solvedInStage = st.tasks.filter(x => state.solved[x.id]).length;
@@ -361,10 +410,10 @@ function markSolved() {
         fb.textContent += ` 🎉 Neues Abzeichen: ${st.badge}`;
       }
     }
-    
-    // Tracker
+
     try {
       if (window.ProgressTracker && typeof window.ProgressTracker.sendProgress === 'function') {
+        const st = currentStage();
         window.ProgressTracker.sendProgress({
           stageId: st?.id || "unknown",
           stageTitle: st?.title || "unknown",
@@ -378,7 +427,7 @@ function markSolved() {
       }
     } catch (e) { /* tracker fail silently */ }
   }
-  
+
   $("#nextBtn").disabled = false;
   $("#checkBtn").disabled = true;
   renderProgress();
@@ -388,7 +437,7 @@ function markSolved() {
 function next() {
   const st = currentStage();
   if (!st) return;
-  
+
   if (state.taskIndex < st.tasks.length - 1) {
     state.taskIndex++;
   } else if (state.stageIndex < (state.data?.stages?.length || 0) - 1) {
@@ -408,18 +457,18 @@ function renderProgress() {
   const all = state.data?.stages?.flatMap(s => s.tasks) || [];
   const solved = Object.keys(state.solved).length;
   const percent = all.length ? Math.round(solved / all.length * 100) : 0;
-  
+
   $("#trackFill").style.width = `${Math.min(percent, 100)}%`;
   $("#walker").style.left = `${Math.min(percent, 100)}%`;
   $("#progressText").textContent = `${solved} von ${all.length} Aufgaben gelöst (${percent}%).`;
-  
+
   const badgeList = $("#badgeList");
   if (state.badges.length) {
-    badgeList.innerHTML = state.badges.map(b => `<span class="badge">${b}</span>`).join("");
+    badgeList.innerHTML = state.badges.map(b => `<span class="badge">${esc(b)}</span>`).join("");
   } else {
     badgeList.innerHTML = "<span style='color:var(--muted);font-size:.85rem;'>Noch kein Abzeichen.</span>";
   }
-  
+
   const stageDots = $("#stageDots");
   if (state.data?.stages) {
     stageDots.innerHTML = state.data.stages.map((s, i) => {
@@ -438,61 +487,65 @@ function updateLoader(progress) {
 async function init() {
   try {
     updateLoader(10);
-    
-    // Aufgaben laden
+
     const r = await fetch("tasks.json");
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     state.data = await r.json();
     updateLoader(60);
-    
-    // Validierung
+
     if (!state.data.stages || !Array.isArray(state.data.stages) || state.data.stages.length === 0) {
       throw new Error("Ungültige Aufgabenstruktur: Keine Etappen gefunden.");
     }
-    
-    // QR-Code
-    if (state.data.meta?.qrTarget) {
-      renderQr(state.data.meta.qrTarget);
-    }
-    
+
+    // BUG FIX 5: renderQr wird jetzt auch ohne qrTarget aufgerufen (zeigt Platzhalter)
+    renderQr(state.data.meta?.qrTarget || "");
+
     loadSaved();
     updateLoader(90);
     render();
     updateLoader(100);
-    
-    // Loading Overlay ausblenden
+
     setTimeout(() => {
       if (loadingOverlay) loadingOverlay.style.display = "none";
     }, 400);
-    
+
   } catch (err) {
     console.error("Init failed:", err);
-    if (loadingOverlay) {
-      loadingOverlay.innerHTML = `
-        <div style="text-align:center;max-width:320px;padding:20px;">
-          <div style="font-size:3rem;margin-bottom:12px;">⚠️</div>
-          <h3 style="margin:0 0 8px;">Fehler beim Laden</h3>
-          <p style="color:var(--muted);font-size:.9rem;">${err.message || "Bitte versuche es später erneut."}</p>
-          <button onclick="location.reload()" style="margin-top:16px;padding:10px 24px;border:0;border-radius:12px;background:var(--accent);color:white;font-weight:700;cursor:pointer;">Neu laden</button>
-        </div>
-      `;
-    }
+    // BUG FIX 8: Fehler auch anzeigen wenn loadingOverlay nicht im DOM wäre
+    const overlay = loadingOverlay || document.body;
+    overlay.innerHTML = `
+      <div style="text-align:center;max-width:320px;padding:20px;margin:auto;">
+        <div style="font-size:3rem;margin-bottom:12px;">⚠️</div>
+        <h3 style="margin:0 0 8px;">Fehler beim Laden</h3>
+        <p style="color:var(--muted);font-size:.9rem;">${esc(err.message) || "Bitte versuche es später erneut."}</p>
+        <button onclick="location.reload()" style="margin-top:16px;padding:10px 24px;border:0;border-radius:12px;background:var(--accent);color:white;font-weight:700;cursor:pointer;">Neu laden</button>
+      </div>
+    `;
+    overlay.style.display = "flex";
+    overlay.style.alignItems = "center";
+    overlay.style.justifyContent = "center";
   }
 }
 
 // ===== EVENT LISTENER =====
 $("#checkBtn").addEventListener("click", check);
 $("#nextBtn").addEventListener("click", next);
-$("#menuBtn").addEventListener("click", () => $("#drawer").classList.add("open"));
-$("#closeMenu").addEventListener("click", () => $("#drawer").classList.remove("open"));
+$("#menuBtn").addEventListener("click", () => {
+  const drawer = $("#drawer");
+  drawer.classList.add("open");
+  drawer.setAttribute("aria-hidden", "false");
+});
+$("#closeMenu").addEventListener("click", () => {
+  const drawer = $("#drawer");
+  drawer.classList.remove("open");
+  drawer.setAttribute("aria-hidden", "true");
+});
 
-// QR-Code Target öffnen
 $("#openQrTarget").addEventListener("click", () => {
   const target = state.data?.meta?.qrTarget;
   if (target) window.open(target, "_blank");
 });
 
-// Reset
 $("#resetBtn").addEventListener("click", () => {
   if (confirm("Möchtest du wirklich alle Fortschritte zurücksetzen?")) {
     localStorage.removeItem("pwTrainerState");
