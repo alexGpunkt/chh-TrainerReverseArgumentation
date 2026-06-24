@@ -12,87 +12,23 @@
       "badge": "🔍 Blickwechsel",
       "goal": "Einfache Aussagen vorsichtig prüfen.",
       "hint": "Achte darauf, ob eine Aussage bereits eine Vermutung enthält. Gute Antworten lassen Raum für andere Erklärungen.",
-      "unlockScore": 4,
+      "unlockScore": 8,
       "tasks": [
-        {
-          "id": "e1-z1",
-          "type": "choice",
-          "prompt": "Welche Antwort ist am wenigsten anfällig für Bestätigungsfehler?",
-          "claim": "Mein Freund antwortet nicht. Er ist bestimmt sauer auf mich.",
-          "options": [
-            "Ja, das klingt sehr wahrscheinlich.",
-            "Vielleicht. Es könnte aber auch andere Gründe geben, zum Beispiel Stress, Akku leer oder keine Zeit.",
-            "Dann solltest du ihm auch nicht mehr antworten."
-          ],
-          "answer": 1,
-          "feedback": "Gut: Die Antwort bestätigt nicht vorschnell, sondern nennt alternative Erklärungen."
-        },
-        {
-          "id": "e1-l1",
-          "type": "cloze",
-          "prompt": "Ergänze die vorsichtige Formulierung.",
-          "text": "Es könnte sein, dass er sauer ist. Es gibt aber auch andere ___.",
-          "accepted": [
-            "erklärungen",
-            "gruende",
-            "gründe",
-            "möglichkeiten",
-            "moeglichkeiten",
-            "ursachen"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung passt am besten, ohne vorschnell zu urteilen?",
-          "fallbackChoices": [
-            "Beweise dafür",
-            "Erklärungen",
-            "Schuldige"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Genau: Eine gute Prüfung sucht nach weiteren Erklärungen."
-        },
-        {
-          "id": "e1-m1",
-          "type": "match",
-          "prompt": "Ordne die Aussage der besseren Denkweise zu.",
-          "pairs": [
-            [
-              "Der Bus ist immer zu spät.",
-              "Gibt es Belege oder nur einzelne Erfahrungen?"
-            ],
-            [
-              "Alle fanden meinen Vorschlag schlecht.",
-              "Haben wirklich alle etwas gesagt?"
-            ],
-            [
-              "Das klappt nie.",
-              "Gab es Ausnahmen?"
-            ]
-          ],
-          "feedback": "Diese Fragen schwächen Übertreibungen ab und öffnen den Blick."
-        },
-        {
-          "id": "e1-r1",
-          "type": "rewrite",
-          "prompt": "Formuliere den Satz so um, dass der Sinn bleibt, aber weniger vorschnell geurteilt wird.",
-          "claim": "Meine Kollegin ignoriert mich absichtlich.",
-          "mustContainAny": [
-            "vielleicht",
-            "möglicherweise",
-            "könnte",
-            "unklar",
-            "andere erklärung",
-            "andere gründe"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Version bleibt beim Sinn, urteilt aber vorsichtiger?",
-          "fallbackChoices": [
-            "Meine Kollegin ignoriert mich absichtlich, weil sie mich nicht leiden kann.",
-            "Ich habe den Eindruck, dass meine Kollegin mich ignoriert; vielleicht gibt es aber auch andere Gründe.",
-            "Meine Kollegin verhält sich falsch und muss sich entschuldigen."
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Eine gute Umformulierung enthält Unsicherheit, ohne das Anliegen wegzuwischen."
-        }
+        {"id":"e1-z1","type":"choice","prompt":"Welche Antwort ist am wenigsten anfällig für Bestätigungsfehler?","claim":"Mein Freund antwortet nicht. Er ist bestimmt sauer auf mich.","options":["Ja, das klingt sehr wahrscheinlich.","Vielleicht. Es könnte aber auch andere Gründe geben, zum Beispiel Stress, Akku leer oder keine Zeit.","Dann solltest du ihm auch nicht mehr antworten."],"answer":1,"feedback":"Gut: Die Antwort bestätigt nicht vorschnell, sondern nennt alternative Erklärungen."},
+        {"id":"e1-z2","type":"choice","prompt":"Welche Antwort ist am ausgewogensten?","claim":"Die Lehrerin mag mich nicht.","options":["Das stimmt, sie ist unfair.","Vielleicht habe ich ihr Verhalten falsch gedeutet. Es könnte auch andere Gründe geben.","Ich sollte mich beschweren."],"answer":1,"feedback":"Richtig: Sie lässt Raum für andere Erklärungen."},
+        {"id":"e1-z3","type":"choice","prompt":"Welche Reaktion ist am wenigsten voreingenommen?","claim":"Niemand hat mich gefragt.","options":["Die anderen sind alle egoistisch.","Vielleicht habe ich mich nicht deutlich genug gezeigt.","Das ist typisch, immer werde ich ignoriert."],"answer":1,"feedback":"Gut: Sie hinterfragt die eigene Wahrnehmung."},
+        {"id":"e1-z4","type":"choice","prompt":"Welche Antwort zeigt Perspektivwechsel?","claim":"Der Busfahrer hat mich nicht gesehen.","options":["Der Busfahrer ist unaufmerksam.","Vielleicht war der Bus voll oder er hatte gerade viel Verkehr.","Ich sollte mich beim Unternehmen beschweren."],"answer":1,"feedback":"Richtig: Sie sucht nach neutralen Gründen."},
+        {"id":"e1-z5","type":"choice","prompt":"Welche Aussage ist vorsichtiger?","claim":"Meine Eltern verstehen mich nicht.","options":["Das ist typisch für Eltern.","Vielleicht haben sie eine andere Perspektive, die ich noch nicht verstehe.","Sie haben keine Ahnung."],"answer":1,"feedback":"Richtig: Sie öffnet den Blick für andere Sichtweisen."},
+        {"id":"e1-l1","type":"cloze","prompt":"Ergänze die vorsichtige Formulierung.","text":"Es könnte sein, dass er sauer ist. Es gibt aber auch andere ___ .","accepted":["erklärungen","gruende","gründe","möglichkeiten","moeglichkeiten","ursachen","perspektiven"],"maxAttempts":2,"fallbackIntro":"Welche Ergänzung passt am besten?","fallbackChoices":["Beweise dafür","Erklärungen","Schuldige"],"fallbackAnswer":1,"feedback":"Genau: Eine gute Prüfung sucht nach weiteren Erklärungen."},
+        {"id":"e1-l2","type":"cloze","prompt":"Ergänze den Perspektivwechsel.","text":"Ich denke, sie ist böse, aber ___ könnte sie auch müde sein.","accepted":["vielleicht","möglicherweise","eventuell","möglicher weise","vllt"],"maxAttempts":2,"fallbackIntro":"Welches Wort passt?","fallbackChoices":["sicherlich","vielleicht","bestimmt"],"fallbackAnswer":1,"feedback":"Genau: Vielleicht macht die Unsicherheit sichtbar."},
+        {"id":"e1-l3","type":"cloze","prompt":"Ergänze die offene Formulierung.","text":"Es ist möglich, dass sie Recht hat. Es ist aber auch ___ , dass ich etwas übersehen habe.","accepted":["möglich","denkbar","vorstellbar","wahrscheinlich"],"maxAttempts":2,"fallbackIntro":"Welche Ergänzung passt?","fallbackChoices":["sicher","möglich","ausgeschlossen"],"fallbackAnswer":1,"feedback":"Richtig: Möglich lässt Raum für Unsicherheit."},
+        {"id":"e1-l4","type":"cloze","prompt":"Vervollständige die vorsichtige Formulierung.","text":"Ich glaube, er lügt. Aber ich könnte mich auch ___ .","accepted":["irren","täuschen","versehen","geirrt haben"],"maxAttempts":2,"fallbackIntro":"Welche Ergänzung ist richtig?","fallbackChoices":["irren","bestätigen","sicher sein"],"fallbackAnswer":0,"feedback":"Gut: Irren ist eine ehrliche Einsicht."},
+        {"id":"e1-m1","type":"match","prompt":"Ordne der Aussage die bessere Denkweise zu.","pairs":[["Der Bus ist immer zu spät.","Gibt es Belege oder nur einzelne Erfahrungen?"],["Alle fanden meinen Vorschlag schlecht.","Haben wirklich alle etwas gesagt?"],["Das klappt nie.","Gab es Ausnahmen?"]],"feedback":"Diese Fragen schwächen Übertreibungen ab."},
+        {"id":"e1-m2","type":"match","prompt":"Ordne der voreiligen Aussage die Gegenfrage zu.","pairs":[["Er hat mich nicht begrüßt.","War er vielleicht abgelenkt?"],["Sie ist immer so streng.","Ist sie wirklich immer streng?"],["Das ist eine schlechte Idee.","Was spricht dafür?"]],"feedback":"Gute Gegenfragen helfen, vorsichtiger zu werden."},
+        {"id":"e1-m3","type":"match","prompt":"Verbinde die Behauptung mit einer vorsichtigeren Formulierung.","pairs":[["Das ist unfair.","Das kommt mir unfair vor."],["Das war ein Fehler.","Das könnte ein Fehler gewesen sein."],["Die Gruppe ist doof.","Die Gruppe hat vielleicht andere Prioritäten."]],"feedback":"Vorsichtige Formulierungen zeigen mehr Offenheit."},
+        {"id":"e1-r1","type":"rewrite","prompt":"Formuliere den Satz vorsichtiger um.","claim":"Meine Kollegin ignoriert mich absichtlich.","mustContainAny":["vielleicht","möglicherweise","könnte","unklar","andere erklärung","andere gründe","eventuell"],"maxAttempts":2,"fallbackIntro":"Welche Version ist vorsichtiger?","fallbackChoices":["Meine Kollegin ignoriert mich absichtlich.","Ich habe den Eindruck, dass sie mich ignoriert; vielleicht gibt es aber auch andere Gründe.","Sie behandelt mich schlecht."],"fallbackAnswer":1,"feedback":"Eine gute Umformulierung enthält Unsicherheit."},
+        {"id":"e1-r2","type":"rewrite","prompt":"Schreibe den Satz weniger vorschnell.","claim":"Mein Chef ist mit mir unzufrieden.","mustContainAny":["vielleicht","könnte","möglich","eventuell","nicht sicher"],"maxAttempts":2,"fallbackIntro":"Welche Version ist weniger vorschnell?","fallbackChoices":["Mein Chef ist unzufrieden.","Vielleicht bin ich unsicher, aber es könnte auch andere Gründe geben.","Ich habe Probleme mit meinem Chef."],"fallbackAnswer":1,"feedback":"Richtig: Sie lässt andere Erklärungen zu."},
+        {"id":"e1-r3","type":"rewrite","prompt":"Formuliere den Satz um, sodass er offener wird.","claim":"Die anderen sind alle gegen mich.","mustContainAny":["vielleicht","könnte","möglich","einige","nicht alle"],"maxAttempts":2,"fallbackIntro":"Welche Version ist offener?","fallbackChoices":["Alle sind gegen mich.","Vielleicht sind nicht alle gegen mich, manche haben einfach andere Meinungen.","Ich werde immer ausgeschlossen."],"fallbackAnswer":1,"feedback":"Gut: Die Umformulierung macht die Aussage weniger absolut."}
       ]
     },
     {
@@ -101,96 +37,23 @@
       "badge": "⚖️ Fair prüfen",
       "goal": "Zu einer eigenen Vermutung mindestens eine faire Gegenperspektive entwickeln.",
       "hint": "Eine Gegenperspektive bedeutet nicht, dass die eigene Sicht falsch ist. Sie macht die Prüfung nur ehrlicher.",
-      "unlockScore": 4,
+      "unlockScore": 8,
       "tasks": [
-        {
-          "id": "e2-z1",
-          "type": "choice",
-          "prompt": "Welche Gegenfrage passt am besten?",
-          "claim": "Die neue Sitzordnung ist ungerecht.",
-          "options": [
-            "Wer ist schuld daran?",
-            "Welche Gründe könnte es für die Sitzordnung geben?",
-            "Warum macht die Lehrkraft immer alles falsch?"
-          ],
-          "answer": 1,
-          "feedback": "Richtig: Die Frage sucht Gründe, ohne die Kritik sofort aufzugeben."
-        },
-        {
-          "id": "e2-l1",
-          "type": "cloze",
-          "prompt": "Ergänze den Perspektivwechsel.",
-          "text": "Aus meiner Sicht wirkt es unfair. Aus Sicht der anderen Person könnte ___ eine Rolle spielen.",
-          "accepted": [
-            "ruhe",
-            "ordnung",
-            "konzentration",
-            "übersicht",
-            "uebersicht",
-            "sicherheit",
-            "leistung",
-            "fairness",
-            "organisation",
-            "zeit",
-            "lernruhe",
-            "arbeitsruhe",
-            "bessere verteilung",
-            "gruppenklima"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung beschreibt am besten eine mögliche Perspektive der anderen Person?",
-          "fallbackChoices": [
-            "mein Ärger über die Entscheidung",
-            "der Wunsch nach mehr Ruhe und Konzentration im Unterricht",
-            "dass ich die Regel nicht mag"
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Gut: Du formulierst eine mögliche andere Absicht oder ein anderes Ziel."
-        },
-        {
-          "id": "e2-m1",
-          "type": "match",
-          "prompt": "Ordne die Behauptung der passenden Gegenperspektive zu.",
-          "pairs": [
-            [
-              "Die Aufgabe ist sinnlos.",
-              "Vielleicht trainiert sie eine Fähigkeit, die später gebraucht wird."
-            ],
-            [
-              "Die Regel ist nur Schikane.",
-              "Vielleicht soll sie Streit oder Chaos vermeiden."
-            ],
-            [
-              "Niemand hört mir zu.",
-              "Vielleicht war der Zeitpunkt ungünstig."
-            ]
-          ],
-          "feedback": "Gegenperspektiven sollen fair und möglich sein, nicht automatisch wahr."
-        },
-        {
-          "id": "e2-r1",
-          "type": "rewrite",
-          "prompt": "Schreibe eine faire Gegenperspektive.",
-          "claim": "Die Gruppe hat meinen Vorschlag abgelehnt, weil sie mich nicht mag.",
-          "mustContainAny": [
-            "vielleicht",
-            "könnte",
-            "möglicherweise",
-            "andere gründe",
-            "inhalt",
-            "zeitpunkt",
-            "umsetzbar"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Antwort ist eine faire Gegenperspektive?",
-          "fallbackChoices": [
-            "Die Gruppe mag mich nicht und wollte mich deshalb verletzen.",
-            "Vielleicht ging es weniger um mich, sondern um den Inhalt, den Zeitpunkt oder die Umsetzbarkeit des Vorschlags.",
-            "Die Gruppe hat grundsätzlich keine guten Argumente."
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Gut, wenn die Antwort andere Gründe zulässt, ohne das Gefühl abzuwerten."
-        }
+        {"id":"e2-z1","type":"choice","prompt":"Welche Gegenfrage passt am besten?","claim":"Die neue Sitzordnung ist ungerecht.","options":["Wer ist schuld daran?","Welche Gründe könnte es für die Sitzordnung geben?","Warum macht die Lehrkraft immer alles falsch?"],"answer":1,"feedback":"Richtig: Die Frage sucht nach Gründen."},
+        {"id":"e2-z2","type":"choice","prompt":"Welche Perspektive ergänzt die eigene fair?","claim":"Der Vorschlag wurde abgelehnt.","options":["Die anderen haben keine Ahnung.","Vielleicht hatten sie gute Gründe, die ich nicht sehe.","Ich sollte mich durchsetzen."],"answer":1,"feedback":"Gut: Sie lässt andere Gründe gelten."},
+        {"id":"e2-z3","type":"choice","prompt":"Welche Gegenperspektive ist fair?","claim":"Die Note ist ungerecht.","options":["Die Lehrkraft mag mich nicht.","Vielleicht habe ich nicht alles verstanden, was gefordert war.","Ich beschwere mich."],"answer":1,"feedback":"Richtig: Sie übernimmt eine faire Selbstprüfung."},
+        {"id":"e2-z4","type":"choice","prompt":"Welche Frage hilft, die Perspektive zu wechseln?","claim":"Die Gruppe ist immer so laut.","options":["Was braucht die Gruppe vielleicht, um ruhiger zu sein?","Die Gruppe ist nervig.","Sie sollen leise sein."],"answer":0,"feedback":"Richtig: Die Frage sucht nach Bedürfnissen."},
+        {"id":"e2-z5","type":"choice","prompt":"Welche Antwort zeigt faire Gegenperspektive?","claim":"Meine Idee wurde nicht beachtet.","options":["Die anderen sind blind.","Vielleicht war mein Vorschlag nicht klar genug oder der Zeitpunkt ungünstig.","Ich muss lauter sprechen."],"answer":1,"feedback":"Gut: Sie reflektiert eigene und fremde Gründe."},
+        {"id":"e2-l1","type":"cloze","prompt":"Ergänze den Perspektivwechsel.","text":"Aus meiner Sicht wirkt es unfair. Aus Sicht der anderen Person könnte ___ eine Rolle spielen.","accepted":["ruhe","ordnung","konzentration","übersicht","sicherheit","leistung","fairness","organisation","zeit","lernruhe","arbeitsruhe","bessere verteilung","gruppenklima"],"maxAttempts":2,"fallbackIntro":"Welche Ergänzung beschreibt eine andere Perspektive?","fallbackChoices":["mein Ärger","der Wunsch nach mehr Ruhe","dass ich die Regel nicht mag"],"fallbackAnswer":1,"feedback":"Gut: Du formulierst eine mögliche andere Absicht."},
+        {"id":"e2-l2","type":"cloze","prompt":"Ergänze die Gegenperspektive.","text":"Ich bin sauer über die Entscheidung. Die andere Person hatte vielleicht ___ im Kopf.","accepted":["etwas anderes","ein anderes ziel","eine andere absicht","eine andere regel","eine andere sicht"],"maxAttempts":2,"fallbackIntro":"Welche Ergänzung ist passend?","fallbackChoices":["das gleiche","etwas anderes","meine Meinung"],"fallbackAnswer":1,"feedback":"Richtig: Etwas anderes öffnet die Perspektive."},
+        {"id":"e2-l3","type":"cloze","prompt":"Vervollständige die faire Gegenperspektive.","text":"Ich denke, sie hat unrecht. Aber vielleicht hat sie ___ , die ich nicht kenne.","accepted":["informationen","gründe","erfahrungen","perspektive","hintergrund"],"maxAttempts":2,"fallbackIntro":"Welche Ergänzung ist fair?","fallbackChoices":["meine Fehler","Informationen","nichts"],"fallbackAnswer":1,"feedback":"Gut: Informationen zeigen Respekt für andere Sichten."},
+        {"id":"e2-l4","type":"cloze","prompt":"Ergänze die offene Formulierung.","text":"Ich sehe das anders. Vielleicht hat sie aber ___ , die ich nicht berücksichtigt habe.","accepted":["aspekte","punkte","argumente","sichtweise","erfahrungen","gründe"],"maxAttempts":2,"fallbackIntro":"Welches Wort passt?","fallbackChoices":["Aspekte","Fehler","Ausreden"],"fallbackAnswer":0,"feedback":"Richtig: Aspekte zeigt, dass es mehrere Seiten gibt."},
+        {"id":"e2-m1","type":"match","prompt":"Ordne der Behauptung die passende Gegenperspektive zu.","pairs":[["Die Aufgabe ist sinnlos.","Vielleicht trainiert sie eine Fähigkeit, die später gebraucht wird."],["Die Regel ist nur Schikane.","Vielleicht soll sie Streit oder Chaos vermeiden."],["Niemand hört mir zu.","Vielleicht war der Zeitpunkt ungünstig."]],"feedback":"Gegenperspektiven sollen fair und möglich sein."},
+        {"id":"e2-m2","type":"match","prompt":"Verbinde die Behauptung mit einer fairen Alternative.","pairs":[["Sie hat mich ausgelacht.","Vielleicht war sie einfach nervös."],["Das war eine Beleidigung.","Vielleicht habe ich es falsch verstanden."],["Er ist ein Lügner.","Vielleicht hat er sich ungeschickt ausgedrückt."]],"feedback":"Diese Alternativen sind fairer."},
+        {"id":"e2-m3","type":"match","prompt":"Finde die passende Gegenperspektive.","pairs":[["Die Prüfung war zu schwer.","Vielleicht hätte ich anders lernen können."],["Der Verein lässt mich nicht mitspielen.","Vielleicht hatten sie andere Spieler priorisiert."],["Mein Handy ist kaputt.","Vielleicht war es ein Unfall."]],"feedback":"Diese Antworten zeigen faire Perspektiven."},
+        {"id":"e2-r1","type":"rewrite","prompt":"Schreibe eine faire Gegenperspektive.","claim":"Die Gruppe hat meinen Vorschlag abgelehnt, weil sie mich nicht mag.","mustContainAny":["vielleicht","könnte","möglicherweise","andere gründe","inhalt","zeitpunkt","umsetzbar"],"maxAttempts":2,"fallbackIntro":"Welche Antwort ist eine faire Gegenperspektive?","fallbackChoices":["Die Gruppe mag mich nicht.","Vielleicht ging es weniger um mich, sondern um den Inhalt, den Zeitpunkt oder die Umsetzbarkeit.","Die Gruppe hat keine Argumente."],"fallbackAnswer":1,"feedback":"Gut, wenn die Antwort andere Gründe zulässt."},
+        {"id":"e2-r2","type":"rewrite","prompt":"Formuliere eine faire Perspektive.","claim":"Die Rezension war ungerecht.","mustContainAny":["vielleicht","könnte","anderer","perspektive","möglicherweise"],"maxAttempts":2,"fallbackIntro":"Welche Antwort ist fair?","fallbackChoices":["Die Rezension war unfair.","Vielleicht hatte der Kritiker eine andere Perspektive oder weniger Informationen.","Der Kritiker ist ein Idiot."],"fallbackAnswer":1,"feedback":"Richtig: Sie zeigt Verständnis für andere Sichten."},
+        {"id":"e2-r3","type":"rewrite","prompt":"Formuliere eine mögliche Gegenperspektive.","claim":"Meine Eltern verstehen mich nicht.","mustContainAny":["vielleicht","könnte","anderer","perspektive","möglicherweise","andere sicht"],"maxAttempts":2,"fallbackIntro":"Welche Antwort ist eine Gegenperspektive?","fallbackChoices":["Meine Eltern verstehen mich nicht.","Vielleicht haben meine Eltern eine andere Sorge oder andere Erfahrungen.","Meine Eltern sind altmodisch."],"fallbackAnswer":1,"feedback":"Gut: Sie lässt andere Gründe zu."}
       ]
     },
     {
@@ -199,107 +62,23 @@
       "badge": "🧠 Denkprofi",
       "goal": "Eigene Argumente durch Einwände, Belege und Grenzen verbessern.",
       "hint": "Ein starkes Argument nennt nicht nur die eigene Meinung, sondern auch Belege, Grenzen und mögliche Einwände.",
-      "unlockScore": 5,
+      "unlockScore": 10,
       "tasks": [
-        {
-          "id": "e3-z1",
-          "type": "choice",
-          "prompt": "Welche Formulierung ist am stärksten?",
-          "claim": "Handys im Unterricht sollten erlaubt sein.",
-          "options": [
-            "Handys sollten erlaubt sein, weil ich das gut finde.",
-            "Handys sollten erlaubt sein, wenn sie für klare Lernaufträge genutzt werden; gleichzeitig braucht es Regeln gegen Ablenkung.",
-            "Wer dagegen ist, versteht Technik nicht."
-          ],
-          "answer": 1,
-          "feedback": "Stark: Die Aussage nennt Bedingung und Einwand."
-        },
-        {
-          "id": "e3-l1",
-          "type": "cloze",
-          "prompt": "Ergänze eine robuste Argumentstruktur.",
-          "text": "Mein Argument gilt besonders dann, wenn ___. Es wäre schwächer, wenn wichtige Bedingungen fehlen.",
-          "accepted": [
-            "regeln",
-            "bedingungen",
-            "belege",
-            "daten",
-            "klare regeln",
-            "klare bedingungen",
-            "nachweise",
-            "vereinbarungen"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Ergänzung macht das Argument stabiler?",
-          "fallbackChoices": [
-            "klare Regeln und Bedingungen genannt werden",
-            "ich besonders überzeugt davon bin",
-            "andere Meinungen ignoriert werden"
-          ],
-          "fallbackAnswer": 0,
-          "feedback": "Robuste Argumente benennen Bedingungen und Grenzen."
-        },
-        {
-          "id": "e3-m1",
-          "type": "match",
-          "prompt": "Ordne die Funktion dem Satzteil zu.",
-          "pairs": [
-            [
-              "Ich vermute...",
-              "Unsicherheit sichtbar machen"
-            ],
-            [
-              "Ein Gegenargument wäre...",
-              "Einwand einbauen"
-            ],
-            [
-              "Das gilt vor allem, wenn...",
-              "Bedingung nennen"
-            ]
-          ],
-          "feedback": "Diese Bausteine helfen, ohne Rechthaberei überzeugend zu bleiben."
-        },
-        {
-          "id": "e3-r1",
-          "type": "rewrite",
-          "prompt": "Verbessere das Argument, ohne den Sinn zu verlieren.",
-          "claim": "Gruppenarbeit ist besser als Einzelarbeit.",
-          "mustContainAny": [
-            "wenn",
-            "aber",
-            "gleichzeitig",
-            "nicht immer",
-            "vorausgesetzt",
-            "einzelarbeit"
-          ],
-          "maxAttempts": 2,
-          "fallbackIntro": "Welche Version ist am ausgewogensten?",
-          "fallbackChoices": [
-            "Gruppenarbeit ist immer besser, weil man mit anderen zusammenarbeitet.",
-            "Gruppenarbeit kann besser sein, wenn die Rollen klar sind; gleichzeitig kann Einzelarbeit bei manchen Aufgaben sinnvoller sein.",
-            "Einzelarbeit ist schlecht, weil man dabei nichts von anderen lernt."
-          ],
-          "fallbackAnswer": 1,
-          "feedback": "Eine gute Version bleibt beim Kern, ergänzt aber Bedingungen oder Grenzen."
-        },
-        {
-          "id": "e3-r2",
-          "type": "sort",
-          "prompt": "Bringe die Argumentstruktur in eine sinnvolle Reihenfolge.",
-          "items": [
-            "Eigene These nennen",
-            "Begründung geben",
-            "Möglichen Einwand nennen",
-            "Grenze oder Bedingung ergänzen"
-          ],
-          "answer": [
-            "Eigene These nennen",
-            "Begründung geben",
-            "Möglichen Einwand nennen",
-            "Grenze oder Bedingung ergänzen"
-          ],
-          "feedback": "Diese Reihenfolge wirkt klar und fair."
-        }
+        {"id":"e3-z1","type":"choice","prompt":"Welche Formulierung ist am stärksten?","claim":"Handys im Unterricht sollten erlaubt sein.","options":["Handys sollten erlaubt sein, weil ich das gut finde.","Handys sollten erlaubt sein, wenn sie für klare Lernaufträge genutzt werden; gleichzeitig braucht es Regeln gegen Ablenkung.","Wer dagegen ist, versteht Technik nicht."],"answer":1,"feedback":"Stark: Die Aussage nennt Bedingung und Einwand."},
+        {"id":"e3-z2","type":"choice","prompt":"Welches Argument ist am ausgewogensten?","claim":"Schuluniformen sind sinnvoll.","options":["Schuluniformen sind einfach gut.","Schuluniformen können das Zusammengehörigkeitsgefühl stärken, aber sie schränken auch die persönliche Freiheit ein.","Alle, die dagegen sind, sind egoistisch."],"answer":1,"feedback":"Richtig: Es werden Vor- und Nachteile genannt."},
+        {"id":"e3-z3","type":"choice","prompt":"Welche Aussage ist am differenziertesten?","claim":"Soziale Medien sind schädlich.","options":["Soziale Medien sind nur schlecht.","Soziale Medien können schädlich sein, wenn sie unkontrolliert genutzt werden; sie bieten aber auch Chancen für Austausch.","Wer soziale Medien nutzt, ist dumm."],"answer":1,"feedback":"Gut: Sie zeigt die Ambivalenz."},
+        {"id":"e3-z4","type":"choice","prompt":"Welches Argument ist am überzeugendsten?","claim":"Klimaschutz ist wichtig.","options":["Klimaschutz ist wichtig, weil ich das sage.","Klimaschutz ist wichtig, weil wissenschaftliche Belege zeigen, dass der Klimawandel schwerwiegende Folgen hat; gleichzeitig müssen Maßnahmen sozial verträglich sein.","Wer nicht an Klimaschutz glaubt, ist blind."],"answer":1,"feedback":"Stark: Es nennt Belege und Bedingungen."},
+        {"id":"e3-z5","type":"choice","prompt":"Welche Aussage ist am ausgewogensten?","claim":"Ganztagsschulen sind besser.","options":["Ganztagsschulen sind immer besser.","Ganztagsschulen bieten mehr Betreuung und Förderung, können aber auch ermüdend sein, wenn die Freizeit zu kurz kommt.","Dagegen zu sein ist unverantwortlich."],"answer":1,"feedback":"Richtig: Sie zeigt beide Seiten."},
+        {"id":"e3-l1","type":"cloze","prompt":"Ergänze eine robuste Argumentstruktur.","text":"Mein Argument gilt besonders dann, wenn ___. Es wäre schwächer, wenn wichtige Bedingungen fehlen.","accepted":["regeln","bedingungen","belege","daten","klare regeln","klare bedingungen","nachweise","vereinbarungen"],"maxAttempts":2,"fallbackIntro":"Welche Ergänzung macht das Argument stabiler?","fallbackChoices":["klare Regeln und Bedingungen genannt werden","ich besonders überzeugt davon bin","andere Meinungen ignoriert werden"],"fallbackAnswer":0,"feedback":"Robuste Argumente benennen Bedingungen."},
+        {"id":"e3-l2","type":"cloze","prompt":"Ergänze den Einwand.","text":"Ich bin für mehr Projekte. Allerdings sollte man bedenken, dass ___ .","accepted":["zeit fehlt","es mehr vorbereitung braucht","nicht alle mitmachen","der aufwand hoch ist","die planung schwierig ist","ressourcen begrenzt sind"],"maxAttempts":2,"fallbackIntro":"Welcher Einwand ist sinnvoll?","fallbackChoices":["das alle gut finden","der Aufwand hoch ist","die Idee perfekt ist"],"fallbackAnswer":1,"feedback":"Gut: Ein Einwand macht das Argument glaubwürdiger."},
+        {"id":"e3-l3","type":"cloze","prompt":"Vervollständige die Bedingung.","text":"Dieser Vorschlag funktioniert gut, vorausgesetzt, ___ .","accepted":["alle mitmachen","die richtlinien klar sind","die umsetzung sorgfältig ist","die beteiligten informiert sind","es genug zeit gibt"],"maxAttempts":2,"fallbackIntro":"Welche Bedingung ist sinnvoll?","fallbackChoices":["ich recht habe","die Bedingungen stimmen","niemand widerspricht"],"fallbackAnswer":1,"feedback":"Richtig: Bedingungen machen Argumente stabiler."},
+        {"id":"e3-l4","type":"cloze","prompt":"Ergänze die Einschränkung.","text":"Ich denke, das ist eine gute Idee, auch wenn ___ .","accepted":["nicht alle zustimmen","es risiken gibt","nicht jeder davon profitiert","die umsetzung schwierig sein kann","es gegenbeispiele gibt"],"maxAttempts":2,"fallbackIntro":"Welche Einschränkung ist passend?","fallbackChoices":["ich recht behalte","es Risiken geben kann","alle zustimmen"],"fallbackAnswer":1,"feedback":"Gut: Einschränkungen zeigen Reflexion."},
+        {"id":"e3-m1","type":"match","prompt":"Ordne die Funktion dem Satzteil zu.","pairs":[["Ich vermute...","Unsicherheit sichtbar machen"],["Ein Gegenargument wäre...","Einwand einbauen"],["Das gilt vor allem, wenn...","Bedingung nennen"]],"feedback":"Diese Bausteine helfen, überzeugend zu bleiben."},
+        {"id":"e3-m2","type":"match","prompt":"Verbinde die Aussage mit ihrer Funktion.","pairs":[["Die Studie zeigt...","Beleg nennen"],["Man könnte einwenden...","Einwand antizipieren"],["Unter der Bedingung...","Einschränkung formulieren"]],"feedback":"Gute Argumente nutzen diese Bausteine."},
+        {"id":"e3-m3","type":"match","prompt":"Finde die passende Funktion.","pairs":[["Das ist meine Meinung, aber...","Einschränkung"],["Andere sehen das so...","Perspektivwechsel"],["Die Daten zeigen...","Beleg"]],"feedback":"Diese Unterscheidung macht Argumente klarer."},
+        {"id":"e3-r1","type":"rewrite","prompt":"Verbessere das Argument, ohne den Sinn zu verlieren.","claim":"Gruppenarbeit ist besser als Einzelarbeit.","mustContainAny":["wenn","aber","gleichzeitig","nicht immer","vorausgesetzt","einzelarbeit"],"maxAttempts":2,"fallbackIntro":"Welche Version ist am ausgewogensten?","fallbackChoices":["Gruppenarbeit ist immer besser.","Gruppenarbeit kann besser sein, wenn die Rollen klar sind; gleichzeitig kann Einzelarbeit bei manchen Aufgaben sinnvoller sein.","Einzelarbeit ist schlecht."],"fallbackAnswer":1,"feedback":"Eine gute Version ergänzt Bedingungen."},
+        {"id":"e3-r2","type":"rewrite","prompt":"Formuliere das Argument stabiler.","claim":"Mehr Sport sollte Pflicht sein.","mustContainAny":["wenn","aber","allerdings","vorausgesetzt","einwand","gegenargument"],"maxAttempts":2,"fallbackIntro":"Welche Version ist ausgewogen?","fallbackChoices":["Sport sollte immer Pflicht sein.","Mehr Sport könnte sinnvoll sein, wenn die Rahmenbedingungen stimmen; manche haben aber gesundheitliche Einschränkungen.","Sport ist unwichtig."],"fallbackAnswer":1,"feedback":"Gut: Sie nennt Bedingung und Einwand."},
+        {"id":"e3-s1","type":"sort","prompt":"Bringe die Argumentstruktur in eine sinnvolle Reihenfolge.","items":["Eigene These nennen","Begründung geben","Möglichen Einwand nennen","Grenze oder Bedingung ergänzen"],"answer":["Eigene These nennen","Begründung geben","Möglichen Einwand nennen","Grenze oder Bedingung ergänzen"],"feedback":"Diese Reihenfolge wirkt klar und fair."}
       ]
     }
   ]
