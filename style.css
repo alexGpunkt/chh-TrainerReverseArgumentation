@@ -497,3 +497,56 @@ button:disabled {
 		height: 72px
 	}
 }
+
+/* ===== LOADING OVERLAY (BUG FIX 1 + BUG FIX 7) ===== */
+.loadingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: linear-gradient(180deg, #eef5ff, var(--bg));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loaderBox {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+}
+
+.loaderSpinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loaderTrack {
+  width: 200px;
+  height: 6px;
+  background: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.loaderBar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 999px;
+  transition: width .3s ease;
+}
+
+/* BUG FIX 7: Drawer-Overflow auf dem Drawer selbst */
+.drawer {
+  overflow-y: auto !important;
+}
