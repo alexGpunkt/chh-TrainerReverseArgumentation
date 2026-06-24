@@ -84,7 +84,9 @@ function typeLabel(t) {
     cloze: "Lücke",
     match: "Zuordnung",
     rewrite: "Umformulieren",
-    sort: "Reihenfolge"
+    sort: "Reihenfolge",
+    promptChoice: "Promptwahl",
+    promptRewrite: "Prompt verbessern"
   };
   return map[t] || "Aufgabe";
 }
@@ -155,12 +157,32 @@ function render() {
   save();
 }
 
+
+function renderContextBlocks(t) {
+  if (!t || !Array.isArray(t.contextBlocks)) return;
+  const wrap = document.createElement("div");
+  wrap.className = "contextBlocks";
+  t.contextBlocks.forEach(block => {
+    const box = document.createElement("div");
+    box.className = "contextBlock";
+    const title = document.createElement("strong");
+    title.textContent = block.title || "Hinweis";
+    const text = document.createElement("p");
+    text.textContent = block.text || "";
+    box.append(title, text);
+    wrap.appendChild(box);
+  });
+  taskArea.appendChild(wrap);
+}
+
 function renderTask(t) {
   taskArea.innerHTML = "";
   if (!t) return;
+  renderContextBlocks(t);
 
   switch (t.type) {
     case "choice":
+    case "promptChoice":
       renderChoice(t.options || [], "choice");
       break;
 
@@ -207,7 +229,8 @@ function renderTask(t) {
       break;
     }
 
-    case "rewrite": {
+    case "rewrite":
+    case "promptRewrite": {
       const info = document.createElement("p");
       info.textContent = "Tipp: Formuliere vorsichtig, aber nicht beliebig. Der Sinn soll erhalten bleiben.";
       info.style.fontSize = ".85rem";
@@ -333,7 +356,8 @@ function check() {
   }
 
   switch (t.type) {
-    case "choice": {
+    case "choice":
+    case "promptChoice": {
       const c = document.querySelector("input[name='choice']:checked");
       ok = c && Number(c.value) === t.answer;
       break;
@@ -350,7 +374,8 @@ function check() {
       ok = selects.length > 0 && [...selects].every(sel => sel.value === sel.dataset.answer);
       break;
     }
-    case "rewrite": {
+    case "rewrite":
+    case "promptRewrite": {
       const el = $("#rewriteInput");
       if (!el) { ok = false; break; }
       const v = norm(el.value);
