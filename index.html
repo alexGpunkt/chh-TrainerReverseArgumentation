@@ -7,6 +7,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- BUG FIX 1: loadingOverlay und loaderBar fehlten komplett im HTML -->
+  <div id="loadingOverlay" class="loadingOverlay">
+    <div class="loaderBox">
+      <div class="loaderSpinner"></div>
+      <p>Aufgaben werden geladen…</p>
+      <div class="loaderTrack"><div id="loaderBar" class="loaderBar"></div></div>
+    </div>
+  </div>
+
   <div id="app">
     <header class="topbar">
       <button id="menuBtn" class="iconbtn" aria-label="Menü öffnen">☰</button>
