@@ -109,3 +109,37 @@
   grid-template-columns:1fr;
   gap:8px;
 }
+
+/* Phase 2: erweitertes Aufgabenmodell */
+.taskModelInfo {
+  margin: 0.75rem 0 1rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(20, 34, 60, 0.12);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.62);
+}
+.taskModelMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-size: 0.86rem;
+  color: #334155;
+}
+.taskModelMeta span {
+  padding: 0.22rem 0.5rem;
+  border-radius: 999px;
+  background: #eef4ff;
+}
+.taskTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+}
+.taskTags span {
+  font-size: 0.76rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #475569;
+}

@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 1
+/* Perspektivwechsel-Trainer 2.0 Phase 2
    Darstellung, Aufgaben-Rendering, Navigation und QR-Code. */
 function render() {
   const st = currentStage();
@@ -32,7 +32,46 @@ function render() {
   state.selectedSort = [];
   renderProgress();
   renderTask(t);
+  renderTaskModelInfo(t);
   save();
+}
+
+
+function renderTaskModelInfo(t) {
+  const old = document.querySelector(".taskModelInfo");
+  if (old) old.remove();
+  if (!t) return;
+  const box = document.createElement("div");
+  box.className = "taskModelInfo";
+  const meta = document.createElement("div");
+  meta.className = "taskModelMeta";
+  const diff = typeof difficultyLabel === "function" ? difficultyLabel(t.difficulty) : String(t.difficulty || 1);
+  meta.innerHTML = `<span>Kompetenz: ${escapeHtml(t.competency || "Perspektivwechsel")}</span><span>Niveau: ${escapeHtml(diff)}</span><span>Zeit: ${Number(t.estimatedTime || 3)} Min.</span>`;
+  box.appendChild(meta);
+  if (Array.isArray(t.tags) && t.tags.length) {
+    const tags = document.createElement("div");
+    tags.className = "taskTags";
+    t.tags.forEach(tag => {
+      const chip = document.createElement("span");
+      chip.textContent = String(tag);
+      tags.appendChild(chip);
+    });
+    box.appendChild(tags);
+  }
+  const prompt = document.createElement("p");
+  prompt.className = "qualityHint";
+  prompt.textContent = t.reflectionPrompt || "Welche Denkstrategie hast du genutzt?";
+  box.appendChild(prompt);
+  const claim = document.getElementById("claim");
+  claim.insertAdjacentElement("afterend", box);
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
 function renderContextBlocks(t) {
@@ -284,6 +323,8 @@ function markSolved() {
       stageTitle: st.title,
       taskId: t.id,
       taskType: t.type,
+      competency: t.competency,
+      difficulty: t.difficulty,
       score: state.score,
       badges: state.badges,
       solvedCount: Object.keys(state.solved).length,

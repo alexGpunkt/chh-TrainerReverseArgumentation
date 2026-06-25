@@ -1,9 +1,12 @@
 {
   "meta": {
     "title": "Perspektivwechsel-Trainer",
-    "version": "1.10",
-    "description": "Finale Vor-2.0-Version mit Trend-Sparklines, Exportfunktion, Benchmark-Vorbereitung und erweiterten Empfehlungen zur Promptqualität.",
-    "qrTarget": "https://example.org/perspektivwechsel-trainer"
+    "version": "2.0-phase2",
+    "description": "Version 2.0 Phase 2: erweitertes Aufgabenmodell mit Kompetenzen, Schwierigkeit, Tags, Zeitbedarf, Lehrkraft-Hinweisen und Reflexionsimpulsen; bestehende Aufgaben bleiben rückwärtskompatibel.",
+    "qrTarget": "https://example.org/perspektivwechsel-trainer",
+    "taskModelVersion": "2.0",
+    "phase": "2",
+    "compatibility": "1.x-Aufgaben werden automatisch normalisiert."
   },
   "stages": [
     {
@@ -42,7 +45,19 @@
             "Beide Prompts sind gleich gut."
           ],
           "answer": 0,
-          "feedback": "Richtig: Prompt A enthält bereits eine starke Erwartung und lädt das LLM zur Bestätigung ein."
+          "feedback": "Richtig: Prompt A enthält bereits eine starke Erwartung und lädt das LLM zur Bestätigung ein.",
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0-z2",
@@ -55,7 +70,19 @@
             "Erkläre, warum Handys verboten werden müssen."
           ],
           "answer": 1,
-          "feedback": "Richtig: Die Frage fordert beide Seiten ein und reduziert Bestätigungsfehler."
+          "feedback": "Richtig: Die Frage fordert beide Seiten ein und reduziert Bestätigungsfehler.",
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0-z3",
@@ -68,7 +95,19 @@
             "Die Antwort fragt nach Kontext wie Alter, Fach oder Ziel der Bewertung."
           ],
           "answer": 0,
-          "feedback": "Genau: Wenn die Antwort nur die Vorgabe bestätigt, wurde der Prompt-Rahmen wahrscheinlich übernommen."
+          "feedback": "Genau: Wenn die Antwort nur die Vorgabe bestätigt, wurde der Prompt-Rahmen wahrscheinlich übernommen.",
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0-l1",
@@ -90,7 +129,19 @@
             "Schuldigen"
           ],
           "fallbackAnswer": 1,
-          "feedback": "Richtig: Bedingungen machen aus einer Bestätigungsfrage eine prüfende Frage."
+          "feedback": "Richtig: Bedingungen machen aus einer Bestätigungsfrage eine prüfende Frage.",
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "cloze",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Welches Schlüsselwort hat dir bei der Lösung geholfen?"
         },
         {
           "id": "e0-l2",
@@ -113,7 +164,19 @@
             "Lobpunkte"
           ],
           "fallbackAnswer": 1,
-          "feedback": "Gut: Einwände oder Gegenargumente aktivieren den Sparringpartner-Modus."
+          "feedback": "Gut: Einwände oder Gegenargumente aktivieren den Sparringpartner-Modus.",
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "cloze",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Welches Schlüsselwort hat dir bei der Lösung geholfen?"
         },
         {
           "id": "e0-r1",
@@ -147,7 +210,19 @@
           ],
           "fallbackAnswer": 1,
           "feedback": "Richtig: Der Prompt fragt nicht nach Bestätigung, sondern nach Bedingungen und Grenzen.",
-          "mustContainQuestionWord": true
+          "mustContainQuestionWord": true,
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0-r2",
@@ -190,7 +265,19 @@
           ],
           "fallbackAnswer": 1,
           "feedback": "Sehr gut: Du forderst das LLM aktiv auf, die These zu prüfen statt sie nur zu bestätigen.",
-          "mustContainQuestionWord": true
+          "mustContainQuestionWord": true,
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0-m1",
@@ -210,7 +297,19 @@
               "Sparringpartner-Modus"
             ]
           ],
-          "feedback": "Diese Unterscheidung ist zentral für bewussten LLM-Einsatz."
+          "feedback": "Diese Unterscheidung ist zentral für bewussten LLM-Einsatz.",
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 2,
+          "estimatedTime": 4,
+          "tags": [
+            "match",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Welche Zuordnung war am schwierigsten und warum?"
         },
         {
           "id": "e0-s1",
@@ -228,9 +327,22 @@
             "Bedingungen und Ausnahmen verlangen",
             "Am Ende eine ausgewogene Einschätzung fordern"
           ],
-          "feedback": "So entsteht ein Prompt, der nicht nur Bestätigung erzeugt."
+          "feedback": "So entsteht ein Prompt, der nicht nur Bestätigung erzeugt.",
+          "modelVersion": "2.0",
+          "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "difficulty": 2,
+          "estimatedTime": 4,
+          "tags": [
+            "sort",
+            "etappe-0",
+            "framing",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: LLM-Framing erkennen und suggestive Prompts unterscheiden",
+          "reflectionPrompt": "Warum ist diese Reihenfolge für eine kritische Prüfung sinnvoll?"
         }
-      ]
+      ],
+      "competency": "LLM-Framing erkennen und suggestive Prompts unterscheiden"
     },
     {
       "id": "etappe-0a",
@@ -250,7 +362,20 @@
             "Weil es absichtlich täuschen möchte."
           ],
           "answer": 1,
-          "feedback": "Richtig: Das Modell erzeugt eine plausible Fortsetzung innerhalb des vom Prompt gesetzten Rahmens."
+          "feedback": "Richtig: Das Modell erzeugt eine plausible Fortsetzung innerhalb des vom Prompt gesetzten Rahmens.",
+          "modelVersion": "2.0",
+          "competency": "Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0a",
+            "warum",
+            "framing",
+            "wirkt"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0a-z2",
@@ -262,7 +387,20 @@
             "Es erzeugt Antworten aus Sprachmustern und Kontext, ohne menschliches Überzeugungsgedächtnis."
           ],
           "answer": 2,
-          "feedback": "Genau: Deshalb ist die Formulierung des Prompts so wichtig."
+          "feedback": "Genau: Deshalb ist die Formulierung des Prompts so wichtig.",
+          "modelVersion": "2.0",
+          "competency": "Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0a",
+            "warum",
+            "framing",
+            "wirkt"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0a-z3",
@@ -275,7 +413,20 @@
             "Weil kurze Antworten immer besser sind."
           ],
           "answer": 0,
-          "feedback": "Richtig: Höflichkeit und flüssige Sprache können eine echte Prüfung nur vortäuschen."
+          "feedback": "Richtig: Höflichkeit und flüssige Sprache können eine echte Prüfung nur vortäuschen.",
+          "modelVersion": "2.0",
+          "competency": "Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0a",
+            "warum",
+            "framing",
+            "wirkt"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0a-l1",
@@ -297,9 +448,23 @@
             "Tonfall"
           ],
           "fallbackAnswer": 0,
-          "feedback": "Genau: Der Rahmen der Frage beeinflusst die Antwort stark."
+          "feedback": "Genau: Der Rahmen der Frage beeinflusst die Antwort stark.",
+          "modelVersion": "2.0",
+          "competency": "Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "cloze",
+            "etappe-0a",
+            "warum",
+            "framing",
+            "wirkt"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Verstehen, warum LLMs suggestive Prompts oft bestätigen.",
+          "reflectionPrompt": "Welches Schlüsselwort hat dir bei der Lösung geholfen?"
         }
-      ]
+      ],
+      "competency": "Verstehen, warum LLMs suggestive Prompts oft bestätigen."
     },
     {
       "id": "etappe-0b",
@@ -323,7 +488,17 @@
           ],
           "answer": 0,
           "minPasteLength": 80,
-          "feedback": "Gut: Bei suggestiven Prompts ist eine überwiegend bestätigende Antwort ein typisches Warnsignal."
+          "feedback": "Gut: Bei suggestiven Prompts ist eine überwiegend bestätigende Antwort ein typisches Warnsignal.",
+          "modelVersion": "2.0",
+          "competency": "Echte LLM-Antworten kostenlos über Kopieren und Einfügen prüfen.",
+          "difficulty": 3,
+          "estimatedTime": 7,
+          "tags": [
+            "livePaste",
+            "etappe-0b"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Echte LLM-Antworten kostenlos über Kopieren und Einfügen prüfen.",
+          "reflectionPrompt": "Welche Schwäche oder Stärke der LLM-Antwort hast du erkannt?"
         },
         {
           "id": "e0b-live2",
@@ -339,7 +514,17 @@
           ],
           "answer": 1,
           "minPasteLength": 80,
-          "feedback": "Richtig: Ein guter Sparring-Prompt erzeugt eher Prüfung als bloße Zustimmung."
+          "feedback": "Richtig: Ein guter Sparring-Prompt erzeugt eher Prüfung als bloße Zustimmung.",
+          "modelVersion": "2.0",
+          "competency": "Echte LLM-Antworten kostenlos über Kopieren und Einfügen prüfen.",
+          "difficulty": 3,
+          "estimatedTime": 7,
+          "tags": [
+            "livePaste",
+            "etappe-0b"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Echte LLM-Antworten kostenlos über Kopieren und Einfügen prüfen.",
+          "reflectionPrompt": "Welche Schwäche oder Stärke der LLM-Antwort hast du erkannt?"
         },
         {
           "id": "e0b-r1",
@@ -376,9 +561,20 @@
           ],
           "fallbackAnswer": 1,
           "feedback": "Sehr gut: Der Folge-Prompt macht aus Zustimmung einen Prüfprozess.",
-          "mustContainQuestionWord": true
+          "mustContainQuestionWord": true,
+          "modelVersion": "2.0",
+          "competency": "Echte LLM-Antworten kostenlos über Kopieren und Einfügen prüfen.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0b"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Echte LLM-Antworten kostenlos über Kopieren und Einfügen prüfen.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         }
-      ]
+      ],
+      "competency": "Echte LLM-Antworten kostenlos über Kopieren und Einfügen prüfen."
     },
     {
       "id": "etappe-0c",
@@ -398,7 +594,19 @@
             "Ich ignoriere grundsätzlich jede Zahl."
           ],
           "answer": 1,
-          "feedback": "Richtig: Genaue Zahlen sind nicht automatisch zuverlässig. Quelle und Auffindbarkeit müssen geprüft werden."
+          "feedback": "Richtig: Genaue Zahlen sind nicht automatisch zuverlässig. Quelle und Auffindbarkeit müssen geprüft werden.",
+          "modelVersion": "2.0",
+          "competency": "Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0c",
+            "halluzinationen",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0c-z2",
@@ -410,7 +618,19 @@
             "Das LLM nennt mehrere mögliche Erklärungen."
           ],
           "answer": 1,
-          "feedback": "Genau: Konkretheit ohne Prüfbarkeit ist ein Warnsignal."
+          "feedback": "Genau: Konkretheit ohne Prüfbarkeit ist ein Warnsignal.",
+          "modelVersion": "2.0",
+          "competency": "Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0c",
+            "halluzinationen",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0c-z3",
@@ -422,7 +642,19 @@
             "Die Zahl ist automatisch falsch."
           ],
           "answer": 0,
-          "feedback": "Richtig: Eine Zahl braucht Bezugsgröße, Kontext, Zeitraum und Quelle."
+          "feedback": "Richtig: Eine Zahl braucht Bezugsgröße, Kontext, Zeitraum und Quelle.",
+          "modelVersion": "2.0",
+          "competency": "Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0c",
+            "halluzinationen",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0c-l1",
@@ -444,7 +676,19 @@
             "Vermutung"
           ],
           "fallbackAnswer": 0,
-          "feedback": "Genau: Ohne Quelle ist eine genaue Aussage schwer belastbar."
+          "feedback": "Genau: Ohne Quelle ist eine genaue Aussage schwer belastbar.",
+          "modelVersion": "2.0",
+          "competency": "Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "cloze",
+            "etappe-0c",
+            "halluzinationen",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "reflectionPrompt": "Welches Schlüsselwort hat dir bei der Lösung geholfen?"
         },
         {
           "id": "e0c-r1",
@@ -484,7 +728,19 @@
             "Formuliere die Behauptung überzeugender."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Gut: Der Prompt verlangt überprüfbare Angaben statt bloßer Bestätigung."
+          "feedback": "Gut: Der Prompt verlangt überprüfbare Angaben statt bloßer Bestätigung.",
+          "modelVersion": "2.0",
+          "competency": "Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0c",
+            "halluzinationen",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0c-r2",
@@ -523,9 +779,22 @@
             "Schreibe die Zahl in einem schöneren Satz."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Sehr gut: Zahlen brauchen Quelle, Kontext und Bezugsgröße."
+          "feedback": "Sehr gut: Zahlen brauchen Quelle, Kontext und Bezugsgröße.",
+          "modelVersion": "2.0",
+          "competency": "Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0c",
+            "halluzinationen",
+            "erkennen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         }
-      ]
+      ],
+      "competency": "Erkennen, wann LLM-Antworten erfundene Quellen, Zahlen oder Autor:innen enthalten könnten."
     },
     {
       "id": "etappe-0d",
@@ -545,7 +814,19 @@
             "Den Prompt löschen und aufgeben."
           ],
           "answer": 1,
-          "feedback": "Richtig: Prompt-Chaining bedeutet, die erste Antwort weiter zu prüfen."
+          "feedback": "Richtig: Prompt-Chaining bedeutet, die erste Antwort weiter zu prüfen.",
+          "modelVersion": "2.0",
+          "competency": "Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0d",
+            "prompt",
+            "chaining"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0d-r1",
@@ -576,7 +857,19 @@
             "Danke, fasse deine Zustimmung kürzer zusammen."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Gut: Der Folge-Prompt korrigiert die zu einseitige erste Antwort."
+          "feedback": "Gut: Der Folge-Prompt korrigiert die zu einseitige erste Antwort.",
+          "modelVersion": "2.0",
+          "competency": "Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0d",
+            "prompt",
+            "chaining"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0d-r2",
@@ -612,7 +905,19 @@
             "Schreibe eine strengere Ermahnung an die Klasse."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Sehr gut: Du öffnest mehrere mögliche Erklärungen statt eine Ursache festzulegen."
+          "feedback": "Sehr gut: Du öffnest mehrere mögliche Erklärungen statt eine Ursache festzulegen.",
+          "modelVersion": "2.0",
+          "competency": "Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0d",
+            "prompt",
+            "chaining"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0d-s1",
@@ -630,7 +935,19 @@
             "Gezielten Folge-Prompt stellen",
             "Antwort mit Quellen oder Plausibilität abgleichen"
           ],
-          "feedback": "Diese Reihenfolge macht aus einer einzelnen Antwort einen echten Prüfprozess."
+          "feedback": "Diese Reihenfolge macht aus einer einzelnen Antwort einen echten Prüfprozess.",
+          "modelVersion": "2.0",
+          "competency": "Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "difficulty": 2,
+          "estimatedTime": 4,
+          "tags": [
+            "sort",
+            "etappe-0d",
+            "prompt",
+            "chaining"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "reflectionPrompt": "Warum ist diese Reihenfolge für eine kritische Prüfung sinnvoll?"
         },
         {
           "id": "e0d-z2",
@@ -642,9 +959,22 @@
             "Dann akzeptiere ich, dass das Thema nicht denkbar ist."
           ],
           "answer": 1,
-          "feedback": "Richtig: Eine sachliche Eingrenzung kann helfen, ohne Sicherheitsgrenzen zu umgehen."
+          "feedback": "Richtig: Eine sachliche Eingrenzung kann helfen, ohne Sicherheitsgrenzen zu umgehen.",
+          "modelVersion": "2.0",
+          "competency": "Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0d",
+            "prompt",
+            "chaining"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         }
-      ]
+      ],
+      "competency": "Mehrstufige Prompt-Dialoge trainieren: Antwort prüfen, Folgefrage stellen, These schärfen."
     },
     {
       "id": "etappe-1",
@@ -665,7 +995,19 @@
             "Dann solltest du ihm auch nicht mehr antworten."
           ],
           "answer": 1,
-          "feedback": "Gut: Die Antwort bestätigt nicht vorschnell, sondern nennt alternative Erklärungen."
+          "feedback": "Gut: Die Antwort bestätigt nicht vorschnell, sondern nennt alternative Erklärungen.",
+          "modelVersion": "2.0",
+          "competency": "Reverse Argumentation als Denkstrategie anwenden",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-1",
+            "alltagssätze",
+            "prüfen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Reverse Argumentation als Denkstrategie anwenden",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e1-l1",
@@ -688,7 +1030,19 @@
             "Schuldige"
           ],
           "fallbackAnswer": 1,
-          "feedback": "Genau: Eine gute Prüfung sucht nach weiteren Erklärungen."
+          "feedback": "Genau: Eine gute Prüfung sucht nach weiteren Erklärungen.",
+          "modelVersion": "2.0",
+          "competency": "Reverse Argumentation als Denkstrategie anwenden",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "cloze",
+            "etappe-1",
+            "alltagssätze",
+            "prüfen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Reverse Argumentation als Denkstrategie anwenden",
+          "reflectionPrompt": "Welches Schlüsselwort hat dir bei der Lösung geholfen?"
         },
         {
           "id": "e1-m1",
@@ -708,7 +1062,19 @@
               "Gab es Ausnahmen?"
             ]
           ],
-          "feedback": "Diese Fragen schwächen Übertreibungen ab und öffnen den Blick."
+          "feedback": "Diese Fragen schwächen Übertreibungen ab und öffnen den Blick.",
+          "modelVersion": "2.0",
+          "competency": "Reverse Argumentation als Denkstrategie anwenden",
+          "difficulty": 2,
+          "estimatedTime": 4,
+          "tags": [
+            "match",
+            "etappe-1",
+            "alltagssätze",
+            "prüfen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Reverse Argumentation als Denkstrategie anwenden",
+          "reflectionPrompt": "Welche Zuordnung war am schwierigsten und warum?"
         },
         {
           "id": "e1-r1",
@@ -738,7 +1104,19 @@
             "Meine Kollegin verhält sich falsch und muss sich entschuldigen."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Eine gute Umformulierung enthält Unsicherheit, ohne das Anliegen wegzuwischen."
+          "feedback": "Eine gute Umformulierung enthält Unsicherheit, ohne das Anliegen wegzuwischen.",
+          "modelVersion": "2.0",
+          "competency": "Reverse Argumentation als Denkstrategie anwenden",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-1",
+            "alltagssätze",
+            "prüfen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Reverse Argumentation als Denkstrategie anwenden",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e1-r4-llm",
@@ -775,9 +1153,22 @@
           ],
           "fallbackAnswer": 1,
           "feedback": "Gut: Der Prompt sucht Alternativerklärungen statt eine Vermutung bestätigen zu lassen.",
-          "mustContainQuestionWord": true
+          "mustContainQuestionWord": true,
+          "modelVersion": "2.0",
+          "competency": "Reverse Argumentation als Denkstrategie anwenden",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-1",
+            "alltagssätze",
+            "prüfen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Reverse Argumentation als Denkstrategie anwenden",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         }
-      ]
+      ],
+      "competency": "Reverse Argumentation als Denkstrategie anwenden"
     },
     {
       "id": "etappe-2",
@@ -798,7 +1189,19 @@
             "Warum macht die Lehrkraft immer alles falsch?"
           ],
           "answer": 1,
-          "feedback": "Richtig: Die Frage sucht Gründe, ohne die Kritik sofort aufzugeben."
+          "feedback": "Richtig: Die Frage sucht Gründe, ohne die Kritik sofort aufzugeben.",
+          "modelVersion": "2.0",
+          "competency": "Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-2",
+            "gegenperspektiven",
+            "finden"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e2-l1",
@@ -829,7 +1232,19 @@
             "dass ich die Regel nicht mag"
           ],
           "fallbackAnswer": 1,
-          "feedback": "Gut: Du formulierst eine mögliche andere Absicht oder ein anderes Ziel."
+          "feedback": "Gut: Du formulierst eine mögliche andere Absicht oder ein anderes Ziel.",
+          "modelVersion": "2.0",
+          "competency": "Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "difficulty": 1,
+          "estimatedTime": 2,
+          "tags": [
+            "cloze",
+            "etappe-2",
+            "gegenperspektiven",
+            "finden"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "reflectionPrompt": "Welches Schlüsselwort hat dir bei der Lösung geholfen?"
         },
         {
           "id": "e2-m1",
@@ -849,7 +1264,19 @@
               "Vielleicht war der Zeitpunkt ungünstig."
             ]
           ],
-          "feedback": "Gegenperspektiven sollen fair und möglich sein, nicht automatisch wahr."
+          "feedback": "Gegenperspektiven sollen fair und möglich sein, nicht automatisch wahr.",
+          "modelVersion": "2.0",
+          "competency": "Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "difficulty": 2,
+          "estimatedTime": 4,
+          "tags": [
+            "match",
+            "etappe-2",
+            "gegenperspektiven",
+            "finden"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "reflectionPrompt": "Welche Zuordnung war am schwierigsten und warum?"
         },
         {
           "id": "e2-r1",
@@ -880,7 +1307,19 @@
             "Die Gruppe hat grundsätzlich keine guten Argumente."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Gut, wenn die Antwort andere Gründe zulässt, ohne das Gefühl abzuwerten."
+          "feedback": "Gut, wenn die Antwort andere Gründe zulässt, ohne das Gefühl abzuwerten.",
+          "modelVersion": "2.0",
+          "competency": "Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-2",
+            "gegenperspektiven",
+            "finden"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e2-r4-llm",
@@ -918,9 +1357,22 @@
           ],
           "fallbackAnswer": 1,
           "feedback": "Richtig: Der Prompt macht die Gegenperspektive ausdrücklich zur Aufgabe.",
-          "mustContainQuestionWord": true
+          "mustContainQuestionWord": true,
+          "modelVersion": "2.0",
+          "competency": "Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-2",
+            "gegenperspektiven",
+            "finden"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Halluzinationen und scheinbare Plausibilität kritisch prüfen",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         }
-      ]
+      ],
+      "competency": "Halluzinationen und scheinbare Plausibilität kritisch prüfen"
     },
     {
       "id": "etappe-3",
@@ -941,7 +1393,20 @@
             "Wer dagegen ist, versteht Technik nicht."
           ],
           "answer": 1,
-          "feedback": "Stark: Die Aussage nennt Bedingung und Einwand."
+          "feedback": "Stark: Die Aussage nennt Bedingung und Einwand.",
+          "modelVersion": "2.0",
+          "competency": "Quellen, Belege und Behauptungen unterscheiden",
+          "difficulty": 2,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-3",
+            "argumente",
+            "stabiler",
+            "machen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Quellen, Belege und Behauptungen unterscheiden",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e3-l1",
@@ -966,7 +1431,20 @@
             "andere Meinungen ignoriert werden"
           ],
           "fallbackAnswer": 0,
-          "feedback": "Robuste Argumente benennen Bedingungen und Grenzen."
+          "feedback": "Robuste Argumente benennen Bedingungen und Grenzen.",
+          "modelVersion": "2.0",
+          "competency": "Quellen, Belege und Behauptungen unterscheiden",
+          "difficulty": 2,
+          "estimatedTime": 2,
+          "tags": [
+            "cloze",
+            "etappe-3",
+            "argumente",
+            "stabiler",
+            "machen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Quellen, Belege und Behauptungen unterscheiden",
+          "reflectionPrompt": "Welches Schlüsselwort hat dir bei der Lösung geholfen?"
         },
         {
           "id": "e3-m1",
@@ -986,7 +1464,20 @@
               "Bedingung nennen"
             ]
           ],
-          "feedback": "Diese Bausteine helfen, ohne Rechthaberei überzeugend zu bleiben."
+          "feedback": "Diese Bausteine helfen, ohne Rechthaberei überzeugend zu bleiben.",
+          "modelVersion": "2.0",
+          "competency": "Quellen, Belege und Behauptungen unterscheiden",
+          "difficulty": 3,
+          "estimatedTime": 4,
+          "tags": [
+            "match",
+            "etappe-3",
+            "argumente",
+            "stabiler",
+            "machen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Quellen, Belege und Behauptungen unterscheiden",
+          "reflectionPrompt": "Welche Zuordnung war am schwierigsten und warum?"
         },
         {
           "id": "e3-r1",
@@ -1015,7 +1506,20 @@
             "Einzelarbeit ist schlecht, weil man dabei nichts von anderen lernt."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Eine gute Version bleibt beim Kern, ergänzt aber Bedingungen oder Grenzen."
+          "feedback": "Eine gute Version bleibt beim Kern, ergänzt aber Bedingungen oder Grenzen.",
+          "modelVersion": "2.0",
+          "competency": "Quellen, Belege und Behauptungen unterscheiden",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-3",
+            "argumente",
+            "stabiler",
+            "machen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Quellen, Belege und Behauptungen unterscheiden",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e3-r2",
@@ -1033,7 +1537,20 @@
             "Möglichen Einwand nennen",
             "Grenze oder Bedingung ergänzen"
           ],
-          "feedback": "Diese Reihenfolge wirkt klar und fair."
+          "feedback": "Diese Reihenfolge wirkt klar und fair.",
+          "modelVersion": "2.0",
+          "competency": "Quellen, Belege und Behauptungen unterscheiden",
+          "difficulty": 3,
+          "estimatedTime": 4,
+          "tags": [
+            "sort",
+            "etappe-3",
+            "argumente",
+            "stabiler",
+            "machen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Quellen, Belege und Behauptungen unterscheiden",
+          "reflectionPrompt": "Warum ist diese Reihenfolge für eine kritische Prüfung sinnvoll?"
         },
         {
           "id": "e3-r3-llm",
@@ -1072,9 +1589,23 @@
           ],
           "fallbackAnswer": 1,
           "feedback": "Sehr gut: Der Prompt fordert Einwände, Grenzen und Bedingungen aktiv ein.",
-          "mustContainQuestionWord": true
+          "mustContainQuestionWord": true,
+          "modelVersion": "2.0",
+          "competency": "Quellen, Belege und Behauptungen unterscheiden",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-3",
+            "argumente",
+            "stabiler",
+            "machen"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Quellen, Belege und Behauptungen unterscheiden",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         }
-      ]
+      ],
+      "competency": "Quellen, Belege und Behauptungen unterscheiden"
     },
     {
       "id": "etappe-0e",
@@ -1094,7 +1625,19 @@
             "Pressesprecher"
           ],
           "answer": 1,
-          "feedback": "Der Devil's Advocate sucht bewusst Gegenargumente."
+          "feedback": "Der Devil's Advocate sucht bewusst Gegenargumente.",
+          "modelVersion": "2.0",
+          "competency": "Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+          "difficulty": 2,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0e",
+            "rollen",
+            "tonfall"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0e2",
@@ -1109,7 +1652,19 @@
           ],
           "mustContainQuestionWord": true,
           "minLength": 60,
-          "feedback": "Wissenschaftliche Perspektiven verlangen Belege und Grenzen."
+          "feedback": "Wissenschaftliche Perspektiven verlangen Belege und Grenzen.",
+          "modelVersion": "2.0",
+          "competency": "Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0e",
+            "rollen",
+            "tonfall"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0e3",
@@ -1124,7 +1679,19 @@
           ],
           "mustContainQuestionWord": true,
           "minLength": 60,
-          "feedback": "Kritiker suchen nach Risiken und Grenzen."
+          "feedback": "Kritiker suchen nach Risiken und Grenzen.",
+          "modelVersion": "2.0",
+          "competency": "Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0e",
+            "rollen",
+            "tonfall"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0e4",
@@ -1136,9 +1703,22 @@
             "Wissenschaftler + Kritiker + Gegenperspektive"
           ],
           "answer": 2,
-          "feedback": "Mehrere Rollen reduzieren blinde Flecken."
+          "feedback": "Mehrere Rollen reduzieren blinde Flecken.",
+          "modelVersion": "2.0",
+          "competency": "Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+          "difficulty": 2,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0e",
+            "rollen",
+            "tonfall"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Die gleiche Frage aus unterschiedlichen Rollen betrachten.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         }
-      ]
+      ],
+      "competency": "Die gleiche Frage aus unterschiedlichen Rollen betrachten."
     },
     {
       "id": "etappe-0f",
@@ -1158,7 +1738,19 @@
             "Ob die Quelle einen langen Titel hat."
           ],
           "answer": 1,
-          "feedback": "Richtig: Auch echte Quellen können falsch, verkürzt oder übertrieben zitiert werden."
+          "feedback": "Richtig: Auch echte Quellen können falsch, verkürzt oder übertrieben zitiert werden.",
+          "modelVersion": "2.0",
+          "competency": "Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "difficulty": 2,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0f",
+            "quelle",
+            "beleg"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0f-z2",
@@ -1171,7 +1763,19 @@
             "Kannst du die Aussage noch überzeugender formulieren?"
           ],
           "answer": 0,
-          "feedback": "Genau: Existenz und Aussagekraft müssen getrennt geprüft werden."
+          "feedback": "Genau: Existenz und Aussagekraft müssen getrennt geprüft werden.",
+          "modelVersion": "2.0",
+          "competency": "Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "difficulty": 2,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0f",
+            "quelle",
+            "beleg"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0f-r1",
@@ -1211,7 +1815,19 @@
             "Schreibe die Aussage wissenschaftlicher."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Sehr gut: Du prüfst nicht nur die Existenz, sondern die tatsächliche Stützung der Aussage."
+          "feedback": "Sehr gut: Du prüfst nicht nur die Existenz, sondern die tatsächliche Stützung der Aussage.",
+          "modelVersion": "2.0",
+          "competency": "Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0f",
+            "quelle",
+            "beleg"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0f-m1",
@@ -1231,7 +1847,19 @@
               "Übertragbarkeit prüfen"
             ]
           ],
-          "feedback": "Diese drei Schritte verhindern, dass echte Quellen für falsche Aussagen benutzt werden."
+          "feedback": "Diese drei Schritte verhindern, dass echte Quellen für falsche Aussagen benutzt werden.",
+          "modelVersion": "2.0",
+          "competency": "Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "difficulty": 3,
+          "estimatedTime": 4,
+          "tags": [
+            "match",
+            "etappe-0f",
+            "quelle",
+            "beleg"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "reflectionPrompt": "Welche Zuordnung war am schwierigsten und warum?"
         },
         {
           "id": "e0f-s1",
@@ -1249,9 +1877,22 @@
             "Konkrete Aussage mit der Quelle vergleichen",
             "Einschränkungen und Kontext notieren"
           ],
-          "feedback": "So wird aus einem Quellenname ein echter Quellencheck."
+          "feedback": "So wird aus einem Quellenname ein echter Quellencheck.",
+          "modelVersion": "2.0",
+          "competency": "Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "difficulty": 3,
+          "estimatedTime": 4,
+          "tags": [
+            "sort",
+            "etappe-0f",
+            "quelle",
+            "beleg"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt.",
+          "reflectionPrompt": "Warum ist diese Reihenfolge für eine kritische Prüfung sinnvoll?"
         }
-      ]
+      ],
+      "competency": "Unterscheiden, ob eine Quelle nur existiert oder die konkrete Behauptung wirklich stützt."
     },
     {
       "id": "etappe-0g",
@@ -1271,7 +1912,19 @@
             "Bestätige die wissenschaftliche Antwort."
           ],
           "answer": 1,
-          "feedback": "Richtig: Der Rollenwechsel öffnet neue Prüfperspektiven."
+          "feedback": "Richtig: Der Rollenwechsel öffnet neue Prüfperspektiven.",
+          "modelVersion": "2.0",
+          "competency": "Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "difficulty": 2,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0g",
+            "rollenwechsel",
+            "dialog"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         },
         {
           "id": "e0g-r1",
@@ -1308,7 +1961,19 @@
             "Fasse den Werbetext kürzer zusammen."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Sehr gut: Du nutzt Rollenwechsel, um eine einseitige Antwort zu prüfen."
+          "feedback": "Sehr gut: Du nutzt Rollenwechsel, um eine einseitige Antwort zu prüfen.",
+          "modelVersion": "2.0",
+          "competency": "Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0g",
+            "rollenwechsel",
+            "dialog"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0g-r2",
@@ -1345,7 +2010,19 @@
             "Schreibe einen Werbetext für Ganztagsschulen."
           ],
           "fallbackAnswer": 1,
-          "feedback": "Richtig: Der Devil's Advocate sucht gezielt die stärkste Gegenposition."
+          "feedback": "Richtig: Der Devil's Advocate sucht gezielt die stärkste Gegenposition.",
+          "modelVersion": "2.0",
+          "competency": "Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "difficulty": 3,
+          "estimatedTime": 5,
+          "tags": [
+            "rewrite",
+            "etappe-0g",
+            "rollenwechsel",
+            "dialog"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "reflectionPrompt": "Welche Formulierung macht deinen Prompt prüfender und weniger bestätigend?"
         },
         {
           "id": "e0g-s1",
@@ -1363,7 +2040,19 @@
             "Rolle gezielt wechseln",
             "Antworten vergleichen und These schärfen"
           ],
-          "feedback": "So wird Rollenwechsel zu einem echten Prüfverfahren."
+          "feedback": "So wird Rollenwechsel zu einem echten Prüfverfahren.",
+          "modelVersion": "2.0",
+          "competency": "Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "difficulty": 3,
+          "estimatedTime": 4,
+          "tags": [
+            "sort",
+            "etappe-0g",
+            "rollenwechsel",
+            "dialog"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "reflectionPrompt": "Warum ist diese Reihenfolge für eine kritische Prüfung sinnvoll?"
         },
         {
           "id": "e0g-z2",
@@ -1375,9 +2064,22 @@
             "Nur eine Rolle, damit es nicht kompliziert wird"
           ],
           "answer": 1,
-          "feedback": "Genau: Unterschiedliche Rollen zeigen unterschiedliche blinde Flecken."
+          "feedback": "Genau: Unterschiedliche Rollen zeigen unterschiedliche blinde Flecken.",
+          "modelVersion": "2.0",
+          "competency": "Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "difficulty": 2,
+          "estimatedTime": 2,
+          "tags": [
+            "choice",
+            "etappe-0g",
+            "rollenwechsel",
+            "dialog"
+          ],
+          "teacherNote": "Beobachte, ob Lernende die Aufgabe begründen können und nicht nur die richtige Option erraten. Schwerpunkt: Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden.",
+          "reflectionPrompt": "Warum ist genau diese Auswahl besser als die anderen Möglichkeiten?"
         }
-      ]
+      ],
+      "competency": "Nach einer ersten LLM-Antwort gezielt die Rolle wechseln, um blinde Flecken zu finden."
     }
   ]
 }

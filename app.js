@@ -1,11 +1,11 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 1
+/* Perspektivwechsel-Trainer 2.0 Phase 2
    Schlanker Einstiegspunkt: Laden, Events binden, Anwendung starten. */
 
 async function init() {
   try {
     const r = await fetch("tasks.json");
     if (!r.ok) throw new Error("tasks.json konnte nicht geladen werden");
-    state.data = await r.json();
+    state.data = normalizeCourseData(await r.json());
 
     if (!state.data?.stages?.length) throw new Error("Keine Etappen gefunden");
 

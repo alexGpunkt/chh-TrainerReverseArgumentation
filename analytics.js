@@ -1,9 +1,11 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 1
+/* Perspektivwechsel-Trainer 2.0 Phase 2
    Lernanalyse, Statistik und Reflexion. */
 function ensureStats() {
   if (!state.stats || typeof state.stats !== "object") state.stats = {};
   state.stats.byStage ||= {};
   state.stats.byType ||= {};
+  state.stats.byDifficulty ||= {};
+  state.stats.byCompetency ||= {};
   state.stats.totalWrong ||= 0;
   state.stats.totalSolved ||= 0;
   state.stats.fallbackUsed ||= 0;
@@ -24,19 +26,29 @@ function recordAttemptResult(ok, t, usedFallback = false) {
   const sid = st.id, typ = t.type;
   state.stats.byStage[sid] ||= { title: st.title, wrong: 0, solved: 0, fallback: 0, confidence: [] };
   state.stats.byType[typ] ||= { wrong: 0, solved: 0, fallback: 0, confidence: [] };
+  const diffKey = String(t.difficulty || 1);
+  const compKey = t.competency || "Perspektivwechsel";
+  state.stats.byDifficulty[diffKey] ||= { title: typeof difficultyLabel === "function" ? difficultyLabel(t.difficulty) : diffKey, wrong: 0, solved: 0, fallback: 0, confidence: [] };
+  state.stats.byCompetency[compKey] ||= { title: compKey, wrong: 0, solved: 0, fallback: 0, confidence: [] };
   if (ok) {
     state.stats.totalSolved++;
     state.stats.byStage[sid].solved++;
     state.stats.byType[typ].solved++;
+    state.stats.byDifficulty[diffKey].solved++;
+    state.stats.byCompetency[compKey].solved++;
   } else {
     state.stats.totalWrong++;
     state.stats.byStage[sid].wrong++;
     state.stats.byType[typ].wrong++;
+    state.stats.byDifficulty[diffKey].wrong++;
+    state.stats.byCompetency[compKey].wrong++;
   }
   if (usedFallback) {
     state.stats.fallbackUsed++;
     state.stats.byStage[sid].fallback++;
     state.stats.byType[typ].fallback++;
+    state.stats.byDifficulty[diffKey].fallback++;
+    state.stats.byCompetency[compKey].fallback++;
   }
   state.stats.history.push({
     ts: Date.now(),
@@ -44,6 +56,9 @@ function recordAttemptResult(ok, t, usedFallback = false) {
     stageTitle: st.title,
     taskId: t.id,
     taskType: typ,
+    competency: t.competency || "",
+    difficulty: t.difficulty || 1,
+    estimatedTime: t.estimatedTime || "",
     correct: !!ok,
     usedFallback: !!usedFallback,
     confidence: null
@@ -204,6 +219,8 @@ function renderLearningAnalysis() {
 
   box.innerHTML = "";
   appendText(box, "p", `Gelöst: ${state.stats.totalSolved || 0} · Fehlversuche: ${state.stats.totalWrong || 0} · Hilfen: ${state.stats.fallbackUsed || 0}`);
+  const diffWeak = Object.entries(state.stats.byDifficulty || {}).map(([id, s]) => ({ id, ...s, rate: (s.wrong || 0) / Math.max(1, (s.wrong || 0) + (s.solved || 0)) })).sort((a, b) => b.rate - a.rate)[0];
+  if (diffWeak) appendText(box, "p", `Aktuell anspruchsvollstes Niveau: ${diffWeak.title || diffWeak.id}.`);
   appendText(box, "p", `Ø Sicherheit: ${avgConf}`);
   if (weakType) appendText(box, "p", `Schwieriger Aufgabentyp: ${typeLabel(weakType.id)}.`);
   appendText(box, "p", recommendation, "analysisRecommendation");
@@ -273,8 +290,16 @@ function renderReflection() {
     if (lastHist) lastHist.confidence = val;
     state.stats.byStage[st.id] ||= { title: st.title, wrong: 0, solved: 0, fallback: 0, confidence: [] };
     state.stats.byType[t.type] ||= { wrong: 0, solved: 0, fallback: 0, confidence: [] };
+    const diffKey = String(t.difficulty || 1);
+    const compKey = t.competency || "Perspektivwechsel";
+    state.stats.byDifficulty ||= {};
+    state.stats.byCompetency ||= {};
+    state.stats.byDifficulty[diffKey] ||= { title: typeof difficultyLabel === "function" ? difficultyLabel(t.difficulty) : diffKey, wrong: 0, solved: 0, fallback: 0, confidence: [] };
+    state.stats.byCompetency[compKey] ||= { title: compKey, wrong: 0, solved: 0, fallback: 0, confidence: [] };
     state.stats.byStage[st.id].confidence.push(val);
     state.stats.byType[t.type].confidence.push(val);
+    state.stats.byDifficulty[diffKey].confidence.push(val);
+    state.stats.byCompetency[compKey].confidence.push(val);
     save();
     renderLearningAnalysis();
     ProgressTracker?.sendProgress({ stageId: st.id, taskId: t.id, taskType: t.type, confidence: val, reflection: true, solvedCorrect: true });

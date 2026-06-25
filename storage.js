@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 1
+/* Perspektivwechsel-Trainer 2.0 Phase 2
    Zentrale Zustandsverwaltung und lokaler Speicher. */
 const state = {
   data: null,

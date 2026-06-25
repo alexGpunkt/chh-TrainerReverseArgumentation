@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 1
+/* Perspektivwechsel-Trainer 2.0 Phase 2
    Lokaler Export der Lernfortschrittsdaten. */
 function exportData(format) {
   ensureStats();
@@ -8,14 +8,20 @@ function exportData(format) {
     exportedAt: new Date().toISOString(),
     stats: state.stats,
     solved: state.solved,
-    badges: state.badges
+    badges: state.badges,
+    taskModelVersion: state.data?.meta?.taskModelVersion || "",
+    course: {
+      stageCount: state.data?.stages?.length || 0,
+      taskCount: state.data?.stages?.flatMap(s => s.tasks || []).length || 0
+    }
   };
   let blob, name;
   if (format === "csv") {
-    const rows = [["timestamp", "stageId", "taskId", "taskType", "correct", "usedFallback", "confidence"]];
+    const rows = [["timestamp", "stageId", "taskId", "taskType", "competency", "difficulty", "estimatedTime", "correct", "usedFallback", "confidence"]];
     (state.stats.history || []).forEach(h => rows.push([
       new Date(h.ts).toISOString(),
       h.stageId, h.taskId, h.taskType,
+      h.competency || "", h.difficulty || "", h.estimatedTime || "",
       h.correct, h.usedFallback, h.confidence ?? ""
     ]));
     const csv = rows.map(r => r.map(x => `"${String(x).replaceAll('"', '""')}"`).join(",")).join("\n");

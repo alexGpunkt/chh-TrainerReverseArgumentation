@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 1
+/* Perspektivwechsel-Trainer 2.0 Phase 2
    Validierungslogik für freie Prompt-Antworten. */
 function norm(s) {
   return String(s || "").toLowerCase().trim()
@@ -49,4 +49,33 @@ function validateRewrite(t, value) {
       : !hasKey ? "Fordere Gegenargumente, Bedingungen, Grenzen, Quellen, Rollenwechsel oder Alternativerklärungen ein."
       : v.length < min ? "Formuliere vollständiger: Ein guter Prompt enthält Kontext und Prüfauftrag." : ""
   };
+}
+
+
+function validateTaskModel(task) {
+  const problems = [];
+  if (!task || typeof task !== "object") problems.push("Aufgabe ist kein Objekt.");
+  if (!task.id) problems.push("id fehlt.");
+  if (!task.type) problems.push("type fehlt.");
+  if (!task.prompt) problems.push("prompt fehlt.");
+  if (!task.competency) problems.push("competency fehlt.");
+  if (!Number.isFinite(Number(task.difficulty))) problems.push("difficulty fehlt oder ist ungültig.");
+  if (!Number.isFinite(Number(task.estimatedTime))) problems.push("estimatedTime fehlt oder ist ungültig.");
+  if (!Array.isArray(task.tags)) problems.push("tags müssen als Liste vorliegen.");
+  return { ok: problems.length === 0, problems };
+}
+
+function validateCourseModel(data) {
+  const problems = [];
+  if (!data?.meta?.taskModelVersion) problems.push("meta.taskModelVersion fehlt.");
+  if (!Array.isArray(data?.stages) || !data.stages.length) problems.push("stages fehlen.");
+  (data?.stages || []).forEach(stage => {
+    if (!stage.id) problems.push("Eine Etappe ohne id wurde gefunden.");
+    if (!stage.competency) problems.push(`${stage.id || "Etappe"}: competency fehlt.`);
+    (stage.tasks || []).forEach(task => {
+      const result = validateTaskModel(task);
+      if (!result.ok) problems.push(`${task.id || "Aufgabe"}: ${result.problems.join(" ")}`);
+    });
+  });
+  return { ok: problems.length === 0, problems };
 }
