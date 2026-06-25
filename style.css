@@ -588,3 +588,31 @@ textarea {
   border-left:4px solid var(--accent);
   font-weight:800;
 }
+
+
+/* Phase 4: Dashboard, Fehleranalyse und Lernhistorie */
+.p4Cards{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:8px;
+  margin-bottom:10px;
+}
+.p4Cards div{
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:8px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.p4Cards strong{font-size:1.15rem;color:var(--accent2)}
+.p4Cards span{font-size:.75rem;font-weight:800;color:#64748b}
+.p4Bar{margin:9px 0}
+.p4BarTop{display:flex;justify-content:space-between;gap:8px;font-size:.82rem}
+.p4Track{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:5px 0}
+.p4Fill{height:100%;background:linear-gradient(90deg, var(--accent), var(--accent2));border-radius:999px}
+.p4Bar small{display:block;color:#64748b;font-weight:700;font-size:.72rem}
+.p4Day{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:8px;margin:7px 0}
+.p4Day strong{display:block;margin-bottom:2px}
+.p4Day span{font-size:.76rem;color:#64748b;font-weight:800}

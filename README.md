@@ -54,3 +54,8 @@ Der mobile Aufgabenbildschirm nutzt nun einen Fokusmodus: Die Etappen-Grafik wir
 ## Version 2.0 – Phase 3
 
 Phase 3 ergänzt ein adaptives Lernpfadsystem mit Kompetenzprofil, Wiederholungswarteschlange, Kompetenzkarte und Lernpfad-Empfehlungen. Bestehende Aufgaben bleiben kompatibel; das Aufgabenmodell wird beim Laden normalisiert.
+
+
+## Version 2.0 – Phase 4
+
+Erweitert die lauffähige Phase-3-Version um Dashboard, Fehleranalyse, Lernhistorie, Zeitdaten, Erstversuchsquote und einen erweiterten JSON-/CSV-Export zur Vorbereitung des späteren Lehrer- und Klassenmodus.

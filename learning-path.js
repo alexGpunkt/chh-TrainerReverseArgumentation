@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 3
+/* Perspektivwechsel-Trainer 2.0 Phase 4
    Adaptives Lernpfadsystem: Kompetenzprofil, Wiederholungen und Empfehlungen. */
 const LEARNING_PATH_VERSION = "3.0";
 

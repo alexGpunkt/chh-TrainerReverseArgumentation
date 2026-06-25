@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 2
+/* Perspektivwechsel-Trainer 2.0 Phase 4
    Schlanker Einstiegspunkt: Laden, Events binden, Anwendung starten. */
 
 async function init() {

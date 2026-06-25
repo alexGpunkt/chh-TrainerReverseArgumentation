@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 2
+/* Perspektivwechsel-Trainer 2.0 Phase 4
    Lernanalyse, Statistik und Reflexion. */
 function ensureStats() {
   if (!state.stats || typeof state.stats !== "object") state.stats = {};
@@ -12,6 +12,10 @@ function ensureStats() {
   state.stats.confidence ||= [];
   state.stats.history ||= [];
   state.stats.validationReasons ||= {};
+  state.stats.sessions ||= {};
+  state.stats.timeByCompetency ||= {};
+  state.stats.timeByDifficulty ||= {};
+  state.stats.firstTry ||= { correct: 0, total: 0 };
 }
 
 function bumpStat(bucket, key, field) {
@@ -22,6 +26,8 @@ function bumpStat(bucket, key, field) {
 
 function recordAttemptResult(ok, t, usedFallback = false) {
   ensureStats();
+  const durationSec = Math.max(0, Math.round((Date.now() - (state.taskStartedAt || Date.now())) / 1000));
+  const firstTry = ((state.attempts?.[t.id] || 0) === 0) && !usedFallback;
   const st = currentStage();
   const sid = st.id, typ = t.type;
   state.stats.byStage[sid] ||= { title: st.title, wrong: 0, solved: 0, fallback: 0, confidence: [] };
@@ -30,6 +36,10 @@ function recordAttemptResult(ok, t, usedFallback = false) {
   const compKey = t.competency || "Perspektivwechsel";
   state.stats.byDifficulty[diffKey] ||= { title: typeof difficultyLabel === "function" ? difficultyLabel(t.difficulty) : diffKey, wrong: 0, solved: 0, fallback: 0, confidence: [] };
   state.stats.byCompetency[compKey] ||= { title: compKey, wrong: 0, solved: 0, fallback: 0, confidence: [] };
+  if (firstTry) {
+    state.stats.firstTry.total++;
+    if (ok) state.stats.firstTry.correct++;
+  }
   if (ok) {
     state.stats.totalSolved++;
     state.stats.byStage[sid].solved++;
@@ -61,8 +71,22 @@ function recordAttemptResult(ok, t, usedFallback = false) {
     estimatedTime: t.estimatedTime || "",
     correct: !!ok,
     usedFallback: !!usedFallback,
-    confidence: null
+    confidence: null,
+    durationSec,
+    firstTry
   });
+  const dayKey = new Date().toISOString().slice(0, 10);
+  state.stats.sessions[dayKey] ||= { tasks: 0, correct: 0, wrong: 0, durationSec: 0, competencies: {} };
+  state.stats.sessions[dayKey].tasks++;
+  if (ok) state.stats.sessions[dayKey].correct++; else state.stats.sessions[dayKey].wrong++;
+  state.stats.sessions[dayKey].durationSec += durationSec;
+  state.stats.sessions[dayKey].competencies[compKey] = (state.stats.sessions[dayKey].competencies[compKey] || 0) + 1;
+  state.stats.timeByCompetency[compKey] ||= { durationSec: 0, count: 0 };
+  state.stats.timeByCompetency[compKey].durationSec += durationSec;
+  state.stats.timeByCompetency[compKey].count++;
+  state.stats.timeByDifficulty[diffKey] ||= { title: typeof difficultyLabel === "function" ? difficultyLabel(t.difficulty) : diffKey, durationSec: 0, count: 0 };
+  state.stats.timeByDifficulty[diffKey].durationSec += durationSec;
+  state.stats.timeByDifficulty[diffKey].count++;
   if (state.stats.history.length > 200) state.stats.history = state.stats.history.slice(-200);
   save();
 }
@@ -305,4 +329,103 @@ function renderReflection() {
     ProgressTracker?.sendProgress({ stageId: st.id, taskId: t.id, taskType: t.type, confidence: val, reflection: true, solvedCorrect: true });
     next.disabled = false;
   });
+}
+
+
+function phase4Percent(part, total) {
+  return total ? Math.round((part / total) * 100) : 0;
+}
+
+function phase4Bar(label, percent, sub = "") {
+  const p = Math.max(0, Math.min(100, Number(percent) || 0));
+  return `<div class="p4Bar"><div class="p4BarTop"><strong>${escapeHtml(label)}</strong><span>${p}%</span></div><div class="p4Track"><div class="p4Fill" style="width:${p}%"></div></div>${sub ? `<small>${escapeHtml(sub)}</small>` : ""}</div>`;
+}
+
+function phase4DashboardData() {
+  ensureStats();
+  ensureLearningPath?.();
+  const allTasks = state.data?.stages?.flatMap(s => s.tasks || []) || [];
+  const solvedCount = Object.keys(state.solved || {}).length;
+  const totalAttempts = (state.stats.totalSolved || 0) + (state.stats.totalWrong || 0);
+  const avgTime = totalAttempts ? Math.round((state.stats.history || []).reduce((sum, h) => sum + (h.durationSec || 0), 0) / totalAttempts) : 0;
+  const firstTryRate = phase4Percent(state.stats.firstTry?.correct || 0, state.stats.firstTry?.total || 0);
+  const reviewRate = phase4Percent(state.learningPath?.reviewQueue?.length || 0, Math.max(1, allTasks.length));
+  let streak = 0;
+  for (const h of [...(state.stats.history || [])].reverse()) {
+    if (h.correct) streak++;
+    else break;
+  }
+  return { allTasks, solvedCount, totalAttempts, avgTime, firstTryRate, reviewRate, streak, progress: phase4Percent(solvedCount, allTasks.length) };
+}
+
+function renderPhase4Dashboard() {
+  const box = document.getElementById("phase4Dashboard");
+  if (!box) return;
+  const d = phase4DashboardData();
+  if (!d.totalAttempts && !d.solvedCount) {
+    box.innerHTML = "Noch keine Dashboarddaten.";
+    return;
+  }
+  const stage = currentStage();
+  const solvedInStage = stage ? (stage.tasks || []).filter(t => state.solved?.[t.id]).length : 0;
+  const stagePercent = stage ? phase4Percent(solvedInStage, (stage.tasks || []).length) : 0;
+  box.innerHTML = `
+    <div class="p4Cards">
+      <div><strong>${d.progress}%</strong><span>Gesamt</span></div>
+      <div><strong>${stagePercent}%</strong><span>Etappe</span></div>
+      <div><strong>${d.avgTime}s</strong><span>Ø Zeit</span></div>
+      <div><strong>${d.firstTryRate}%</strong><span>Erstversuch</span></div>
+    </div>
+    ${phase4Bar("Gesamtfortschritt", d.progress, `${d.solvedCount} von ${d.allTasks.length} Aufgaben gelöst`)}
+    ${phase4Bar("Aktuelle Etappe", stagePercent, stage ? stage.title : "")}
+    ${phase4Bar("Erstversuchsquote", d.firstTryRate, "richtige Lösungen ohne Hilfestufe")}
+  `;
+}
+
+function renderPhase4Errors() {
+  const box = document.getElementById("phase4Errors");
+  if (!box) return;
+  ensureStats();
+  const entries = Object.entries(state.stats.byCompetency || {})
+    .map(([name, s]) => ({ name, wrong: s.wrong || 0, solved: s.solved || 0, total: (s.wrong || 0) + (s.solved || 0) }))
+    .filter(x => x.total)
+    .sort((a, b) => b.wrong - a.wrong || b.total - a.total);
+  if (!entries.length) {
+    box.textContent = "Noch keine Fehleranalyse verfügbar.";
+    return;
+  }
+  box.innerHTML = entries.slice(0, 6).map(x => phase4Bar(x.name, phase4Percent(x.solved, x.total), `${x.wrong} Fehler · ${x.solved} richtig`)).join("");
+}
+
+function renderPhase4History() {
+  const box = document.getElementById("phase4History");
+  if (!box) return;
+  ensureStats();
+  const sessions = Object.entries(state.stats.sessions || {}).sort((a,b) => b[0].localeCompare(a[0])).slice(0, 7);
+  if (!sessions.length) {
+    box.textContent = "Noch keine Lernhistorie.";
+    return;
+  }
+  box.innerHTML = sessions.map(([day, s]) => {
+    const acc = phase4Percent(s.correct || 0, (s.correct || 0) + (s.wrong || 0));
+    const min = Math.round((s.durationSec || 0) / 60);
+    return `<div class="p4Day"><strong>${escapeHtml(day)}</strong><span>${s.tasks || 0} Aufgaben · ${acc}% richtig · ${min} Min.</span><div class="p4Track"><div class="p4Fill" style="width:${acc}%"></div></div></div>`;
+  }).join("");
+}
+
+function phase4TeacherReadiness() {
+  ensureStats();
+  const d = phase4DashboardData();
+  return {
+    schema: "phase4-teacher-ready",
+    totalTasks: d.allTasks.length,
+    solvedCount: d.solvedCount,
+    totalAttempts: d.totalAttempts,
+    avgTimeSec: d.avgTime,
+    firstTryRate: d.firstTryRate,
+    competencies: state.learningPath?.competencies || {},
+    sessions: state.stats.sessions || {},
+    errorDistribution: state.stats.byCompetency || {},
+    recommendations: state.learningPath?.recommendations || []
+  };
 }

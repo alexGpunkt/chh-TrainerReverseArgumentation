@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 2
+/* Perspektivwechsel-Trainer 2.0 Phase 4
    Darstellung, Aufgaben-Rendering, Navigation und QR-Code. */
 function render() {
   const st = currentStage();
@@ -16,6 +16,7 @@ function render() {
   }
   
   state.fallbackMode = false;
+  state.taskStartedAt = Date.now();
   $("#stageTitle").textContent = st.title;
   $("#stageGoal").textContent = st.goal || "";
   $("#prompt").textContent = t.prompt;
@@ -369,6 +370,9 @@ function renderProgress() {
     return `<span class="${done ? "done" : ""}">${done ? "●" : "○"} ${i + 1}</span>`;
   }).join("");
   renderLearningAnalysis();
+  renderPhase4Dashboard?.();
+  renderPhase4Errors?.();
+  renderPhase4History?.();
   renderCompetencyMap?.();
   renderLearningPathRecommendation?.();
 }
