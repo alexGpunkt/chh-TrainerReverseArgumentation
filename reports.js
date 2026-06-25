@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 5
+/* Perspektivwechsel-Trainer 2.0 Phase 6
    Klassenberichte aus lokalen Browserdaten. */
 function readProgressForStudent(student) {
   try {
@@ -47,7 +47,7 @@ function classCompetencySummary(classId) {
 }
 
 function downloadClassCsv(classId) {
-  const rows = [["classId", "studentId", "name", "solved", "wrong", "accuracy", "firstTryRate", "fallback", "lastActivity"]];
+  const rows = [["classId", "studentId", "name", "solved", "wrong", "accuracy", "firstTryRate", "fallback", "lastActivity", "tutorFeedback", "nextTraining"]];
   classReport(classId).forEach(r => rows.push([
     classId,
     r.student.id,
@@ -57,12 +57,14 @@ function downloadClassCsv(classId) {
     r.summary.accuracy,
     r.summary.firstTryRate,
     r.summary.fallback,
-    r.summary.lastTs ? new Date(r.summary.lastTs).toISOString() : ""
+    r.summary.lastTs ? new Date(r.summary.lastTs).toISOString() : "",
+    typeof generateTeacherFeedback === "function" ? generateTeacherFeedback(r.student, r.raw) : "",
+    typeof generateNextTrainingPlan === "function" ? generateNextTrainingPlan(r.raw || {}).join(" | ") : ""
   ]));
   const csv = rows.map(r => r.map(x => `"${String(x).replaceAll('"', '""')}"`).join(",")).join("\n");
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
-  a.download = `perspektivwechsel_klassenbericht_${classId}.csv`;
+  a.download = `perspektivwechsel_phase6_klassenbericht_${classId}.csv`;
   document.body.appendChild(a);
   a.click();
   URL.revokeObjectURL(a.href);

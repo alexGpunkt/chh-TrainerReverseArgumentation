@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 5
+/* Perspektivwechsel-Trainer 2.0 Phase 6
    Lokaler Export der Lernfortschrittsdaten. */
 function exportData(format) {
   ensureStats();
@@ -16,7 +16,12 @@ function exportData(format) {
       taskCount: state.data?.stages?.flatMap(s => s.tasks || []).length || 0
     },
     learningPath: state.learningPath || {},
-    phase4Dashboard: typeof phase4TeacherReadiness === "function" ? phase4TeacherReadiness() : {}
+    phase4Dashboard: typeof phase4TeacherReadiness === "function" ? phase4TeacherReadiness() : {},
+    tutor: {
+      studentFeedback: typeof generateStudentFeedback === "function" ? generateStudentFeedback(state) : "",
+      nextTraining: typeof generateNextTrainingPlan === "function" ? generateNextTrainingPlan(state) : [],
+      classFeedback: typeof generateClassFeedback === "function" && state.user?.classId ? generateClassFeedback(state.user.classId) : ""
+    }
   };
   let blob, name;
   if (format === "csv") {
@@ -29,10 +34,10 @@ function exportData(format) {
     ]));
     const csv = rows.map(r => r.map(x => `"${String(x).replaceAll('"', '""')}"`).join(",")).join("\n");
     blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-    name = "perspektivwechsel_phase5_lernanalyse.csv";
+    name = "perspektivwechsel_phase6_lernanalyse.csv";
   } else {
     blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" });
-    name = "perspektivwechsel_phase5_lernanalyse.json";
+    name = "perspektivwechsel_phase6_lernanalyse.json";
   }
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);

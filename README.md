@@ -74,3 +74,17 @@ Neu:
 - CSV-Export für Klassenberichte
 
 Hinweis: Alle Daten bleiben lokal im Browser. Es gibt noch keine Cloud-Synchronisation.
+
+## Version 2.0 – Phase 6
+
+Phase 6 ergänzt einen regelbasierten, vollständig offline nutzbaren Tutor:
+
+- persönliche Lernanalyse pro Schüler
+- automatische Lernertyp-Erkennung
+- konkrete nächste Trainingseinheit
+- Lehrerdiagnosen pro Schüler
+- Klassendiagnose
+- Tutorbericht-Export als JSON
+- erweiterter CSV-/JSON-Export mit Förderhinweisen
+
+Es wird keine externe KI-API verwendet. Die Rückmeldungen werden lokal aus Lernstand, Fehlerquote, Bearbeitungszeit, Erstversuchsquote und Kompetenzprofil berechnet.

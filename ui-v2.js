@@ -376,6 +376,7 @@ function renderProgress() {
   renderCompetencyMap?.();
   renderLearningPathRecommendation?.();
   renderPhase5?.();
+  renderPhase6?.();
 }
 
 function renderQr(text) {
