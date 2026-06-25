@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 4
+/* Perspektivwechsel-Trainer 2.0 Phase 5
    Zentrale Zustandsverwaltung und lokaler Speicher. */
 const state = {
   data: null,
@@ -12,7 +12,8 @@ const state = {
   fallbackMode: false,
   stats: {},
   learningPath: {},
-  taskStartedAt: Date.now()
+  taskStartedAt: Date.now(),
+  user: null
 };
 
 const $ = s => document.querySelector(s);
@@ -26,8 +27,13 @@ function appendText(parent, tag, text, className) {
   return el;
 }
 
+function getCurrentStorageKey() {
+  if (typeof storageKeyForUser === "function") return storageKeyForUser(state.user || undefined);
+  return "pwTrainerState";
+}
+
 function save() {
-  localStorage.setItem("pwTrainerState", JSON.stringify({
+  localStorage.setItem(getCurrentStorageKey(), JSON.stringify({
     stageIndex: state.stageIndex,
     taskIndex: state.taskIndex,
     score: state.score,
@@ -35,13 +41,14 @@ function save() {
     badges: state.badges,
     attempts: state.attempts,
     stats: state.stats,
-    learningPath: state.learningPath
+    learningPath: state.learningPath,
+    user: state.user
   }));
 }
 
 function loadSaved() {
   try {
-    const s = JSON.parse(localStorage.getItem("pwTrainerState") || "{}");
+    const s = JSON.parse(localStorage.getItem(getCurrentStorageKey()) || "{}");
     if (typeof s.stageIndex === "number") state.stageIndex = s.stageIndex;
     if (typeof s.taskIndex === "number") state.taskIndex = s.taskIndex;
     if (typeof s.score === "number") state.score = s.score;
@@ -50,6 +57,7 @@ function loadSaved() {
     if (s.attempts && typeof s.attempts === "object") state.attempts = s.attempts;
     if (s.stats && typeof s.stats === "object") state.stats = s.stats;
     if (s.learningPath && typeof s.learningPath === "object") state.learningPath = s.learningPath;
+    if (state.user) state.user = { ...state.user, ...(s.user || {}) };
   } catch (e) {
     console.warn("save corrupt", e);
   }

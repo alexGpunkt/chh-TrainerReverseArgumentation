@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 4
+/* Perspektivwechsel-Trainer 2.0 Phase 5
    Schlanker Einstiegspunkt: Laden, Events binden, Anwendung starten. */
 
 async function init() {
@@ -9,6 +9,7 @@ async function init() {
 
     if (!state.data?.stages?.length) throw new Error("Keine Etappen gefunden");
 
+    initUserState?.();
     loadSaved();
 
     if (!validateStateIndices()) {
@@ -22,6 +23,7 @@ async function init() {
     if (ov) ov.style.display = "none";
 
     render();
+    renderPhase5?.();
   } catch (err) {
     document.body.innerHTML = `
       <div style="padding:20px;font-family:sans-serif">
@@ -44,7 +46,7 @@ function bindEvents() {
     else alert("Kein QR-Ziel hinterlegt.");
   });
   $("#resetBtn").addEventListener("click", () => {
-    localStorage.removeItem("pwTrainerState");
+    localStorage.removeItem(typeof getCurrentStorageKey === "function" ? getCurrentStorageKey() : "pwTrainerState");
     location.reload();
   });
   document.getElementById("exportJsonBtn")?.addEventListener("click", () => exportData("json"));

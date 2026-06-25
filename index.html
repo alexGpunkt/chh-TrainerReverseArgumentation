@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Perspektivwechsel-Trainer</title>
-  <link rel="stylesheet" href="style.css?v=2.0-phase4">
+  <link rel="stylesheet" href="style.css?v=2.0-phase5">
 </head>
 <body>
   <div id="app">
@@ -17,6 +17,8 @@
 
     <aside id="drawer" class="drawer" aria-hidden="true">
       <div class="drawerHead"><h2>Menü</h2><button id="closeMenu" class="iconbtn">×</button></div>
+      <section><h3>Modus & Profile</h3><div id="rolePanel" class="analysisBox">Profilverwaltung wird geladen…</div></section>
+      <section><h3>Lehrer-Dashboard</h3><div id="teacherDashboard" class="analysisBox">Noch keine Klassendaten.</div></section>
       <section><h3>Lernfortschritt</h3><div id="progressText">Noch keine Daten.</div><div id="badgeList" class="badgeList"></div></section>
       <section><h3>Etappenziel</h3><p id="stageGoal">-</p></section>
       <section><h3>Hinweis zur Aufgabe</h3><p id="taskHint">Wähle eine Aufgabe aus.</p></section>
@@ -54,14 +56,19 @@
       </section>
     </main>
   </div>
-  <script src="task-model.js?v=2.0-phase4"></script>
-  <script src="storage.js?v=2.0-phase4"></script>
-  <script src="validation.js?v=2.0-phase4"></script>
-  <script src="analytics.js?v=2.0-phase4"></script>
-  <script src="learning-path.js?v=2.0-phase4"></script>
-  <script src="export.js?v=2.0-phase4"></script>
-  <script src="ui-v2.js?v=2.0-phase4"></script>
-  <script src="tracker.js?v=2.0-phase4"></script>
-  <script src="app.js?v=2.0-phase4"></script>
+  <script src="classes.js?v=2.0-phase5"></script>
+  <script src="students.js?v=2.0-phase5"></script>
+  <script src="users.js?v=2.0-phase5"></script>
+  <script src="reports.js?v=2.0-phase5"></script>
+  <script src="teacher.js?v=2.0-phase5"></script>
+  <script src="task-model.js?v=2.0-phase5"></script>
+  <script src="storage.js?v=2.0-phase5"></script>
+  <script src="validation.js?v=2.0-phase5"></script>
+  <script src="analytics.js?v=2.0-phase5"></script>
+  <script src="learning-path.js?v=2.0-phase5"></script>
+  <script src="export.js?v=2.0-phase5"></script>
+  <script src="ui-v2.js?v=2.0-phase5"></script>
+  <script src="tracker.js?v=2.0-phase5"></script>
+  <script src="app.js?v=2.0-phase5"></script>
 </body>
 </html>

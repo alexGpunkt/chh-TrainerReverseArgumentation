@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 4
+/* Perspektivwechsel-Trainer 2.0 Phase 5
    Darstellung, Aufgaben-Rendering, Navigation und QR-Code. */
 function render() {
   const st = currentStage();
@@ -375,6 +375,7 @@ function renderProgress() {
   renderPhase4History?.();
   renderCompetencyMap?.();
   renderLearningPathRecommendation?.();
+  renderPhase5?.();
 }
 
 function renderQr(text) {

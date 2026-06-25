@@ -59,3 +59,18 @@ Phase 3 ergänzt ein adaptives Lernpfadsystem mit Kompetenzprofil, Wiederholungs
 ## Version 2.0 – Phase 4
 
 Erweitert die lauffähige Phase-3-Version um Dashboard, Fehleranalyse, Lernhistorie, Zeitdaten, Erstversuchsquote und einen erweiterten JSON-/CSV-Export zur Vorbereitung des späteren Lehrer- und Klassenmodus.
+
+
+## Version 2.0 – Phase 5
+
+Diese Version ergänzt einen lokalen Lehrer- und Klassenmodus.
+
+Neu:
+- Rollenumschaltung zwischen Schülermodus und Lehrermodus
+- lokale Klassen- und Schülerverwaltung
+- getrennte Lernstände pro Schüler im localStorage
+- Lehrer-Dashboard mit Klassenübersicht
+- Kompetenzübersicht für Klassen
+- CSV-Export für Klassenberichte
+
+Hinweis: Alle Daten bleiben lokal im Browser. Es gibt noch keine Cloud-Synchronisation.

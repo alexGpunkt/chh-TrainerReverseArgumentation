@@ -1,4 +1,4 @@
-/* Perspektivwechsel-Trainer 2.0 Phase 4
+/* Perspektivwechsel-Trainer 2.0 Phase 5
    Lokaler Export der Lernfortschrittsdaten. */
 function exportData(format) {
   ensureStats();
@@ -6,6 +6,7 @@ function exportData(format) {
     app: "perspektivwechsel-trainer",
     version: state.data?.meta?.version || "",
     exportedAt: new Date().toISOString(),
+    activeUser: state.user || (typeof getActiveUser === "function" ? getActiveUser() : null),
     stats: state.stats,
     solved: state.solved,
     badges: state.badges,
@@ -28,10 +29,10 @@ function exportData(format) {
     ]));
     const csv = rows.map(r => r.map(x => `"${String(x).replaceAll('"', '""')}"`).join(",")).join("\n");
     blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-    name = "perspektivwechsel_phase4_lernanalyse.csv";
+    name = "perspektivwechsel_phase5_lernanalyse.csv";
   } else {
     blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" });
-    name = "perspektivwechsel_phase4_lernanalyse.json";
+    name = "perspektivwechsel_phase5_lernanalyse.json";
   }
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
