@@ -148,3 +148,123 @@
 /* Phase 2 Layoutfix: Aufgabenmodell-Metadaten im Schülerbildschirm ausblenden,
    damit Antwortoptionen und Eingabeelemente den verfügbaren Platz nutzen. */
 .taskModelInfo { display: none !important; }
+
+
+/* Phase 2 Layoutfix 2: Mobile Fokusmodus
+   Ziel: Frage, Eingabeelemente und alle Antwortmöglichkeiten sollen auf Handy-Displays
+   ohne Scrollen sichtbar bleiben. Die Etappen-Grafik wandert optisch in den Hintergrund
+   bzw. wird auf kleinen Displays ausgeblendet. */
+@media (max-width: 760px) {
+  html, body, #app { height: 100dvh; overflow: hidden; }
+  .topbar {
+    height: 58px;
+    padding: 7px 10px;
+    gap: 9px;
+  }
+  .iconbtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+    font-size: 1.28rem;
+  }
+  h1 { font-size: 1rem; }
+  .topbar p { font-size: .72rem; margin-top: 1px; }
+  .pill { padding: 6px 9px; font-size: .9rem; }
+
+  .screen {
+    height: calc(100dvh - 58px);
+    padding: 0 10px 10px;
+    display: block;
+  }
+
+  .journey { display: none; }
+
+  .card {
+    height: 100%;
+    border-radius: 22px;
+    padding: 11px;
+    min-height: 0;
+  }
+  .cardMeta {
+    font-size: .72rem;
+    line-height: 1.05;
+  }
+  .card h2 {
+    font-size: .96rem;
+    line-height: 1.18;
+    margin: 6px 0 7px;
+  }
+  .claim {
+    font-size: .82rem;
+    line-height: 1.18;
+    margin: 0 0 6px;
+    padding: 7px 8px;
+    border-left-width: 4px;
+  }
+  .taskArea {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    gap: 6px;
+    padding-right: 0;
+  }
+  .option, .matchRow, .sortItem {
+    border-radius: 13px;
+    padding: 7px 8px;
+    font-size: .86rem;
+    line-height: 1.18;
+  }
+  .option { gap: 7px; }
+  .option input { margin-top: 1px; flex: 0 0 auto; }
+  input[type=text], textarea, select {
+    border-radius: 13px;
+    padding: 9px;
+    font-size: .88rem;
+  }
+  textarea { height: 68px; }
+  .copyBox { padding: 8px; border-radius: 13px; }
+  .copyText, .qualityHint { font-size: .8rem; line-height: 1.18; }
+  .supportIntro { padding: 8px; margin: 0; font-size: .84rem; line-height: 1.18; }
+  .contextBlocks { max-height: 70px; overflow: hidden; gap: 4px; }
+  .contextBlock { padding: 6px 8px; border-radius: 12px; }
+  .contextBlock p { font-size: .78rem; line-height: 1.15; }
+
+  .feedback {
+    min-height: 0;
+    margin-top: 6px;
+    padding: 7px 8px;
+    border-radius: 12px;
+    font-size: .8rem;
+    line-height: 1.18;
+  }
+  .feedback:empty { display: none; }
+  .actions {
+    gap: 8px;
+    margin-top: 7px;
+  }
+  .primary, .secondary, .danger {
+    border-radius: 14px;
+    padding: 11px 12px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 380px), (max-height: 700px) {
+  .topbar { height: 52px; padding: 6px 9px; }
+  .iconbtn { width: 36px; height: 36px; }
+  h1 { font-size: .92rem; }
+  .topbar p { font-size: .66rem; }
+  .pill { font-size: .84rem; padding: 5px 8px; }
+  .screen { height: calc(100dvh - 52px); padding: 0 8px 8px; }
+  .card { border-radius: 19px; padding: 9px; }
+  .cardMeta { font-size: .68rem; }
+  .card h2 { font-size: .88rem; line-height: 1.13; margin: 4px 0 5px; }
+  .claim { font-size: .76rem; padding: 6px 7px; margin-bottom: 5px; }
+  .taskArea { gap: 5px; }
+  .option, .matchRow, .sortItem { font-size: .79rem; line-height: 1.12; padding: 6px 7px; border-radius: 12px; }
+  textarea { height: 58px; }
+  input[type=text], textarea, select { padding: 8px; font-size: .8rem; }
+  .feedback { margin-top: 5px; padding: 6px 7px; font-size: .75rem; }
+  .actions { margin-top: 6px; gap: 7px; }
+  .primary, .secondary, .danger { min-height: 40px; padding: 9px 10px; }
+}

@@ -44,3 +44,8 @@ Bitte den kompletten Inhalt dieses Ordners hochladen und vorhandene Dateien übe
 ## Phase 2 Layoutfix
 
 Die internen Aufgabenmodell-Metadaten werden im Schülerbildschirm nicht mehr angezeigt. Dadurch rücken Antwortoptionen, Eingabefelder und Feedback in den frei gewordenen Bereich. Die Felder bleiben weiterhin in `tasks.json`, Analyse und Export erhalten.
+
+
+## Phase 2 Layoutfix 2
+
+Der mobile Aufgabenbildschirm nutzt nun einen Fokusmodus: Die Etappen-Grafik wird auf kleinen Displays ausgeblendet, Abstände und Schriftgrößen werden reduziert und der Aufgabenbereich wird so komprimiert, dass Frage und Antwortmöglichkeiten ohne Scrollen sichtbar bleiben.
