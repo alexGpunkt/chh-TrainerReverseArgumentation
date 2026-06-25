@@ -29,3 +29,9 @@ function addClass(name) {
   saveClasses(classes);
   return entry;
 }
+
+
+/* Phase 5b global exports for reliable GitHub Pages loading */
+window.getClasses = getClasses;
+window.saveClasses = saveClasses;
+window.addClass = addClass;

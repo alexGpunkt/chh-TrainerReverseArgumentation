@@ -32,3 +32,11 @@ function getDisplayName(user = getActiveUser()) {
   if (user.role === "teacher") return "Lehrkraft";
   return user.displayName || user.studentId || "Schüler";
 }
+
+
+/* Phase 5b global exports for reliable GitHub Pages loading */
+window.defaultUser = defaultUser;
+window.getActiveUser = getActiveUser;
+window.setActiveUser = setActiveUser;
+window.storageKeyForUser = storageKeyForUser;
+window.getDisplayName = getDisplayName;

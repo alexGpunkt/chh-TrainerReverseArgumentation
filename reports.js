@@ -2,7 +2,7 @@
    Klassenberichte aus lokalen Browserdaten. */
 function readProgressForStudent(student) {
   try {
-    return JSON.parse(localStorage.getItem(storageKeyForUser({ role: "student", classId: student.classId, studentId: student.id })) || "null");
+    return JSON.parse(localStorage.getItem(window.storageKeyForUser({ role: "student", classId: student.classId, studentId: student.id })) || "null");
   } catch (e) {
     return null;
   }
@@ -27,7 +27,7 @@ function summarizeProgress(raw) {
 }
 
 function classReport(classId) {
-  return studentsByClass(classId).map(student => {
+  return window.studentsByClass(classId).map(student => {
     const raw = readProgressForStudent(student);
     return { student, raw, summary: summarizeProgress(raw) };
   });
@@ -68,3 +68,11 @@ function downloadClassCsv(classId) {
   URL.revokeObjectURL(a.href);
   a.remove();
 }
+
+
+/* Phase 5b global exports for reliable GitHub Pages loading */
+window.readProgressForStudent = readProgressForStudent;
+window.summarizeProgress = summarizeProgress;
+window.classReport = classReport;
+window.classCompetencySummary = classCompetencySummary;
+window.downloadClassCsv = downloadClassCsv;

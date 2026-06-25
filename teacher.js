@@ -1,17 +1,17 @@
 /* Perspektivwechsel-Trainer 2.0 Phase 5
    Lehrkraftmodus, Schülerauswahl und Dashboard. */
 function initUserState() {
-  state.user = getActiveUser();
+  state.user = window.getActiveUser();
 }
 
 function renderRolePanel() {
   const box = document.getElementById("rolePanel");
   if (!box) return;
-  const u = getActiveUser();
+  const u = window.getActiveUser();
   box.innerHTML = "";
   const headline = document.createElement("p");
   headline.className = "qualityHint";
-  headline.textContent = `Aktiv: ${u.role === "teacher" ? "Lehrkraft" : getDisplayName(u)}`;
+  headline.textContent = `Aktiv: ${u.role === "teacher" ? "Lehrkraft" : window.getDisplayName(u)}`;
   box.appendChild(headline);
 
   const row = document.createElement("div");
@@ -20,16 +20,16 @@ function renderRolePanel() {
   studentBtn.className = "secondary";
   studentBtn.textContent = "Schülermodus";
   studentBtn.onclick = () => {
-    const firstClass = getClasses()[0]?.id || "demo";
-    const firstStudent = studentsByClass(firstClass)[0] || getStudents()[0] || { id: "demo-alex", name: "Demo Schüler", classId: firstClass };
-    setActiveUser({ role: "student", classId: firstStudent.classId, studentId: firstStudent.id, displayName: firstStudent.name });
+    const firstClass = window.getClasses()[0]?.id || "demo";
+    const firstStudent = window.studentsByClass(firstClass)[0] || window.getStudents()[0] || { id: "demo-alex", name: "Demo Schüler", classId: firstClass };
+    window.setActiveUser({ role: "student", classId: firstStudent.classId, studentId: firstStudent.id, displayName: firstStudent.name });
     location.reload();
   };
   const teacherBtn = document.createElement("button");
   teacherBtn.className = "secondary";
   teacherBtn.textContent = "Lehrermodus";
   teacherBtn.onclick = () => {
-    setActiveUser({ role: "teacher", classId: getClasses()[0]?.id || "demo", studentId: "teacher", displayName: "Lehrkraft" });
+    window.setActiveUser({ role: "teacher", classId: window.getClasses()[0]?.id || "demo", studentId: "teacher", displayName: "Lehrkraft" });
     location.reload();
   };
   row.append(studentBtn, teacherBtn);
@@ -37,7 +37,7 @@ function renderRolePanel() {
 
   const classSelect = document.createElement("select");
   classSelect.id = "phase5ClassSelect";
-  getClasses().forEach(c => {
+  window.getClasses().forEach(c => {
     const opt = document.createElement("option");
     opt.value = c.id;
     opt.textContent = c.name;
@@ -52,7 +52,7 @@ function renderRolePanel() {
 
   function fillStudents() {
     studentSelect.innerHTML = "";
-    studentsByClass(classSelect.value).forEach(s => {
+    window.studentsByClass(classSelect.value).forEach(s => {
       const opt = document.createElement("option");
       opt.value = s.id;
       opt.textContent = s.name;
@@ -67,9 +67,9 @@ function renderRolePanel() {
   startBtn.className = "primary";
   startBtn.textContent = "Ausgewählten Schüler starten";
   startBtn.onclick = () => {
-    const s = getStudents().find(x => x.id === studentSelect.value);
+    const s = window.getStudents().find(x => x.id === studentSelect.value);
     if (!s) return alert("Bitte zuerst einen Schüler auswählen.");
-    setActiveUser({ role: "student", classId: s.classId, studentId: s.id, displayName: s.name });
+    window.setActiveUser({ role: "student", classId: s.classId, studentId: s.id, displayName: s.name });
     location.reload();
   };
   box.appendChild(startBtn);
@@ -78,10 +78,10 @@ function renderRolePanel() {
 function renderTeacherDashboard() {
   const box = document.getElementById("teacherDashboard");
   if (!box) return;
-  const u = getActiveUser();
-  const classId = u.classId || getClasses()[0]?.id || "demo";
-  const cls = getClasses().find(c => c.id === classId);
-  const rows = classReport(classId);
+  const u = window.getActiveUser();
+  const classId = u.classId || window.getClasses()[0]?.id || "demo";
+  const cls = window.getClasses().find(c => c.id === classId);
+  const rows = window.classReport(classId);
   box.innerHTML = "";
   appendText(box, "p", `Klasse: ${cls?.name || classId} · ${rows.length} Lernende`, "qualityHint");
 
@@ -94,7 +94,7 @@ function renderTeacherDashboard() {
   addBtn.className = "secondary";
   addBtn.textContent = "Hinzufügen";
   addBtn.onclick = () => {
-    if (addStudent(addName.value, classId)) {
+    if (window.addStudent(addName.value, classId)) {
       addName.value = "";
       renderRolePanel();
       renderTeacherDashboard();
@@ -114,7 +114,7 @@ function renderTeacherDashboard() {
   });
   box.appendChild(table);
 
-  const comp = classCompetencySummary(classId);
+  const comp = window.classCompetencySummary(classId);
   const compBox = document.createElement("div");
   compBox.className = "analysisBox";
   appendText(compBox, "strong", "Kompetenzen der Klasse", "analysisTitle");
@@ -132,7 +132,7 @@ function renderTeacherDashboard() {
   const exportBtn = document.createElement("button");
   exportBtn.className = "primary";
   exportBtn.textContent = "Klassenbericht CSV exportieren";
-  exportBtn.onclick = () => downloadClassCsv(classId);
+  exportBtn.onclick = () => window.downloadClassCsv(classId);
   box.appendChild(exportBtn);
 }
 
