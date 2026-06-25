@@ -32,7 +32,6 @@ function render() {
   state.selectedSort = [];
   renderProgress();
   renderTask(t);
-  renderTaskModelInfo(t);
   save();
 }
 

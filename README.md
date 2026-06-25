@@ -39,3 +39,8 @@ Diese Version basiert auf der zuletzt lauffähigen Version 2.1 und setzt Phase 2
 Bitte den kompletten Inhalt dieses Ordners hochladen und vorhandene Dateien überschreiben. Besonders wichtig sind `index.html`, `task-model.js`, `tasks.json`, `ui-v2.js`, `analytics.js`, `export.js`, `validation.js`, `app.js` und `style.css`.
 
 `ui.js` bleibt nur als Altdatei erhalten und wird von `index.html` nicht geladen.
+
+
+## Phase 2 Layoutfix
+
+Die internen Aufgabenmodell-Metadaten werden im Schülerbildschirm nicht mehr angezeigt. Dadurch rücken Antwortoptionen, Eingabefelder und Feedback in den frei gewordenen Bereich. Die Felder bleiben weiterhin in `tasks.json`, Analyse und Export erhalten.
