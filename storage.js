@@ -16,6 +16,14 @@ const state = {
 const $ = s => document.querySelector(s);
 const taskArea = $("#taskArea");
 
+function appendText(parent, tag, text, className) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  el.textContent = String(text || "");
+  parent.appendChild(el);
+  return el;
+}
+
 function save() {
   localStorage.setItem("pwTrainerState", JSON.stringify({
     stageIndex: state.stageIndex,

@@ -15,7 +15,7 @@ Phase 1 setzt die technische Modularisierung um, ohne die bestehende Funktionali
 - `validation.js` – Normalisierung und Rewrite-/Prompt-Validierung
 - `analytics.js` – Statistik, Lernanalyse, Trends, Reflexion
 - `export.js` – lokaler JSON-/CSV-Export
-- `ui.js` – Rendering, Aufgabenoberfläche, Navigation, QR-Code
+- `ui-v2.js` – Rendering, Aufgabenoberfläche, Navigation, QR-Code
 - `tracker.js` – optionaler externer Fortschrittstracker
 - `app.js` – schlanker Bootstrap: Laden, Events binden, Start
 
@@ -47,7 +47,7 @@ Die Script-Reihenfolge in `index.html` ist wichtig:
 2. `validation.js`
 3. `analytics.js`
 4. `export.js`
-5. `ui.js`
+5. `ui-v2.js`
 6. `tracker.js`
 7. `app.js`
 
@@ -68,3 +68,8 @@ Phase 2 kann nun auf dieser modularen Basis beginnen. Vorgesehen ist die Überar
 ## Phase 1b Cache-Fix
 
 Die UI-Datei heißt nun `ui-v2.js` und alle Skripte werden in `index.html` mit Versionsparameter geladen. Dadurch werden alte GitHub-Pages/Browser-Caches umgangen.
+
+
+## Phase 1c AppendText-Fix
+
+Ergänzt die fehlende globale Hilfsfunktion `appendText(...)`, die von `ui-v2.js` und `analytics.js` verwendet wird. Außerdem wurden die Cache-Parameter auf `v=2.0-phase1c` erhöht.
