@@ -10,7 +10,8 @@ const state = {
   selectedSort: [],
   attempts: {},
   fallbackMode: false,
-  stats: {}
+  stats: {},
+  learningPath: {}
 };
 
 const $ = s => document.querySelector(s);
@@ -32,7 +33,8 @@ function save() {
     solved: state.solved,
     badges: state.badges,
     attempts: state.attempts,
-    stats: state.stats
+    stats: state.stats,
+    learningPath: state.learningPath
   }));
 }
 
@@ -46,6 +48,7 @@ function loadSaved() {
     if (Array.isArray(s.badges)) state.badges = s.badges;
     if (s.attempts && typeof s.attempts === "object") state.attempts = s.attempts;
     if (s.stats && typeof s.stats === "object") state.stats = s.stats;
+    if (s.learningPath && typeof s.learningPath === "object") state.learningPath = s.learningPath;
   } catch (e) {
     console.warn("save corrupt", e);
   }

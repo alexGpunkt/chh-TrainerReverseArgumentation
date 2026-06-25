@@ -460,7 +460,7 @@ textarea {
   .primary, .secondary, .danger { min-height: 34px; padding: 6px 8px; }
 }
 
-/* Phase 2 Layoutfix 4: kompakte Etappenleiste bleibt sichtbar.
+/* Phase 2 Layoutfix 4 / Phase 3: kompakte Etappenleiste bleibt sichtbar.
    Die Etappenansicht nimmt nur eine schmale Zeile ein; die Aufgabenkarte nutzt den Rest. */
 .screen {
   height: calc(100dvh - 56px);
@@ -549,4 +549,42 @@ textarea {
   .trackFill { bottom: -3px; height: 3px; }
   .walker { transform: translateX(-6px) scale(.45); }
   .stageDots { font-size: .50rem; margin-top: 1px; }
+}
+
+
+/* Phase 3: Lernpfad und Kompetenzkarte */
+.competencyMap{
+  display:grid;
+  gap:7px;
+}
+.competencyRow{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  align-items:center;
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:7px 8px;
+}
+.competencyName{
+  font-size:.82rem;
+  font-weight:800;
+  color:var(--ink);
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.competencyBlocks{
+  font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color:var(--accent2);
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+#learningPathRecommendation p{
+  margin:0 0 7px;
+  padding:8px;
+  border-radius:10px;
+  background:#eff6ff;
+  border-left:4px solid var(--accent);
+  font-weight:800;
 }

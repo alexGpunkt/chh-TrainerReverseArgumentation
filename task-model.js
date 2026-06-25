@@ -2,7 +2,7 @@
    Aufgabenmodell, Normalisierung und Rückwärtskompatibilität.
    Bestehende 1.x-Aufgaben bleiben lauffähig und werden beim Laden ergänzt. */
 
-const TASK_MODEL_VERSION = "2.0";
+const TASK_MODEL_VERSION = "3.0";
 
 const DEFAULT_ESTIMATED_TIME = {
   choice: 2,
@@ -68,6 +68,7 @@ function normalizeTask(task, stage, stageIndex, taskIndex) {
     type,
     modelVersion: t.modelVersion || TASK_MODEL_VERSION,
     competency,
+    competencies: Array.isArray(t.competencies) ? t.competencies : [competency],
     difficulty: Number.isFinite(Number(t.difficulty)) ? Math.max(1, Math.min(3, Number(t.difficulty))) : inferDifficulty(t, stageIndex),
     estimatedTime: Number.isFinite(Number(t.estimatedTime)) ? Math.max(1, Number(t.estimatedTime)) : (DEFAULT_ESTIMATED_TIME[type] || 3),
     tags: uniqueTags(baseTags),
@@ -95,7 +96,7 @@ function normalizeCourseData(data) {
   const safe = data && typeof data === "object" ? data : {};
   const meta = {
     ...(safe.meta || {}),
-    version: safe.meta?.version || "2.0-phase2",
+    version: safe.meta?.version || "2.0-phase3",
     taskModelVersion: TASK_MODEL_VERSION
   };
   const stages = Array.isArray(safe.stages) ? safe.stages.map(normalizeStage) : [];

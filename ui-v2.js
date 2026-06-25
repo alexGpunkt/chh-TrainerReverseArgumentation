@@ -30,6 +30,7 @@ function render() {
   $("#checkBtn").disabled = false;
   $("#taskHint").textContent = st.hint;
   state.selectedSort = [];
+  ensureLearningPath?.();
   renderProgress();
   renderTask(t);
   save();
@@ -240,12 +241,14 @@ function check() {
       const fb = $("#feedback");
       fb.textContent = "✓ Richtig. " + (t.feedback || "");
       fb.className = "feedback ok";
+      recordLearningPathAttempt?.(true, t, true);
       markSolved();
     } else {
       const fb = $("#feedback");
       fb.textContent = "Noch nicht. Die richtige Antwort muss wirklich die andere Perspektive ergänzen, nicht nur die eigene Sicht wiederholen.";
       fb.className = "feedback no";
       recordAttemptResult(false, t, true);
+      recordLearningPathAttempt?.(false, t, true);
     }
     return;
   }
@@ -292,6 +295,7 @@ function check() {
     recordValidationReason(rewriteReason);
     const attempts = increaseAttempt(t);
     recordAttemptResult(false, t, false);
+    recordLearningPathAttempt?.(false, t, false);
     if ((t.type === "cloze" || t.type === "rewrite" || t.type === "promptRewrite") && t.fallbackChoices && attempts >= (t.maxAttempts || 2)) {
       showFallbackChoices(t);
       recordAttemptResult(false, t, true);
@@ -308,6 +312,7 @@ function markSolved() {
   if (!st || !t) return;
   
   if (!state.solved[t.id]) {
+    if (!state.fallbackMode) recordLearningPathAttempt?.(true, t, false);
     recordAttemptResult(true, t, state.fallbackMode);
     state.solved[t.id] = true;
     state.score++;
@@ -340,17 +345,15 @@ function next() {
   const st = currentStage();
   if (!st) return;
   
-  if (state.taskIndex < st.tasks.length - 1) {
-    state.taskIndex++;
-  } else if (state.stageIndex < state.data.stages.length - 1) {
-    state.stageIndex++;
-    state.taskIndex = 0;
-  } else {
-    $("#feedback").textContent = "Alle Etappen geschafft.";
-    $("#feedback").className = "feedback ok";
+  const pos = nextAdaptivePosition?.();
+  if (pos) {
+    state.stageIndex = pos.stageIndex;
+    state.taskIndex = pos.taskIndex;
+    render();
     return;
   }
-  render();
+  $("#feedback").textContent = "Alle Etappen geschafft.";
+  $("#feedback").className = "feedback ok";
 }
 
 function renderProgress() {
@@ -366,6 +369,8 @@ function renderProgress() {
     return `<span class="${done ? "done" : ""}">${done ? "●" : "○"} ${i + 1}</span>`;
   }).join("");
   renderLearningAnalysis();
+  renderCompetencyMap?.();
+  renderLearningPathRecommendation?.();
 }
 
 function renderQr(text) {

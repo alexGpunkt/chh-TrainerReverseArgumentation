@@ -49,3 +49,8 @@ Die internen Aufgabenmodell-Metadaten werden im Schülerbildschirm nicht mehr an
 ## Phase 2 Layoutfix 2
 
 Der mobile Aufgabenbildschirm nutzt nun einen Fokusmodus: Die Etappen-Grafik wird auf kleinen Displays ausgeblendet, Abstände und Schriftgrößen werden reduziert und der Aufgabenbereich wird so komprimiert, dass Frage und Antwortmöglichkeiten ohne Scrollen sichtbar bleiben.
+
+
+## Version 2.0 – Phase 3
+
+Phase 3 ergänzt ein adaptives Lernpfadsystem mit Kompetenzprofil, Wiederholungswarteschlange, Kompetenzkarte und Lernpfad-Empfehlungen. Bestehende Aufgaben bleiben kompatibel; das Aufgabenmodell wird beim Laden normalisiert.
