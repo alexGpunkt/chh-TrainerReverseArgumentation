@@ -63,3 +63,8 @@ Durchgeführt:
 ## Nächster Schritt
 
 Phase 2 kann nun auf dieser modularen Basis beginnen. Vorgesehen ist die Überarbeitung des Aufgabenmodells, ohne die bestehenden Aufgaben unbrauchbar zu machen.
+
+
+## Phase 1b Cache-Fix
+
+Die UI-Datei heißt nun `ui-v2.js` und alle Skripte werden in `index.html` mit Versionsparameter geladen. Dadurch werden alte GitHub-Pages/Browser-Caches umgangen.
