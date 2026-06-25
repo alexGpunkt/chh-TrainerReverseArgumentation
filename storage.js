@@ -77,41 +77,6 @@ function currentTask() {
   return stage.tasks[state.taskIndex] || null;
 }
 
-function render() {
-  const st = currentStage();
-  const t = currentTask();
-  
-  if (!st || !t) {
-    document.body.innerHTML = `
-      <div style="padding:20px;font-family:sans-serif">
-        <h2>Fehler beim Laden der Aufgabe</h2>
-        <p>Die Aufgaben konnten nicht geladen werden. Bitte lade die Seite neu.</p>
-        <button onclick="location.reload()">Neu laden</button>
-      </div>
-    `;
-    return;
-  }
-  
-  state.fallbackMode = false;
-  $("#stageTitle").textContent = st.title;
-  $("#stageGoal").textContent = st.goal || "";
-  $("#prompt").textContent = t.prompt;
-  $("#claim").textContent = t.claim || "";
-  $("#claim").style.display = t.claim ? "block" : "none";
-  $("#taskType").textContent = typeLabel(t.type);
-  $("#taskCount").textContent = `${state.taskIndex + 1}/${st.tasks.length}`;
-  $("#scorePill").textContent = `${state.score} ✓`;
-  $("#feedback").textContent = "";
-  $("#feedback").className = "feedback";
-  $("#nextBtn").disabled = true;
-  $("#checkBtn").disabled = false;
-  $("#taskHint").textContent = st.hint;
-  state.selectedSort = [];
-  renderProgress();
-  renderTask(t);
-  save();
-}
-
 function typeLabel(t) {
   const map = {
     choice: "Auswahl",
@@ -131,4 +96,3 @@ function increaseAttempt(t) {
   save();
   return state.attempts[t.id];
 }
-

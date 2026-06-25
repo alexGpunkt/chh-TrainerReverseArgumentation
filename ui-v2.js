@@ -35,57 +35,6 @@ function render() {
   save();
 }
 
-function historyForTrend(type) {
-  ensureStats();
-  return (state.stats.history || []).filter(x => x.taskType === type).slice(-16);
-}
-
-function drawSparkline(canvas, values) {
-  if (!canvas || !canvas.getContext) return;
-  const ctx = canvas.getContext("2d");
-  const w = canvas.width, h = canvas.height;
-  ctx.clearRect(0, 0, w, h);
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = "#2563eb";
-  ctx.beginPath();
-  if (!values.length) {
-    ctx.fillStyle = "#62708a";
-    ctx.font = "11px sans-serif";
-    ctx.fillText("zu wenig Daten", 8, 22);
-    return;
-  }
-  values.forEach((v, i) => {
-    const x = values.length === 1 ? w / 2 : (i / (values.length - 1)) * (w - 10) + 5;
-    const y = h - 5 - (v * (h - 10));
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  });
-  ctx.stroke();
-  ctx.fillStyle = "#16a34a";
-  values.forEach((v, i) => {
-    const x = values.length === 1 ? w / 2 : (i / (values.length - 1)) * (w - 10) + 5;
-    const y = h - 5 - (v * (h - 10));
-    ctx.beginPath();
-    ctx.arc(x, y, 2.3, 0, Math.PI * 2);
-    ctx.fill();
-  });
-}
-
-function addTrendCanvas(parent, type) {
-  const h = historyForTrend(type);
-  const wrap = document.createElement("div");
-  wrap.className = "sparkWrap";
-  const label = document.createElement("span");
-  label.textContent = typeLabel(type);
-  const canvas = document.createElement("canvas");
-  canvas.width = 150;
-  canvas.height = 34;
-  canvas.className = "sparkline";
-  wrap.append(label, canvas);
-  parent.appendChild(wrap);
-  drawSparkline(canvas, h.map(x => x.correct ? 1 : 0));
-}
-
 function renderContextBlocks(t) {
   if (!Array.isArray(t.contextBlocks)) return;
   const wrap = document.createElement("div");
