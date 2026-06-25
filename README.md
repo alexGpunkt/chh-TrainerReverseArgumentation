@@ -1,57 +1,65 @@
-# Perspektivwechsel-Trainer v1.4
+# Perspektivwechsel-Trainer v2.0 Phase 1
 
-Neu:
-- Etappe „Halluzinationen erkennen“
-  - erfundene Studien
-  - falsche Statistiken
-  - Quellen-/Autor:innen-Halluzinationen
-- Etappe „Prompt-Chaining“
-  - Folge-Prompts nach zu bestätigenden Antworten
-  - Alternativhypothesen einfordern
-  - mehrstufige Prüfstrategie
-- Schärfere Rewrite-Validierung:
-  - `mustContainQuestionWord`
-  - `mustContainAlternativeExplanations`
-  - `mustNotContain`
-  - `mustContainClaimTermAny`
-  - `minLength`
-- Metakognition:
-  - Nach gelösten Aufgaben erscheint eine Selbsteinschätzung 1–5
-  - Einschätzung wird über `tracker.js` mitgesendet
+Dies ist das erste 2.0-ZIP-Paket auf Grundlage der letzten funktionsfähigen Version 1.10.
 
-Weiterhin kostenlos:
-- Kein API-Zwang
-- Live-Modus bleibt Copy-&-Paste-basiert
+## Ziel von Phase 1
 
+Phase 1 setzt die technische Modularisierung um, ohne die bestehende Funktionalität oder den Aufgabenpool zu verändern. Die Anwendung bleibt weiterhin statisch, offlinefähig und für GitHub Pages geeignet.
 
-v1.5 Bugfixes: try/catch init, sichere Speicherstände, XSS-freie Optionen, QR-Guard, Ladeoverlay, Live-Anleitung.
+## Neue Dateistruktur
 
+- `index.html` – Grundgerüst und Script-Reihenfolge
+- `style.css` – bestehendes Layout
+- `tasks.json` – bestehender Aufgabenpool
+- `storage.js` – Zustand, localStorage, Etappen-/Aufgaben-Helfer
+- `validation.js` – Normalisierung und Rewrite-/Prompt-Validierung
+- `analytics.js` – Statistik, Lernanalyse, Trends, Reflexion
+- `export.js` – lokaler JSON-/CSV-Export
+- `ui.js` – Rendering, Aufgabenoberfläche, Navigation, QR-Code
+- `tracker.js` – optionaler externer Fortschrittstracker
+- `app.js` – schlanker Bootstrap: Laden, Events binden, Start
 
-v1.6: Rollen- und Tonfalltraining, Perspektivmeister-Etappe, Vorbereitung für Lernpfad-Analysen.
+## Erhaltene Funktionen aus v1.10
 
-v1.7:
-- Neue Etappe „Quelle ≠ Beleg“
-- Neue Etappe „Rollenwechsel im Dialog“
-- Match-Aufgaben XSS-sicherer gerendert
-- Reflexionsfeedback nach korrekter Antwort
-- stärkere Prompt-Validierung mit Prüfhandlung/Fragestruktur
+- Framing-Erkennung
+- Halluzinationen erkennen
+- Quelle ≠ Beleg
+- Prompt-Chaining
+- Rollenwechsel und Tonfalltraining
+- Live-Paste-Modus
+- Rewrite-Validierung
+- Hilfestufe nach Fehlversuchen
+- Fortschrittsspeicherung im Browser
+- Abzeichen und Etappenfortschritt
+- Lernpfad-Analyse
+- Trend-Sparklines
+- Confidence-/Selbsteinschätzung
+- CSV- und JSON-Export
+- optionaler Tracker
 
-v1.8:
-- lokale Lernpfad-Analyse im Hamburger-Menü
-- Auswertung von Fehlversuchen, Hilfen, Aufgabentypen und Selbsteinschätzung
-- personalisierte Empfehlung aus lokalen Lernständen
-- stärkere Prompt-Strukturprüfung per Frage-/Aufforderungsmuster
-- bisherige Sicherheitsfixes bleiben erhalten
+## Technische Hinweise
 
-v1.9:
-- Trend-Analyse pro Aufgabentyp
-- Vergleich Sicherheit vs. Korrektheit
-- Empfehlungen auf Basis von Confidence-Mustern
-- lokale Historie der letzten Aufgabenversuche
+Die Dateien werden bewusst als klassische Browser-Skripte geladen und nicht als ES-Module. Dadurch funktioniert die Anwendung weiterhin direkt als einfache statische Website, ohne Build-Prozess, ohne Serverlogik und ohne npm-Abhängigkeiten.
 
-v1.10:
-- Sparkline-Visualisierung für Trends
-- JSON- und CSV-Export lokaler Lernpfaddaten
-- Benchmark-Vorbereitung über bestehenden Tracker
-- erweiterte Empfehlungen nach Validierungsfehlern
-- Abschlussversion vor Version 2.0
+Die Script-Reihenfolge in `index.html` ist wichtig:
+
+1. `storage.js`
+2. `validation.js`
+3. `analytics.js`
+4. `export.js`
+5. `ui.js`
+6. `tracker.js`
+7. `app.js`
+
+## Regressionstest Phase 1
+
+Durchgeführt:
+
+- Syntaxprüfung aller JavaScript-Dateien mit `node --check`
+- Aufgabenpool unverändert belassen
+- HTML-Script-Reihenfolge angepasst
+- Export-, Analyse-, Validierungs- und UI-Funktionen aus der monolithischen Datei herausgelöst
+
+## Nächster Schritt
+
+Phase 2 kann nun auf dieser modularen Basis beginnen. Vorgesehen ist die Überarbeitung des Aufgabenmodells, ohne die bestehenden Aufgaben unbrauchbar zu machen.
